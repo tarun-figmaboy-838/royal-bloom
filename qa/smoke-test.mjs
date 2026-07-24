@@ -208,10 +208,17 @@ async function runViewport(vp, full) {
     if (testWrong) {
       dragToZone(lighter, trolleyDrop);                        // lighter on wagon = wrong
       ok(RB.gmByHost[host].diagnostics().placed4 === 0, label + host + ": wrong Part4 drop rejected");
-      await env.advance(500);                                   // modal now up
-      // the wrongly-dropped item must leave the top drag layer so it can't render above/outside the modal
-      ok((E.get(lighter).parent || {}).id !== "rb_drag_layer", label + host + ": wrong-drop item off drag layer during modal");
-      await env.advance(3700);                                  // rest of wrong-feedback flow + restore
+      await env.advance(700);                                   // live weighing reminder now up
+      // the wrongly-dropped item must leave the top drag layer so it can't render above/outside the hint
+      ok((E.get(lighter).parent || {}).id !== "rb_drag_layer", label + host + ": wrong-drop item off drag layer during hint");
+      // the wrong-drop hint is the LIVE Part-3 weighing (part3 shown, part4 hidden) tilted to the
+      // child's placement — NOT a fixed picture. Heavier arrow must sit on the heavier item's real side.
+      { const p3 = nid(f.part3Object), p4 = nid(f.part4Object), a1 = nid(f.arrow1);
+        ok(E.isActive(p3) && !E.isActive(p4), label + host + ": wrong-drop shows the live weighing (part3 on, part4 off)");
+        if (a1 && E.isActive(a1)) { const hv = weightOf(ball) >= weightOf(book) ? ball : book;
+          ok((E.centerLogical(hv).x < 960) === (E.centerLogical(a1).x < 960), label + host + ": wrong-hint Heavier arrow matches the child's placement"); } }
+      await env.advance(3200);                                  // rest of reminder + restore
+      ok(E.isActive(nid(f.part4Object)) && !E.isActive(nid(f.part3Object)), label + host + ": Part4 restored after wrong hint");
       ok(RB.gmByHost[host].diagnostics().placed4 === 0, label + host + ": item restored after wrong Part4");
     }
     dragToZone(lighter, basketDrop);

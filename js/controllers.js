@@ -698,23 +698,41 @@ var Controllers = (function () {
       };
     }
     function allPlaced4() { return !!(placed4[ID.part4ItemA] && placed4[ID.part4ItemB]); }
+    // LIVE weighing reminder for a wrong Part-4 drop. Instead of a pre-rendered picture (which was
+    // fixed to one arrangement and could contradict what the child built), re-show the ACTUAL Part-3
+    // weighing — genie + the same items on the same pans — tilted to the child's saved placement,
+    // with the Heavier/Lighter arrows over the real items. So the hint ALWAYS matches "the previous
+    // stage" for any placement, and only one arrangement is ever shown.
+    function part3TiltState() {
+      var l = 0, r = 0;
+      for (var it in placed3) { if (placed3[it].side === "left") l += weight(it); else r += weight(it); }
+      return Math.abs(l - r) < 0.1 ? "balanced" : (l > r ? "leftDown" : "rightDown");
+    }
+    function showWeighReminder(on) {
+      if (on) {
+        A(ID.part4, false); A(ID.messageBar, false);          // hide the sorting scene + its instruction
+        A(ID.part3, true);                                     // bring back the live weighing
+        if (scaleCtrl && scaleCtrl.playState) scaleCtrl.playState(part3TiltState(), true);  // instant tilt = child's placement
+        showMeasureHint();                                     // Heavier(↓)/Lighter(↑) over the real items
+      } else {
+        [ID.arrow1, ID.arrow2].forEach(function (id) { if (id) { E.kill(id); A(id, false); } });
+        if (scaleCtrl && scaleCtrl.reset) scaleCtrl.reset();
+        A(ID.part3, false); A(ID.part4, true); A(ID.messageBar, true);
+      }
+    }
     async function part4WrongFlow(itemId) {
       // lock this item and use a token so a later correct placement is never undone
       itemLocked4[itemId] = true;
       var myTok = (wrongTokens[itemId] = (wrongTokens[itemId] || 0) + 1);
-      // wrong-feedback image reflects the CURRENT Part-4 item that was mis-dropped, not the stale
-      // Part-3 ball side (part3BallLeft). ItemB -> its feedback image, otherwise ItemA's.
-      var wrongImg = (itemId === ID.part4ItemB) ? ID.wrong2 : ID.wrong1;
-      // Return the item to its home slot BEFORE the full-screen feedback appears, so it
-      // leaves the top-most drag layer and can never render above/outside the modal frame.
+      // Return the item to its home slot first, then show the live weighing reminder.
       I.restoreOrigin(itemId); repaintItem(itemId, "item");
       await S.wait(0.3);
       if (S.cancelled() || myTok !== wrongTokens[itemId]) return;
-      if (wrongImg) { A(wrongImg, true); E.setAsLastSibling(wrongImg); }   // modal on top; nothing overlaps it
+      showWeighReminder(true);
       if (wrongSFX) Audio.playSFX(wrongSFX);
-      await S.wait(3.5);
+      await S.wait(3.2);
+      showWeighReminder(false);
       if (S.cancelled() || myTok !== wrongTokens[itemId]) return;
-      if (wrongImg) A(wrongImg, false);
       if (!placed4[itemId]) { I.restoreOrigin(itemId); repaintItem(itemId, "item"); }
       itemLocked4[itemId] = false;
       startSmartGhostP4();
