@@ -10642,8 +10642,8 @@ window.LAYOUT = {
            "name": "Item 2",
            "active": true,
            "anchoredPos": {
-            "x": -430,
-            "y": 312
+            "x": -455,
+            "y": 437
            },
            "sizeDelta": {
             "x": 277,
