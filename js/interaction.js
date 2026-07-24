@@ -130,6 +130,7 @@ var Interaction = (function () {
       ev.preventDefault();
 
       activeItemId = id; activePointerId = ev.pointerId;
+      if (document.body) document.body.classList.add("rb-grabbing");   // closed-hand cursor everywhere while dragging
       captureOrigin(r);
       try { r.el.setPointerCapture(ev.pointerId); } catch (e) {}
 
@@ -160,6 +161,7 @@ var Interaction = (function () {
       function finish(interrupted, e3) {
         if (finished) return; finished = true;
         currentFinish = null;
+        if (document.body) document.body.classList.remove("rb-grabbing");
         window.removeEventListener("pointermove", move);
         window.removeEventListener("pointerup", up);
         window.removeEventListener("pointercancel", cancel);
@@ -180,7 +182,9 @@ var Interaction = (function () {
     });
   }
 
-  function setEnabled(id, on) { var r = E.get(id); if (r && r._drag) { r._drag.enabled = on; r.el.style.cursor = on ? "grab" : "default"; } }
+  // enabled draggable -> "grab" hand; disabled -> clear the inline cursor so CSS decides (a placed item
+  // that became a tap target shows the pointer hand via role="button"; anything else falls back to default).
+  function setEnabled(id, on) { var r = E.get(id); if (r && r._drag) { r._drag.enabled = on; r.el.style.cursor = on ? "grab" : ""; } }
   function setLocked(id, on) { var r = E.get(id); if (r && r._drag) r._drag.locked = on; }
   function isLocked(id) { var r = E.get(id); return !!(r && r._drag && r._drag.locked); }
 

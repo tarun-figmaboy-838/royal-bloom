@@ -47,6 +47,12 @@ html, body {
 
 .node.pressed { filter: brightness(0.92); }
 
+/* interactive cursors: a hand (pointer) on every tap target, grab/grabbing on draggables.
+ * role="button" is stamped on every onClick target; draggables carry an inline "grab" (see
+ * interaction.js) which wins over this rule while a placed item stays a plain tap target. */
+.node[role="button"] { cursor: pointer; }
+.rb-grabbing, .rb-grabbing * { cursor: grabbing !important; }
+
 /* keyboard focus ring for interactive nodes (does not affect mouse/touch) */
 .node[role="button"]:focus-visible {
   outline: 4px solid #ffd9a0;
