@@ -101,11 +101,22 @@ html, body {
   border-radius: 54px;
   overflow: hidden;
   transform-origin: 50% 50%;
+  z-index: 1;                     /* above the blurred backdrop */
   box-shadow:
     inset 0 0 0 12px #ffffff,
     inset 0 0 0 20px rgba(120, 190, 255, 0.9),
     0 0 0 8px rgba(140, 200, 255, 0.5),
     0 30px 80px rgba(8, 16, 34, 0.55);
+}
+
+/* a blurred copy of the game scene behind the hint card (dimmed a touch so the sharp card pops).
+ * scaled up so the blur doesn't bleed transparent edges; dark fallback if the image fails to load. */
+.rb-hint-backdrop {
+  position: absolute; inset: 0;
+  background: #14101f center / cover no-repeat;
+  background-image: url('../assets/img/Slide_16_9_-_184.webp');
+  filter: blur(22px) brightness(0.74) saturate(1.05);
+  transform: scale(1.14);
 }
 
 @media (prefers-reduced-motion: reduce) {

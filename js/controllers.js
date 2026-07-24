@@ -710,9 +710,20 @@ var Controllers = (function () {
       for (var it in placed3) { if (placed3[it].side === "left") l += weight(it); else r += weight(it); }
       return Math.abs(l - r) < 0.1 ? "balanced" : (l > r ? "leftDown" : "rightDown");
     }
+    // a BLURRED copy of the scene sits behind the hint card (inserted as the level root's first child,
+    // so it paints behind Part 3). filter:blur can't live on the root itself — it would blur the card
+    // too — hence a dedicated element. Kept (hidden) between hints and torn down with the level.
+    var hintBackdrop = null;
+    function showHintBackdrop(rootEl, on) {
+      if (on) {
+        if (!hintBackdrop) { hintBackdrop = document.createElement("div"); hintBackdrop.className = "rb-hint-backdrop"; }
+        if (rootEl && hintBackdrop.parentElement !== rootEl) rootEl.insertBefore(hintBackdrop, rootEl.firstChild);
+        hintBackdrop.style.display = "block";
+      } else if (hintBackdrop) { hintBackdrop.style.display = "none"; }
+    }
     function showWeighReminder(on) {
       var p3r = ID.part3 && E.get(ID.part3);
-      var rootEl = p3r && p3r.parent && p3r.parent.el;   // the level root — dimmed behind the card
+      var rootEl = p3r && p3r.parent && p3r.parent.el;   // the level root — holds the blurred backdrop
       if (on) {
         A(ID.part4, false); A(ID.messageBar, false);          // hide the sorting scene + its instruction
         if (ID.base3) A(ID.base3, false); if (ID.base4) A(ID.base4, false);
@@ -722,13 +733,13 @@ var Controllers = (function () {
         [ID.bookImg, ID.ballImg].forEach(function (id) { clearGlow(id); dimItem(id, false); });
         if (scaleCtrl && scaleCtrl.playState) scaleCtrl.playState(part3TiltState(), true);  // instant tilt = child's placement
         showMeasureHint();                                     // Heavier(↓)/Lighter(↑) over the real items
-        // show it as a gamified CARD, not full-screen: dim the level, then frame + pop-in the weighing.
-        if (rootEl) rootEl.style.background = "radial-gradient(130% 130% at 50% 42%, rgba(40,60,95,0.46), rgba(12,20,40,0.84))";
+        // show it as a gamified CARD over a BLURRED copy of the scene (not full-screen, not a flat dim).
+        if (rootEl) showHintBackdrop(rootEl, true);
         if (p3r) { p3r.el.classList.add("rb-hint-card"); E.kill(ID.part3); E.setScale(ID.part3, 0.02); E.doScale(ID.part3, 0.74, 0.42, "OutBack"); }
       } else {
         [ID.arrow1, ID.arrow2].forEach(function (id) { if (id) { E.kill(id); A(id, false); } });
         if (p3r) { E.kill(ID.part3); E.setScale(ID.part3, 1); p3r.el.classList.remove("rb-hint-card"); }
-        if (rootEl) rootEl.style.background = "";
+        showHintBackdrop(rootEl, false);
         if (scaleCtrl && scaleCtrl.reset) scaleCtrl.reset();
         A(ID.part3, false); A(ID.part4, true); A(ID.messageBar, true);
         if (ID.base3) A(ID.base3, true); if (ID.base4) A(ID.base4, true);

@@ -221,7 +221,9 @@ async function runViewport(vp, full) {
         // the weighing is a gamified CARD, not full-screen: part3 scaled down, framed, over a dimmed level
         const pr = E.get(p3);
         ok(pr.rt.sx < 0.9 && pr.el.classList.contains("rb-hint-card"), label + host + ": hint is a framed card (part3 scaled + carded)");
-        ok(!!(pr.parent && pr.parent.el.style.background), label + host + ": level dimmed behind the hint card");
+        const kids = (pr.parent && pr.parent.el.children) || [];
+        const bd = (Array.isArray(kids) ? kids : Array.from(kids)).find((c) => (c.className || "").includes("rb-hint-backdrop"));
+        ok(!!(bd && bd.style.display !== "none"), label + host + ": blurred scene backdrop behind the hint card");
         if (a1 && E.isActive(a1)) { const hv = weightOf(ball) >= weightOf(book) ? ball : book;
           ok((E.centerLogical(hv).x < 960) === (E.centerLogical(a1).x < 960), label + host + ": wrong-hint Heavier arrow matches the child's placement"); }
         // the hint is neutral: BOTH items plain (no leftover answer glow, no dim) so neither is favoured
