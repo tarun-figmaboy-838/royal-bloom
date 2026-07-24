@@ -295,7 +295,9 @@ var Controllers = (function () {
     }
     function openBox() {
       if (boxOpened) return; boxOpened = true;
-      if (ID.boxButton) E.setInteractable(ID.boxButton, false);
+      // disable further taps WITHOUT the grayscale/opacity dim (setInteractable fades it) — the box must
+      // stay fully opaque as it wobbles + opens.
+      if (ID.boxButton) E.setInputEnabled(ID.boxButton, false);
       A(ID.messageBar, false);
       if (ID.hintHand) { E.kill(ID.hintHand); A(ID.hintHand, false); }
       if (boxOpenSFX) Audio.playSFX(boxOpenSFX);
@@ -382,16 +384,20 @@ var Controllers = (function () {
       var txt = E.childByName(rootId, "Text (TMP)");
       ["image 01", "left", "right"].forEach(function (nm) { var c = E.childByName(rootId, nm); if (c) A(c, true); });
       if (txt) A(txt, false);
-      // Pop the WHOLE scroll open with ONE uniform springy scale on the root. Every piece
-      // (parchment, both rollers, name) grows together and stays locked in place, so it can
-      // never look detached. Name pops + sparkles once it's open.
+      // UNFURL like a real scroll: start as a thin, tall rolled-up strip and unroll WIDE (scaleX grows
+      // from a sliver to full while the height barely settles). Scaling the whole root keeps every piece
+      // (parchment, both rollers, name) locked together — never detached — and .node scales from its
+      // centre so it opens outward symmetrically. Name pops + sparkles once it's open.
       S.track(rootId);
-      E.setScale(rootId, 0.6);
-      E.doScale(rootId, 1, dur, "OutBack", { onComplete: function () {
-        if (S.cancelled()) return;
-        if (txt) { A(txt, true); S.track(txt); E.setAlpha(txt, 0); E.setScale(txt, 0.55); E.doScale(txt, 1, 0.35, "OutBack"); E.doFade(txt, 1, 0.3, "OutQuad"); }
-        confettiToken = { cancelled: false }; E.confettiBurst(rootId, confettiToken);   // golden sparkle
-      } });
+      E.setScaleXY(rootId, 0.06, 0.9);
+      E.tween({ dur: dur, ease: "OutBack", tag: rootId,
+        fn: function (e) { E.setScaleXY(rootId, 0.06 + 0.94 * e, 0.9 + 0.1 * e); },
+        onComplete: function () {
+          if (S.cancelled()) return;
+          E.setScaleXY(rootId, 1, 1);
+          if (txt) { A(txt, true); S.track(txt); E.setAlpha(txt, 0); E.setScale(txt, 0.55); E.doScale(txt, 1, 0.35, "OutBack"); E.doFade(txt, 1, 0.3, "OutQuad"); }
+          confettiToken = { cancelled: false }; E.confettiBurst(rootId, confettiToken);   // golden sparkle
+        } });
     }
 
     // ---------- PART 3 ----------
@@ -833,6 +839,14 @@ var Controllers = (function () {
         if (ID.ghostImg && sprite) E.repaintSprite(E.get(ID.ghostImg), sprite);
         A(ID.ghostHand, true); A(ID.ghostItem, true);
         E.setAlpha(ID.ghostItem, ghostAlpha);
+        // The ghost is authored inside Part 3, whose subtree is hidden during Part 4 — so the Part-4
+        // demo hand would never render. Re-host both on the LEVEL ROOT (visible in every part). Position
+        // is set in stage coords below, so the parent doesn't shift placement.
+        var lroot = ID.part3 && E.get(ID.part3) && E.get(ID.part3).parent;
+        if (lroot) {
+          if (E.get(ID.ghostHand).parent !== lroot) E.reparent(ID.ghostHand, lroot.id);
+          if (E.get(ID.ghostItem).parent !== lroot) E.reparent(ID.ghostItem, lroot.id);
+        }
         E.setAsLastSibling(ID.ghostItem); E.setAsLastSibling(ID.ghostHand);
         var s = E.centerLogical(startId), e = E.centerLogical(endId);
         var mid = { x: (s.x + e.x) / 2, y: (s.y + e.y) / 2 - 15 };

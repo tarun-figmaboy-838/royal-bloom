@@ -99,6 +99,8 @@ async function runViewport(vp, full) {
       ok(E.get(bi).children.length === 0, label + host + ": box tap target is a leaf (front box, not the container)");
       if (bt) ok(E.get(bt).children.length === 0, label + host + ": box lid is a leaf (shakes rigidly with the box, not the container)"); }
     click(boxBtn);
+    // tapping the box must NOT dim it (disable input without the grayscale/opacity fade)
+    ok(!/opacity|grayscale/.test(E.get(boxBtn).el.style.filter || ""), label + host + ": box stays fully opaque on tap");
     ok(await until(() => E.isActive(nextP2), 12000), label + host + ": Part2 Next");
     // Part 2 name scrolls must OPEN (parchment + centered name), not sit closed with rollers only
     [nid(f.lanternTextObject), nid(f.featherTextObject)].forEach((root, k) => {
@@ -200,6 +202,12 @@ async function runViewport(vp, full) {
         ok(itemLeft === arrowLeft, label + host + ": Heavier arrow on the heavier item's actual side (item " + (itemLeft ? "L" : "R") + ", arrow " + (arrowLeft ? "L" : "R") + ")"); } }
     click(nextP3);
     ok(await until(() => E.get(p4a)._drag.enabled && RB.gmByHost[host].diagnostics().ready4, 22000), label + host + ": Part4 ready");
+    // the Part-4 drag-guide hand is authored under Part 3 (hidden here); it must be re-hosted on the
+    // level root so it actually shows. When it appears, every ancestor must be visible.
+    { const gh = nid(f.ghostHand);
+      if (gh && await until(() => E.isActive(gh), 2500)) {
+        const vis = (id) => { let r = E.get(id); while (r) { if ((r.node && r.node.active === false) || (r.el && r.el.style.display === "none")) return false; r = r.parent; } return true; };
+        ok(vis(gh), label + host + ": Part-4 drag-guide hand visible (re-hosted off the hidden Part 3)"); } }
     // Part 4 drop targets must be invisible hit areas, not pre-placed item sprites (Bug D)
     Object.keys(CFG.baskets).filter((z) => nid(CFG.baskets[z].gameManager) === host && CFG.baskets[z].isPart4).forEach((z) => {
       const marker = nid(CFG.baskets[z].basketImage) || z, mel = E.get(marker).el;
