@@ -217,6 +217,10 @@ async function runViewport(vp, full) {
       // child's placement — NOT a fixed picture. Heavier arrow must sit on the heavier item's real side.
       { const p3 = nid(f.part3Object), p4 = nid(f.part4Object), a1 = nid(f.arrow1);
         ok(E.isActive(p3) && !E.isActive(p4), label + host + ": wrong-drop shows the live weighing (part3 on, part4 off)");
+        // the weighing is a gamified CARD, not full-screen: part3 scaled down, framed, over a dimmed level
+        const pr = E.get(p3);
+        ok(pr.rt.sx < 0.9 && pr.el.classList.contains("rb-hint-card"), label + host + ": hint is a framed card (part3 scaled + carded)");
+        ok(!!(pr.parent && pr.parent.el.style.background), label + host + ": level dimmed behind the hint card");
         if (a1 && E.isActive(a1)) { const hv = weightOf(ball) >= weightOf(book) ? ball : book;
           ok((E.centerLogical(hv).x < 960) === (E.centerLogical(a1).x < 960), label + host + ": wrong-hint Heavier arrow matches the child's placement"); }
         // the hint is neutral: BOTH items plain (no leftover answer glow, no dim) so neither is favoured

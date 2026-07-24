@@ -711,18 +711,27 @@ var Controllers = (function () {
       return Math.abs(l - r) < 0.1 ? "balanced" : (l > r ? "leftDown" : "rightDown");
     }
     function showWeighReminder(on) {
+      var p3r = ID.part3 && E.get(ID.part3);
+      var rootEl = p3r && p3r.parent && p3r.parent.el;   // the level root — dimmed behind the card
       if (on) {
         A(ID.part4, false); A(ID.messageBar, false);          // hide the sorting scene + its instruction
+        if (ID.base3) A(ID.base3, false); if (ID.base4) A(ID.base4, false);
         A(ID.part3, true);                                     // bring back the live weighing
         // the hint is a neutral reminder: clear the leftover answer glow + un-dim so BOTH items read
         // equally (no green glow on one, no faded other) — the arrows alone tell heavier vs lighter.
         [ID.bookImg, ID.ballImg].forEach(function (id) { clearGlow(id); dimItem(id, false); });
         if (scaleCtrl && scaleCtrl.playState) scaleCtrl.playState(part3TiltState(), true);  // instant tilt = child's placement
         showMeasureHint();                                     // Heavier(↓)/Lighter(↑) over the real items
+        // show it as a gamified CARD, not full-screen: dim the level, then frame + pop-in the weighing.
+        if (rootEl) rootEl.style.background = "radial-gradient(130% 130% at 50% 42%, rgba(40,60,95,0.46), rgba(12,20,40,0.84))";
+        if (p3r) { p3r.el.classList.add("rb-hint-card"); E.kill(ID.part3); E.setScale(ID.part3, 0.02); E.doScale(ID.part3, 0.74, 0.42, "OutBack"); }
       } else {
         [ID.arrow1, ID.arrow2].forEach(function (id) { if (id) { E.kill(id); A(id, false); } });
+        if (p3r) { E.kill(ID.part3); E.setScale(ID.part3, 1); p3r.el.classList.remove("rb-hint-card"); }
+        if (rootEl) rootEl.style.background = "";
         if (scaleCtrl && scaleCtrl.reset) scaleCtrl.reset();
         A(ID.part3, false); A(ID.part4, true); A(ID.messageBar, true);
+        if (ID.base3) A(ID.base3, true); if (ID.base4) A(ID.base4, true);
       }
     }
     async function part4WrongFlow(itemId) {
