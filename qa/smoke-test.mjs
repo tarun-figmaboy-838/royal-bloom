@@ -125,8 +125,8 @@ async function runViewport(vp, full) {
       // and the beam ("plate") must NOT paint hands_bg over its trays — that is the duplicate hand
       const beam = E.childByName(scId, "plate");
       if (beam) ok(E.get(beam).el.style.backgroundImage === "none", label + host + ": beam self-paint disabled (no duplicate hands)");
-      // the two Part-3 item cards must be fully ON-SCREEN and not overlapping each other (positions
-      // are author-tunable per level, so we sanity-check placement rather than enforce symmetry)
+      // the two Part-3 item cards must be fully ON-SCREEN, not overlapping, and MIRROR each other
+      // (left card at the mirror of the right across centre, same height) so the stage reads balanced.
       const items = E.childByName(scId, "items");
       const cardL = items && E.childByName(items, "Item 2"), cardR = items && E.childByName(items, "Item 1");
       if (cardL && cardR) {
@@ -135,6 +135,8 @@ async function runViewport(vp, full) {
         ok(onScreen(lw) && onScreen(rw), label + host + ": both item cards on-screen");
         const overlap = lw && rw && lw.x < rw.x + rw.w && rw.x < lw.x + lw.w && lw.y < rw.y + rw.h && rw.y < lw.y + lw.h;
         ok(!overlap, label + host + ": item cards do not overlap");
+        const cl = E.centerLogical(cardL), cr = E.centerLogical(cardR);
+        ok(Math.abs((960 - cl.x) - (cr.x - 960)) < 12 && Math.abs(cl.y - cr.y) < 12, label + host + ": item cards mirror each other (balanced)");
       }
     }
     // blur mid-drag must fully tear down (spec #6): drag clears and the item stays draggable after
