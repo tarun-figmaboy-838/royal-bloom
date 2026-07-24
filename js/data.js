@@ -75,7 +75,7 @@ window.LAYOUT = {
    "components": {
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_193.png",
+      "path": "assets/img/Slide_16_9_-_193.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -163,7 +163,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Aerrow_LetsGo.png",
+        "path": "assets/img/Aerrow_LetsGo.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -229,7 +229,7 @@ window.LAYOUT = {
      "tfId": "8094440155483903697",
      "goId": "2480081474898010869",
      "name": "Text (TMP)",
-     "active": true,
+     "active": false,
      "anchoredPos": {
       "x": 100,
       "y": 25
@@ -322,7 +322,7 @@ window.LAYOUT = {
     },
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_184.png",
+      "path": "assets/img/Slide_16_9_-_184.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -392,7 +392,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_192.png",
+        "path": "assets/img/Slide_16_9_-_192.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -495,7 +495,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/0000113.png",
+            "path": "assets/img/0000113.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -565,7 +565,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Glow.png",
+            "path": "assets/img/Glow.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -635,7 +635,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector__6_.png",
+              "path": "assets/img/Vector__6_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -707,7 +707,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/000011.png",
+            "path": "assets/img/000011.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -789,7 +789,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__14__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__14__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -859,7 +859,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -929,7 +929,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__21__8.png",
+              "path": "assets/img/Untitled_design__21__8.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -1001,7 +1001,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -1071,7 +1071,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__33__7.png",
+              "path": "assets/img/Untitled_design__33__7.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -1145,7 +1145,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.png",
+          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -1215,7 +1215,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/frame_00_delay-0.02s.gif",
+          "path": "assets/img/frame_00_delay-0.02s.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -1290,7 +1290,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Rectangle_100.png",
+        "path": "assets/img/Rectangle_100.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -1360,7 +1360,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -1430,7 +1430,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Untitled_design__21__7__1_.png",
+            "path": "assets/img/Untitled_design__21__7__1_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -1502,7 +1502,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -1572,7 +1572,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Untitled_design__33__6__1_.png",
+            "path": "assets/img/Untitled_design__33__6__1_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -1650,7 +1650,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Button_Blue__5_.png",
+          "path": "assets/img/Button_Blue__5_.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -1723,7 +1723,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -1793,7 +1793,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -1863,7 +1863,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -1906,7 +1906,7 @@ window.LAYOUT = {
          "name": "right",
          "active": false,
          "anchoredPos": {
-          "x": -95,
+          "x": -94,
           "y": -1
          },
          "sizeDelta": {
@@ -1933,7 +1933,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2002,7 +2002,7 @@ window.LAYOUT = {
          "rotZ": 0,
          "components": {
           "tmp": {
-           "text": "Bell",
+           "text": "Lantern",
            "fontGuid": "73f1a7e3c535c684dbe849fbd7f0b0e9",
            "fontSize": 48,
            "autoSize": false,
@@ -2064,7 +2064,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -2107,8 +2107,8 @@ window.LAYOUT = {
          "name": "image 01",
          "active": true,
          "anchoredPos": {
-          "x": 6,
-          "y": -2.4
+          "x": 2.8,
+          "y": -0.5
          },
          "sizeDelta": {
           "x": 225,
@@ -2134,7 +2134,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2177,8 +2177,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": true,
          "anchoredPos": {
-          "x": 103,
-          "y": -2.3999894
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -2204,7 +2204,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2247,8 +2247,8 @@ window.LAYOUT = {
          "name": "right",
          "active": true,
          "anchoredPos": {
-          "x": -90.1,
-          "y": -2.4
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -2274,7 +2274,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2343,7 +2343,7 @@ window.LAYOUT = {
          "rotZ": 0,
          "components": {
           "tmp": {
-           "text": "Paper fan",
+           "text": "Feather ",
            "fontGuid": "73f1a7e3c535c684dbe849fbd7f0b0e9",
            "fontSize": 48,
            "autoSize": false,
@@ -2408,7 +2408,7 @@ window.LAYOUT = {
       },
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -2481,7 +2481,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -2554,7 +2554,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/hands_bg.png",
+            "path": "assets/img/hands_bg.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2624,7 +2624,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_579.png",
+              "path": "assets/img/Group_579.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -2694,7 +2694,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_580.png",
+              "path": "assets/img/Group_580.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -2766,7 +2766,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2836,7 +2836,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -2906,7 +2906,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -3048,7 +3048,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Untitled_design__21__8.png",
+                  "path": "assets/img/Untitled_design__21__8.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -3155,7 +3155,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -3227,7 +3227,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -3271,7 +3271,7 @@ window.LAYOUT = {
            "active": true,
            "anchoredPos": {
             "x": 6,
-            "y": 4
+            "y": 2
            },
            "sizeDelta": {
             "x": 226,
@@ -3297,7 +3297,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -3439,7 +3439,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/normal_bell.png",
+                  "path": "assets/img/normal_bell.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -3546,7 +3546,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -3618,7 +3618,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/frame_00_delay-0.02s.gif",
+            "path": "assets/img/frame_00_delay-0.02s.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -3716,7 +3716,7 @@ window.LAYOUT = {
            "name": "Item 2",
            "active": true,
            "anchoredPos": {
-            "x": -582,
+            "x": -685,
             "y": -39
            },
            "sizeDelta": {
@@ -3743,7 +3743,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -3818,7 +3818,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__21__7.png",
+                "path": "assets/img/Untitled_design__21__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -3863,7 +3863,7 @@ window.LAYOUT = {
                 "name": "Bell",
                 "weight": 1,
                 "itemSprite": {
-                 "path": "assets/img/Untitled_design__21__7.png",
+                 "path": "assets/img/Untitled_design__21__7.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -3882,7 +3882,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/Untitled_design__21__7.png",
+                 "path": "assets/img/Untitled_design__21__7.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -3995,7 +3995,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -4065,7 +4065,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -4139,7 +4139,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -4214,7 +4214,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__33__6.png",
+                "path": "assets/img/Untitled_design__33__6.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -4259,7 +4259,7 @@ window.LAYOUT = {
                 "name": "Paper fan",
                 "weight": 0.5,
                 "itemSprite": {
-                 "path": "assets/img/Untitled_design__33__6.png",
+                 "path": "assets/img/Untitled_design__33__6.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -4278,7 +4278,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/Untitled_design__33__6.png",
+                 "path": "assets/img/Untitled_design__33__6.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -4391,7 +4391,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -4461,7 +4461,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -4568,7 +4568,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_566.png",
+                "path": "assets/img/Group_566.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -4638,7 +4638,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Group_566.png",
+                  "path": "assets/img/Group_566.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -4710,7 +4710,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_565.png",
+                "path": "assets/img/Group_565.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -4784,7 +4784,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -4860,7 +4860,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__6_.png",
+            "path": "assets/img/Button_Blue__6_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -4941,7 +4941,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -5016,7 +5016,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -5086,7 +5086,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -5156,7 +5156,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -5230,7 +5230,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -5385,7 +5385,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -5455,7 +5455,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__21__8.png",
+                "path": "assets/img/Untitled_design__21__8.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -5536,7 +5536,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -5660,7 +5660,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -5730,7 +5730,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__33__7.png",
+                "path": "assets/img/Untitled_design__33__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -5811,7 +5811,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -5883,7 +5883,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -5953,7 +5953,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -6026,7 +6026,7 @@ window.LAYOUT = {
               "name": "book",
               "weight": 1,
               "itemSprite": {
-               "path": "assets/img/Untitled_design__21__7__1_.png",
+               "path": "assets/img/Untitled_design__21__7__1_.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -6045,7 +6045,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/Untitled_design__21__7.png",
+               "path": "assets/img/Untitled_design__21__7.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -6077,7 +6077,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__21__7__1_.png",
+              "path": "assets/img/Untitled_design__21__7__1_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -6149,7 +6149,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -6222,7 +6222,7 @@ window.LAYOUT = {
               "name": "ball",
               "weight": 0.5,
               "itemSprite": {
-               "path": "assets/img/Untitled_design__33__6__1_.png",
+               "path": "assets/img/Untitled_design__33__6__1_.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -6241,7 +6241,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/Untitled_design__33__6.png",
+               "path": "assets/img/Untitled_design__33__6.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -6273,7 +6273,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__33__6__1_.png",
+              "path": "assets/img/Untitled_design__33__6__1_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -6430,7 +6430,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_11.png",
+              "path": "assets/img/Vector_11.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -6500,7 +6500,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -6624,7 +6624,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_11.png",
+              "path": "assets/img/Vector_11.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -6694,7 +6694,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -6785,7 +6785,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -6972,7 +6972,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Group_578.png",
+        "path": "assets/img/Group_578.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -7100,7 +7100,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5029.PNG",
+        "path": "assets/img/IMG_5029.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -7170,7 +7170,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5024.PNG",
+        "path": "assets/img/IMG_5024.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -7247,7 +7247,7 @@ window.LAYOUT = {
     },
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_184.png",
+      "path": "assets/img/Slide_16_9_-_184.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -7318,7 +7318,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_192.png",
+        "path": "assets/img/Slide_16_9_-_192.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -7421,7 +7421,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_538-1.png",
+            "path": "assets/img/Group_538-1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -7491,7 +7491,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Glow.png",
+            "path": "assets/img/Glow.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -7561,7 +7561,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector__6_.png",
+              "path": "assets/img/Vector__6_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -7633,7 +7633,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/001.png",
+            "path": "assets/img/001.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -7715,7 +7715,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__13__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__13__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -7785,7 +7785,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -7855,7 +7855,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -7927,7 +7927,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -7997,7 +7997,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__34__3.png",
+              "path": "assets/img/Untitled_design__34__3.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -8071,7 +8071,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.png",
+          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -8141,7 +8141,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/frame_00_delay-0.02s.gif",
+          "path": "assets/img/frame_00_delay-0.02s.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -8216,7 +8216,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Rectangle_100.png",
+        "path": "assets/img/Rectangle_100.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -8286,7 +8286,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -8356,7 +8356,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -8428,7 +8428,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -8498,7 +8498,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Untitled_design__34__3_1.png",
+            "path": "assets/img/Untitled_design__34__3_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -8576,7 +8576,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Button_Blue__5_.png",
+          "path": "assets/img/Button_Blue__5_.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -8649,7 +8649,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -8719,7 +8719,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -8762,8 +8762,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": false,
          "anchoredPos": {
-          "x": 103,
-          "y": -0.4999857
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -8789,7 +8789,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -8832,8 +8832,8 @@ window.LAYOUT = {
          "name": "right",
          "active": false,
          "anchoredPos": {
-          "x": -97,
-          "y": -0.4999857
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -8859,7 +8859,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -8987,7 +8987,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -9033,8 +9033,8 @@ window.LAYOUT = {
          "name": "image 01",
          "active": true,
          "anchoredPos": {
-          "x": 6,
-          "y": -2.4
+          "x": 2.8,
+          "y": -0.5
          },
          "sizeDelta": {
           "x": 225,
@@ -9060,7 +9060,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -9103,8 +9103,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": true,
          "anchoredPos": {
-          "x": 103,
-          "y": -2.3999894
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -9130,7 +9130,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -9173,8 +9173,8 @@ window.LAYOUT = {
          "name": "right",
          "active": true,
          "anchoredPos": {
-          "x": -90.1,
-          "y": -2.4
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -9200,7 +9200,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -9330,7 +9330,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -9404,7 +9404,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -9480,7 +9480,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/hands_bg.png",
+            "path": "assets/img/hands_bg.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -9550,7 +9550,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_579.png",
+              "path": "assets/img/Group_579.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -9620,7 +9620,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_580.png",
+              "path": "assets/img/Group_580.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -9692,7 +9692,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -9762,7 +9762,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -9832,7 +9832,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -9974,7 +9974,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Untitled_design__21__8.png",
+                  "path": "assets/img/Untitled_design__21__8.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -10081,7 +10081,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -10153,7 +10153,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -10197,7 +10197,7 @@ window.LAYOUT = {
            "active": true,
            "anchoredPos": {
             "x": 6,
-            "y": 4
+            "y": 2
            },
            "sizeDelta": {
             "x": 226,
@@ -10223,7 +10223,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -10365,7 +10365,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/normal_bell.png",
+                  "path": "assets/img/normal_bell.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -10472,7 +10472,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -10544,7 +10544,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/frame_00_delay-0.02s.gif",
+            "path": "assets/img/frame_00_delay-0.02s.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -10642,8 +10642,8 @@ window.LAYOUT = {
            "name": "Item 2",
            "active": true,
            "anchoredPos": {
-            "x": -582,
-            "y": -39
+            "x": -430,
+            "y": 312
            },
            "sizeDelta": {
             "x": 277,
@@ -10669,7 +10669,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -10750,7 +10750,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -10789,7 +10789,7 @@ window.LAYOUT = {
                 "name": "Ribbon",
                 "weight": 0.5,
                 "itemSprite": {
-                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -10808,7 +10808,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -10921,7 +10921,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -10991,7 +10991,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -11061,7 +11061,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -11135,7 +11135,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -11216,7 +11216,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/normal_bell.png",
+                "path": "assets/img/normal_bell.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -11255,7 +11255,7 @@ window.LAYOUT = {
                 "name": "Bell",
                 "weight": 1,
                 "itemSprite": {
-                 "path": "assets/img/Untitled_design__34__2.png",
+                 "path": "assets/img/Untitled_design__34__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -11274,7 +11274,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/Untitled_design__34__2.png",
+                 "path": "assets/img/Untitled_design__34__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -11387,7 +11387,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -11457,7 +11457,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -11527,7 +11527,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -11634,7 +11634,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_566.png",
+                "path": "assets/img/Group_566.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -11704,7 +11704,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Group_566.png",
+                  "path": "assets/img/Group_566.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -11776,7 +11776,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_565.png",
+                "path": "assets/img/Group_565.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -11856,7 +11856,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -11932,7 +11932,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__6_.png",
+            "path": "assets/img/Button_Blue__6_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -12007,7 +12007,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -12082,7 +12082,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -12154,7 +12154,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/drag-hand.png",
+          "path": "assets/img/drag-hand.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -12224,7 +12224,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/drag-hand.png",
+          "path": "assets/img/drag-hand.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -12296,7 +12296,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -12451,7 +12451,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -12521,7 +12521,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__21__8.png",
+                "path": "assets/img/Untitled_design__21__8.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -12591,7 +12591,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__34__2.png",
+                "path": "assets/img/Untitled_design__34__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -12672,7 +12672,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -12796,7 +12796,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -12866,7 +12866,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__33__7.png",
+                "path": "assets/img/Untitled_design__33__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -12936,7 +12936,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -13017,7 +13017,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13089,7 +13089,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -13159,7 +13159,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -13229,7 +13229,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13268,7 +13268,7 @@ window.LAYOUT = {
               "name": "book",
               "weight": 0.5,
               "itemSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -13287,7 +13287,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -13355,7 +13355,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -13425,7 +13425,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__34__3_1.png",
+              "path": "assets/img/Untitled_design__34__3_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13464,7 +13464,7 @@ window.LAYOUT = {
               "name": "ball",
               "weight": 1,
               "itemSprite": {
-               "path": "assets/img/Untitled_design__34__3_1.png",
+               "path": "assets/img/Untitled_design__34__3_1.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -13483,7 +13483,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/Untitled_design__34__2.png",
+               "path": "assets/img/Untitled_design__34__2.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -13636,7 +13636,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_10__5_.png",
+              "path": "assets/img/Vector_10__5_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13706,7 +13706,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13830,7 +13830,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_10__5_.png",
+              "path": "assets/img/Vector_10__5_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13900,7 +13900,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -13991,7 +13991,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -14065,7 +14065,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Group_578.png",
+        "path": "assets/img/Group_578.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -14193,7 +14193,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5028.PNG",
+        "path": "assets/img/IMG_5028.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -14263,7 +14263,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5033.PNG",
+        "path": "assets/img/IMG_5033.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -14341,7 +14341,7 @@ window.LAYOUT = {
     },
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_184.png",
+      "path": "assets/img/Slide_16_9_-_184.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -14411,7 +14411,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_192.png",
+        "path": "assets/img/Slide_16_9_-_192.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -14514,7 +14514,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_541-1.png",
+            "path": "assets/img/Group_541-1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -14584,7 +14584,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Glow.png",
+            "path": "assets/img/Glow.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -14654,7 +14654,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector__6_.png",
+              "path": "assets/img/Vector__6_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -14726,7 +14726,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/003.png",
+            "path": "assets/img/003.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -14808,7 +14808,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__15__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__15__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -14878,7 +14878,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -14948,7 +14948,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/normal_bell.png",
+              "path": "assets/img/normal_bell.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -15020,7 +15020,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -15090,7 +15090,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/paper_fan.png",
+              "path": "assets/img/paper_fan.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -15164,7 +15164,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.png",
+          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -15234,7 +15234,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/frame_00_delay-0.02s.gif",
+          "path": "assets/img/frame_00_delay-0.02s.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -15309,7 +15309,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Rectangle_100.png",
+        "path": "assets/img/Rectangle_100.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -15379,7 +15379,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -15449,7 +15449,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Untitled_design__34__3_1.png",
+            "path": "assets/img/Untitled_design__34__3_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -15521,7 +15521,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -15591,7 +15591,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/paper_fan.png",
+            "path": "assets/img/paper_fan.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -15669,7 +15669,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Button_Blue__5_.png",
+          "path": "assets/img/Button_Blue__5_.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -15742,7 +15742,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -15812,7 +15812,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -15855,8 +15855,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": false,
          "anchoredPos": {
-          "x": 103,
-          "y": -0.4999857
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -15882,7 +15882,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -15925,8 +15925,8 @@ window.LAYOUT = {
          "name": "right",
          "active": false,
          "anchoredPos": {
-          "x": -97,
-          "y": -0.4999857
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -15952,7 +15952,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16083,7 +16083,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -16126,8 +16126,8 @@ window.LAYOUT = {
          "name": "image 01",
          "active": true,
          "anchoredPos": {
-          "x": 6,
-          "y": -2.4
+          "x": 2.8,
+          "y": -0.5
          },
          "sizeDelta": {
           "x": 225,
@@ -16153,7 +16153,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16196,8 +16196,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": true,
          "anchoredPos": {
-          "x": 103,
-          "y": -2.3999894
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -16223,7 +16223,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16266,8 +16266,8 @@ window.LAYOUT = {
          "name": "right",
          "active": true,
          "anchoredPos": {
-          "x": -90.1,
-          "y": -2.4
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -16293,7 +16293,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16427,7 +16427,7 @@ window.LAYOUT = {
       },
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -16500,7 +16500,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -16573,7 +16573,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/hands_bg.png",
+            "path": "assets/img/hands_bg.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16643,7 +16643,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_579.png",
+              "path": "assets/img/Group_579.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -16713,7 +16713,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_580.png",
+              "path": "assets/img/Group_580.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -16785,7 +16785,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16855,7 +16855,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -16925,7 +16925,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -17067,7 +17067,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Untitled_design__21__8.png",
+                  "path": "assets/img/Untitled_design__21__8.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -17174,7 +17174,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -17246,7 +17246,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -17290,7 +17290,7 @@ window.LAYOUT = {
            "active": true,
            "anchoredPos": {
             "x": 6,
-            "y": 4
+            "y": 2
            },
            "sizeDelta": {
             "x": 226,
@@ -17316,7 +17316,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -17458,7 +17458,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/normal_bell.png",
+                  "path": "assets/img/normal_bell.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -17565,7 +17565,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -17637,7 +17637,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/frame_00_delay-0.02s.gif",
+            "path": "assets/img/frame_00_delay-0.02s.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -17735,7 +17735,7 @@ window.LAYOUT = {
            "name": "Item 2",
            "active": true,
            "anchoredPos": {
-            "x": -582,
+            "x": -685,
             "y": -39
            },
            "sizeDelta": {
@@ -17762,7 +17762,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -17837,7 +17837,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__34__2.png",
+                "path": "assets/img/Untitled_design__34__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -17882,7 +17882,7 @@ window.LAYOUT = {
                 "name": "Bell",
                 "weight": 1,
                 "itemSprite": {
-                 "path": "assets/img/Untitled_design__34__2.png",
+                 "path": "assets/img/Untitled_design__34__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -17901,7 +17901,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/Untitled_design__34__2.png",
+                 "path": "assets/img/Untitled_design__34__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -18014,7 +18014,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -18084,7 +18084,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -18158,7 +18158,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -18233,7 +18233,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/paper_fan.png",
+                "path": "assets/img/paper_fan.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -18278,7 +18278,7 @@ window.LAYOUT = {
                 "name": "Paper fan",
                 "weight": 0.5,
                 "itemSprite": {
-                 "path": "assets/img/paper_fan.png",
+                 "path": "assets/img/paper_fan.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -18297,7 +18297,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/paper_fan.png",
+                 "path": "assets/img/paper_fan.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -18410,7 +18410,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -18480,7 +18480,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -18587,7 +18587,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_566.png",
+                "path": "assets/img/Group_566.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -18657,7 +18657,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Group_566.png",
+                  "path": "assets/img/Group_566.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -18729,7 +18729,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_565.png",
+                "path": "assets/img/Group_565.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -18803,7 +18803,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -18879,7 +18879,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__6_.png",
+            "path": "assets/img/Button_Blue__6_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -18960,7 +18960,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -19035,7 +19035,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -19105,7 +19105,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -19175,7 +19175,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -19249,7 +19249,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -19404,7 +19404,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -19474,7 +19474,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__21__8.png",
+                "path": "assets/img/Untitled_design__21__8.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -19544,7 +19544,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__34__2.png",
+                "path": "assets/img/Untitled_design__34__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -19623,7 +19623,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__34__2.png",
+                "path": "assets/img/Untitled_design__34__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -19695,7 +19695,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -19819,7 +19819,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -19889,7 +19889,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__33__7.png",
+                "path": "assets/img/Untitled_design__33__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -19959,7 +19959,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -20038,7 +20038,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/paper_fan.png",
+                "path": "assets/img/paper_fan.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -20110,7 +20110,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -20182,7 +20182,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -20252,7 +20252,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -20325,7 +20325,7 @@ window.LAYOUT = {
               "name": "book",
               "weight": 1,
               "itemSprite": {
-               "path": "assets/img/Untitled_design__34__3_1.png",
+               "path": "assets/img/Untitled_design__34__3_1.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -20344,7 +20344,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/Untitled_design__34__2.png",
+               "path": "assets/img/Untitled_design__34__2.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -20376,7 +20376,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/Untitled_design__34__3_1.png",
+              "path": "assets/img/Untitled_design__34__3_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -20448,7 +20448,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -20521,7 +20521,7 @@ window.LAYOUT = {
               "name": "ball",
               "weight": 0.5,
               "itemSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__4_1.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__4_1.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -20540,7 +20540,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/paper_fan.png",
+               "path": "assets/img/paper_fan.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -20572,7 +20572,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__4_1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__4_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -20729,7 +20729,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_11.png",
+              "path": "assets/img/Vector_11.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -20799,7 +20799,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -20923,7 +20923,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_11.png",
+              "path": "assets/img/Vector_11.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -20993,7 +20993,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -21084,7 +21084,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -21158,7 +21158,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Group_578.png",
+        "path": "assets/img/Group_578.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -21286,7 +21286,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5030.PNG",
+        "path": "assets/img/IMG_5030.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -21356,7 +21356,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5025.PNG",
+        "path": "assets/img/IMG_5025.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -21434,7 +21434,7 @@ window.LAYOUT = {
     },
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_184.png",
+      "path": "assets/img/Slide_16_9_-_184.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -21504,7 +21504,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_192.png",
+        "path": "assets/img/Slide_16_9_-_192.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -21607,7 +21607,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_539-1.png",
+            "path": "assets/img/Group_539-1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -21677,7 +21677,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Glow.png",
+            "path": "assets/img/Glow.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -21747,7 +21747,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector__6_.png",
+              "path": "assets/img/Vector__6_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -21819,7 +21819,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/005.png",
+            "path": "assets/img/005.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -21901,7 +21901,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__16__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__16__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -21971,7 +21971,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -22041,7 +22041,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/crown.png",
+              "path": "assets/img/crown.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -22113,7 +22113,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -22183,7 +22183,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -22257,7 +22257,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.png",
+          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -22327,7 +22327,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/frame_00_delay-0.02s.gif",
+          "path": "assets/img/frame_00_delay-0.02s.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -22402,7 +22402,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Rectangle_100.png",
+        "path": "assets/img/Rectangle_100.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -22472,7 +22472,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -22542,7 +22542,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/crown.png",
+            "path": "assets/img/crown.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -22614,7 +22614,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -22684,7 +22684,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -22762,7 +22762,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Button_Blue__5_.png",
+          "path": "assets/img/Button_Blue__5_.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -22835,7 +22835,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -22905,7 +22905,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -22948,8 +22948,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": false,
          "anchoredPos": {
-          "x": 103,
-          "y": -0.4999857
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -22975,7 +22975,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23018,8 +23018,8 @@ window.LAYOUT = {
          "name": "right",
          "active": false,
          "anchoredPos": {
-          "x": -97,
-          "y": -0.4999857
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -23045,7 +23045,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23176,7 +23176,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -23219,8 +23219,8 @@ window.LAYOUT = {
          "name": "image 01",
          "active": true,
          "anchoredPos": {
-          "x": 6,
-          "y": -2.4
+          "x": 2.8,
+          "y": -0.5
          },
          "sizeDelta": {
           "x": 225,
@@ -23246,7 +23246,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23289,8 +23289,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": true,
          "anchoredPos": {
-          "x": 103,
-          "y": -2.3999894
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -23316,7 +23316,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23359,8 +23359,8 @@ window.LAYOUT = {
          "name": "right",
          "active": true,
          "anchoredPos": {
-          "x": -90.1,
-          "y": -2.4
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -23386,7 +23386,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23520,7 +23520,7 @@ window.LAYOUT = {
       },
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -23593,7 +23593,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -23666,7 +23666,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/hands_bg.png",
+            "path": "assets/img/hands_bg.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23736,7 +23736,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_579.png",
+              "path": "assets/img/Group_579.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -23806,7 +23806,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_580.png",
+              "path": "assets/img/Group_580.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -23878,7 +23878,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -23948,7 +23948,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -24018,7 +24018,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -24160,7 +24160,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Untitled_design__21__8.png",
+                  "path": "assets/img/Untitled_design__21__8.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -24267,7 +24267,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -24339,7 +24339,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -24383,7 +24383,7 @@ window.LAYOUT = {
            "active": true,
            "anchoredPos": {
             "x": 6,
-            "y": 4
+            "y": 2
            },
            "sizeDelta": {
             "x": 226,
@@ -24409,7 +24409,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -24551,7 +24551,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                  "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -24658,7 +24658,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -24730,7 +24730,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/frame_00_delay-0.02s.gif",
+            "path": "assets/img/frame_00_delay-0.02s.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -24828,7 +24828,7 @@ window.LAYOUT = {
            "name": "Item 2",
            "active": true,
            "anchoredPos": {
-            "x": -582,
+            "x": -685,
             "y": -39
            },
            "sizeDelta": {
@@ -24855,7 +24855,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -24930,7 +24930,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/crown.png",
+                "path": "assets/img/crown.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -24975,7 +24975,7 @@ window.LAYOUT = {
                 "name": "Crown",
                 "weight": 1,
                 "itemSprite": {
-                 "path": "assets/img/crown.png",
+                 "path": "assets/img/crown.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -24994,7 +24994,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/crown.png",
+                 "path": "assets/img/crown.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -25107,7 +25107,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -25177,7 +25177,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -25251,7 +25251,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -25326,7 +25326,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -25371,7 +25371,7 @@ window.LAYOUT = {
                 "name": "Ribbon",
                 "weight": 0.5,
                 "itemSprite": {
-                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -25390,7 +25390,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                 "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -25503,7 +25503,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -25573,7 +25573,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -25680,7 +25680,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_566.png",
+                "path": "assets/img/Group_566.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -25750,7 +25750,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Group_566.png",
+                  "path": "assets/img/Group_566.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -25822,7 +25822,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_565.png",
+                "path": "assets/img/Group_565.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -25896,7 +25896,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -25972,7 +25972,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__6_.png",
+            "path": "assets/img/Button_Blue__6_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -26053,7 +26053,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -26128,7 +26128,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -26198,7 +26198,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -26268,7 +26268,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -26342,7 +26342,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -26497,7 +26497,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -26567,7 +26567,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__21__8.png",
+                "path": "assets/img/Untitled_design__21__8.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -26637,7 +26637,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__34__2.png",
+                "path": "assets/img/Untitled_design__34__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -26707,7 +26707,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__34__2.png",
+                "path": "assets/img/Untitled_design__34__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -26786,7 +26786,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/crown.png",
+                "path": "assets/img/crown.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -26858,7 +26858,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -26982,7 +26982,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -27052,7 +27052,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__33__7.png",
+                "path": "assets/img/Untitled_design__33__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -27122,7 +27122,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/paper_fan.png",
+                "path": "assets/img/paper_fan.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -27192,7 +27192,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -27271,7 +27271,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -27343,7 +27343,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -27415,7 +27415,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -27485,7 +27485,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -27558,7 +27558,7 @@ window.LAYOUT = {
               "name": "ball",
               "weight": 0.5,
               "itemSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -27577,7 +27577,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -27609,7 +27609,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -27681,7 +27681,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -27754,7 +27754,7 @@ window.LAYOUT = {
               "name": "book",
               "weight": 1,
               "itemSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__4-1.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__4-1.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -27773,7 +27773,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/crown.png",
+               "path": "assets/img/crown.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -27805,7 +27805,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__4-1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__4-1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -27962,7 +27962,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_11.png",
+              "path": "assets/img/Vector_11.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -28032,7 +28032,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -28156,7 +28156,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_11.png",
+              "path": "assets/img/Vector_11.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -28226,7 +28226,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -28317,7 +28317,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -28391,7 +28391,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Group_578.png",
+        "path": "assets/img/Group_578.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -28519,7 +28519,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5031.PNG",
+        "path": "assets/img/IMG_5031.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -28589,7 +28589,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5026.PNG",
+        "path": "assets/img/IMG_5026.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -28667,7 +28667,7 @@ window.LAYOUT = {
     },
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_184.png",
+      "path": "assets/img/Slide_16_9_-_184.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -28737,7 +28737,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_192.png",
+        "path": "assets/img/Slide_16_9_-_192.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -28840,7 +28840,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_540-1.png",
+            "path": "assets/img/Group_540-1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -28910,7 +28910,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Glow.png",
+            "path": "assets/img/Glow.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -28980,7 +28980,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector__6_.png",
+              "path": "assets/img/Vector__6_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -29052,7 +29052,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/000011.png",
+            "path": "assets/img/000011.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -29134,7 +29134,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__14__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__14__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -29204,7 +29204,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -29274,7 +29274,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/flowers.png",
+              "path": "assets/img/flowers.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -29346,7 +29346,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -29416,7 +29416,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/vase.png",
+              "path": "assets/img/vase.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -29490,7 +29490,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.png",
+          "path": "assets/img/ChatGPT_Image_May_4__2026__11_23_34_AM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -29560,7 +29560,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/frame_00_delay-0.02s.gif",
+          "path": "assets/img/frame_00_delay-0.02s.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -29635,7 +29635,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Rectangle_100.png",
+        "path": "assets/img/Rectangle_100.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -29705,7 +29705,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -29775,7 +29775,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__26__7.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__26__7.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -29847,7 +29847,7 @@ window.LAYOUT = {
        "components": {
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+          "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -29917,7 +29917,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__26__9.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__26__9.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -29995,7 +29995,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Button_Blue__5_.png",
+          "path": "assets/img/Button_Blue__5_.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -30068,7 +30068,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -30138,7 +30138,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30181,8 +30181,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": false,
          "anchoredPos": {
-          "x": 103,
-          "y": -0.4999857
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -30208,7 +30208,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30251,8 +30251,8 @@ window.LAYOUT = {
          "name": "right",
          "active": false,
          "anchoredPos": {
-          "x": -97,
-          "y": -0.4999857
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -30278,7 +30278,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30409,7 +30409,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/Group_574.png",
+          "path": "assets/img/Group_574.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -30452,8 +30452,8 @@ window.LAYOUT = {
          "name": "image 01",
          "active": true,
          "anchoredPos": {
-          "x": 6,
-          "y": -2.4
+          "x": 2.8,
+          "y": -0.5
          },
          "sizeDelta": {
           "x": 225,
@@ -30479,7 +30479,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Group_577.png",
+            "path": "assets/img/Group_577.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30522,8 +30522,8 @@ window.LAYOUT = {
          "name": " left ",
          "active": true,
          "anchoredPos": {
-          "x": 103,
-          "y": -2.3999894
+          "x": 100.5,
+          "y": -1
          },
          "sizeDelta": {
           "x": 197,
@@ -30549,7 +30549,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__2.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30592,8 +30592,8 @@ window.LAYOUT = {
          "name": "right",
          "active": true,
          "anchoredPos": {
-          "x": -90.1,
-          "y": -2.4
+          "x": -94,
+          "y": -1
          },
          "sizeDelta": {
           "x": 204,
@@ -30619,7 +30619,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/The_Royal_Bloom_Fest__30__1.png",
+            "path": "assets/img/The_Royal_Bloom_Fest__30__1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30753,7 +30753,7 @@ window.LAYOUT = {
       },
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -30826,7 +30826,7 @@ window.LAYOUT = {
         },
         "image": {
          "sprite": {
-          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+          "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
           "cropRect": {
            "x": 0,
            "y": 0,
@@ -30899,7 +30899,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/hands_bg.png",
+            "path": "assets/img/hands_bg.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -30969,7 +30969,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_579.png",
+              "path": "assets/img/Group_579.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -31039,7 +31039,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_580.png",
+              "path": "assets/img/Group_580.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -31111,7 +31111,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.png",
+            "path": "assets/img/ChatGPT_Image_Jan_7__2026__04_11_11_PM_1.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -31181,7 +31181,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -31251,7 +31251,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -31393,7 +31393,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Untitled_design__21__8.png",
+                  "path": "assets/img/Untitled_design__21__8.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -31500,7 +31500,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -31572,7 +31572,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.png",
+            "path": "assets/img/Aru_and_pari__Balancing_Act_kjswkdgvj_6.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -31616,7 +31616,7 @@ window.LAYOUT = {
            "active": true,
            "anchoredPos": {
             "x": 6,
-            "y": 4
+            "y": 2
            },
            "sizeDelta": {
             "x": 226,
@@ -31642,7 +31642,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -31784,7 +31784,7 @@ window.LAYOUT = {
                 },
                 "image": {
                  "sprite": {
-                  "path": "assets/img/normal_bell.png",
+                  "path": "assets/img/normal_bell.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -31891,7 +31891,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Group_6.png",
+              "path": "assets/img/Group_6.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -31963,7 +31963,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/frame_00_delay-0.02s.gif",
+            "path": "assets/img/frame_00_delay-0.02s.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -32061,7 +32061,7 @@ window.LAYOUT = {
            "name": "Item 2",
            "active": true,
            "anchoredPos": {
-            "x": -582,
+            "x": -685,
             "y": -39
            },
            "sizeDelta": {
@@ -32088,7 +32088,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -32163,7 +32163,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__7.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -32208,7 +32208,7 @@ window.LAYOUT = {
                 "name": "Flowers",
                 "weight": 0.5,
                 "itemSprite": {
-                 "path": "assets/img/flowers.png",
+                 "path": "assets/img/flowers.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -32227,7 +32227,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/flowers.png",
+                 "path": "assets/img/flowers.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -32340,7 +32340,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -32410,7 +32410,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -32484,7 +32484,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+              "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -32559,7 +32559,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/vase.png",
+                "path": "assets/img/vase.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -32604,7 +32604,7 @@ window.LAYOUT = {
                 "name": "Vase",
                 "weight": 1,
                 "itemSprite": {
-                 "path": "assets/img/vase.png",
+                 "path": "assets/img/vase.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -32623,7 +32623,7 @@ window.LAYOUT = {
                  }
                 },
                 "droppedSprite": {
-                 "path": "assets/img/vase.png",
+                 "path": "assets/img/vase.webp",
                  "cropRect": {
                   "x": 0,
                   "y": 0,
@@ -32736,7 +32736,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Vector_10__3_.png",
+                  "path": "assets/img/Vector_10__3_.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -32806,7 +32806,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/drag-hand.png",
+                  "path": "assets/img/drag-hand.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -32913,7 +32913,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_566.png",
+                "path": "assets/img/Group_566.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -32983,7 +32983,7 @@ window.LAYOUT = {
                "components": {
                 "image": {
                  "sprite": {
-                  "path": "assets/img/Group_566.png",
+                  "path": "assets/img/Group_566.webp",
                   "cropRect": {
                    "x": 0,
                    "y": 0,
@@ -33055,7 +33055,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Group_565.png",
+                "path": "assets/img/Group_565.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -33129,7 +33129,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -33205,7 +33205,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__6_.png",
+            "path": "assets/img/Button_Blue__6_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -33286,7 +33286,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -33361,7 +33361,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Vector__4_.png",
+            "path": "assets/img/Vector__4_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -33431,7 +33431,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -33501,7 +33501,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/drag-hand.png",
+            "path": "assets/img/drag-hand.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -33575,7 +33575,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_184.png",
+        "path": "assets/img/Slide_16_9_-_184.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -33730,7 +33730,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -33800,7 +33800,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__21__8.png",
+                "path": "assets/img/Untitled_design__21__8.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -33870,7 +33870,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/normal_bell.png",
+                "path": "assets/img/normal_bell.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -33940,7 +33940,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/normal_bell.png",
+                "path": "assets/img/normal_bell.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34010,7 +34010,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/crown.png",
+                "path": "assets/img/crown.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34089,7 +34089,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/vase.png",
+                "path": "assets/img/vase.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34161,7 +34161,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.png",
+              "path": "assets/img/ChatGPT_Image_Feb_19__2026__04_53_16_PM_1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -34285,7 +34285,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -34355,7 +34355,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/Untitled_design__33__7.png",
+                "path": "assets/img/Untitled_design__33__7.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34425,7 +34425,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34495,7 +34495,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+                "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34565,7 +34565,7 @@ window.LAYOUT = {
              "components": {
               "image": {
                "sprite": {
-                "path": "assets/img/paper_fan.png",
+                "path": "assets/img/paper_fan.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34644,7 +34644,7 @@ window.LAYOUT = {
               },
               "image": {
                "sprite": {
-                "path": "assets/img/flowers.png",
+                "path": "assets/img/flowers.webp",
                 "cropRect": {
                  "x": 0,
                  "y": 0,
@@ -34716,7 +34716,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__28__1.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__28__1.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -34788,7 +34788,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -34858,7 +34858,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -34931,7 +34931,7 @@ window.LAYOUT = {
               "name": "ball",
               "weight": 1,
               "itemSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__9.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__9.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -34950,7 +34950,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/vase.png",
+               "path": "assets/img/vase.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -34982,7 +34982,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__9.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__9.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -35054,7 +35054,7 @@ window.LAYOUT = {
          "components": {
           "image": {
            "sprite": {
-            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.png",
+            "path": "assets/img/ChatGPT_Image_Jan_23__2026__03_13_50_PM_2.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -35127,7 +35127,7 @@ window.LAYOUT = {
               "name": "book",
               "weight": 0.5,
               "itemSprite": {
-               "path": "assets/img/The_Royal_Bloom_Fest__26__7.png",
+               "path": "assets/img/The_Royal_Bloom_Fest__26__7.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -35146,7 +35146,7 @@ window.LAYOUT = {
                }
               },
               "droppedSprite": {
-               "path": "assets/img/flowers.png",
+               "path": "assets/img/flowers.webp",
                "cropRect": {
                 "x": 0,
                 "y": 0,
@@ -35178,7 +35178,7 @@ window.LAYOUT = {
             },
             "image": {
              "sprite": {
-              "path": "assets/img/The_Royal_Bloom_Fest__26__7.png",
+              "path": "assets/img/The_Royal_Bloom_Fest__26__7.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -35335,7 +35335,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_10__5_.png",
+              "path": "assets/img/Vector_10__5_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -35405,7 +35405,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -35529,7 +35529,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/Vector_10__5_.png",
+              "path": "assets/img/Vector_10__5_.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -35599,7 +35599,7 @@ window.LAYOUT = {
            "components": {
             "image": {
              "sprite": {
-              "path": "assets/img/drag-hand.png",
+              "path": "assets/img/drag-hand.webp",
               "cropRect": {
                "x": 0,
                "y": 0,
@@ -35677,7 +35677,7 @@ window.LAYOUT = {
           },
           "image": {
            "sprite": {
-            "path": "assets/img/Button_Blue__5_.png",
+            "path": "assets/img/Button_Blue__5_.webp",
             "cropRect": {
              "x": 0,
              "y": 0,
@@ -35751,7 +35751,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Group_578.png",
+        "path": "assets/img/Group_578.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -35879,7 +35879,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5027.PNG",
+        "path": "assets/img/IMG_5027.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -35949,7 +35949,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/IMG_5032.PNG",
+        "path": "assets/img/IMG_5032.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -36019,7 +36019,7 @@ window.LAYOUT = {
      "components": {
       "image": {
        "sprite": {
-        "path": "assets/img/Slide_16_9_-_194.png",
+        "path": "assets/img/Slide_16_9_-_194.webp",
         "cropRect": {
          "x": 0,
          "y": 0,
@@ -36204,7 +36204,7 @@ window.LAYOUT = {
    "components": {
     "image": {
      "sprite": {
-      "path": "assets/img/frame_00_delay-0.02s.gif",
+      "path": "assets/img/frame_00_delay-0.02s.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36321,7 +36321,7 @@ window.CONFIG = {
     },
     "boxOpenSprite": {
      "sprite": {
-      "path": "assets/img/0055.png",
+      "path": "assets/img/0055.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36428,7 +36428,7 @@ window.CONFIG = {
     },
     "bookCorrectSprite": {
      "sprite": {
-      "path": "assets/img/green_crown.png",
+      "path": "assets/img/green_crown.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36449,7 +36449,7 @@ window.CONFIG = {
     },
     "bookWrongSprite": {
      "sprite": {
-      "path": "assets/img/red_crown.png",
+      "path": "assets/img/red_crown.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36470,7 +36470,7 @@ window.CONFIG = {
     },
     "ballCorrectSprite": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36491,7 +36491,7 @@ window.CONFIG = {
     },
     "ballWrongSprite": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__4.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__4.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36629,7 +36629,7 @@ window.CONFIG = {
     "ghostDelayPart4": 6,
     "bookGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/crown.png",
+      "path": "assets/img/crown.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36650,7 +36650,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36671,7 +36671,7 @@ window.CONFIG = {
     },
     "bookGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36692,7 +36692,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/crown.png",
+      "path": "assets/img/crown.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36790,7 +36790,7 @@ window.CONFIG = {
     },
     "boxOpenSprite": {
      "sprite": {
-      "path": "assets/img/0001.png",
+      "path": "assets/img/0001.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36897,7 +36897,7 @@ window.CONFIG = {
     },
     "bookCorrectSprite": {
      "sprite": {
-      "path": "assets/img/green_flowers.png",
+      "path": "assets/img/green_flowers.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36918,7 +36918,7 @@ window.CONFIG = {
     },
     "bookWrongSprite": {
      "sprite": {
-      "path": "assets/img/red_flowers.png",
+      "path": "assets/img/red_flowers.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36939,7 +36939,7 @@ window.CONFIG = {
     },
     "ballCorrectSprite": {
      "sprite": {
-      "path": "assets/img/green_vase.png",
+      "path": "assets/img/green_vase.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -36960,7 +36960,7 @@ window.CONFIG = {
     },
     "ballWrongSprite": {
      "sprite": {
-      "path": "assets/img/red_vase.png",
+      "path": "assets/img/red_vase.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37104,7 +37104,7 @@ window.CONFIG = {
     "ghostDelayPart4": 6,
     "bookGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/flowers.png",
+      "path": "assets/img/flowers.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37125,7 +37125,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/vase.png",
+      "path": "assets/img/vase.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37146,7 +37146,7 @@ window.CONFIG = {
     },
     "bookGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/flowers.png",
+      "path": "assets/img/flowers.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37167,7 +37167,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/vase.png",
+      "path": "assets/img/vase.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37265,7 +37265,7 @@ window.CONFIG = {
     },
     "boxOpenSprite": {
      "sprite": {
-      "path": "assets/img/0001.png",
+      "path": "assets/img/0001.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37372,7 +37372,7 @@ window.CONFIG = {
     },
     "bookCorrectSprite": {
      "sprite": {
-      "path": "assets/img/Lantern_01.png",
+      "path": "assets/img/Lantern_01.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37393,7 +37393,7 @@ window.CONFIG = {
     },
     "bookWrongSprite": {
      "sprite": {
-      "path": "assets/img/Lantern_02.png",
+      "path": "assets/img/Lantern_02.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37414,7 +37414,7 @@ window.CONFIG = {
     },
     "ballCorrectSprite": {
      "sprite": {
-      "path": "assets/img/feather_01.png",
+      "path": "assets/img/feather_01.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37435,7 +37435,7 @@ window.CONFIG = {
     },
     "ballWrongSprite": {
      "sprite": {
-      "path": "assets/img/feather_02.png",
+      "path": "assets/img/feather_02.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37573,7 +37573,7 @@ window.CONFIG = {
     "ghostDelayPart4": 1,
     "bookGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/Untitled_design__21__7.png",
+      "path": "assets/img/Untitled_design__21__7.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37594,7 +37594,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/Untitled_design__33__6.png",
+      "path": "assets/img/Untitled_design__33__6.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37615,7 +37615,7 @@ window.CONFIG = {
     },
     "bookGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/Untitled_design__33__6.png",
+      "path": "assets/img/Untitled_design__33__6.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37636,7 +37636,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/Untitled_design__21__7.png",
+      "path": "assets/img/Untitled_design__21__7.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37734,7 +37734,7 @@ window.CONFIG = {
     },
     "boxOpenSprite": {
      "sprite": {
-      "path": "assets/img/0044.png",
+      "path": "assets/img/0044.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37841,7 +37841,7 @@ window.CONFIG = {
     },
     "bookCorrectSprite": {
      "sprite": {
-      "path": "assets/img/green_bell.png",
+      "path": "assets/img/green_bell.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37862,7 +37862,7 @@ window.CONFIG = {
     },
     "bookWrongSprite": {
      "sprite": {
-      "path": "assets/img/red_bell.png",
+      "path": "assets/img/red_bell.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37883,7 +37883,7 @@ window.CONFIG = {
     },
     "ballCorrectSprite": {
      "sprite": {
-      "path": "assets/img/green_paper_fan.png",
+      "path": "assets/img/green_paper_fan.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -37904,7 +37904,7 @@ window.CONFIG = {
     },
     "ballWrongSprite": {
      "sprite": {
-      "path": "assets/img/red_paper_fan.png",
+      "path": "assets/img/red_paper_fan.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38042,7 +38042,7 @@ window.CONFIG = {
     "ghostDelayPart4": 6,
     "bookGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/normal_bell.png",
+      "path": "assets/img/normal_bell.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38063,7 +38063,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/paper_fan.png",
+      "path": "assets/img/paper_fan.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38084,7 +38084,7 @@ window.CONFIG = {
     },
     "bookGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/paper_fan.png",
+      "path": "assets/img/paper_fan.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38105,7 +38105,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/normal_bell.png",
+      "path": "assets/img/normal_bell.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38203,7 +38203,7 @@ window.CONFIG = {
     },
     "boxOpenSprite": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__13__1.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__13__1.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38310,7 +38310,7 @@ window.CONFIG = {
     },
     "bookCorrectSprite": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38331,7 +38331,7 @@ window.CONFIG = {
     },
     "bookWrongSprite": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__4.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__4.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38352,7 +38352,7 @@ window.CONFIG = {
     },
     "ballCorrectSprite": {
      "sprite": {
-      "path": "assets/img/green_bell.png",
+      "path": "assets/img/green_bell.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38373,7 +38373,7 @@ window.CONFIG = {
     },
     "ballWrongSprite": {
      "sprite": {
-      "path": "assets/img/red_bell.png",
+      "path": "assets/img/red_bell.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38511,7 +38511,7 @@ window.CONFIG = {
     "ghostDelayPart4": 12,
     "bookGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38532,7 +38532,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart3": {
      "sprite": {
-      "path": "assets/img/Untitled_design__34__2.png",
+      "path": "assets/img/Untitled_design__34__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38553,7 +38553,7 @@ window.CONFIG = {
     },
     "bookGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+      "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38574,7 +38574,7 @@ window.CONFIG = {
     },
     "ballGhostSpritePart4": {
      "sprite": {
-      "path": "assets/img/Untitled_design__34__2.png",
+      "path": "assets/img/Untitled_design__34__2.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
@@ -38711,7 +38711,7 @@ window.CONFIG = {
     "name": "Bell",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__21__7.png",
+     "path": "assets/img/Untitled_design__21__7.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38730,7 +38730,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__21__7.png",
+     "path": "assets/img/Untitled_design__21__7.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38766,7 +38766,7 @@ window.CONFIG = {
     "name": "Paper fan",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__33__6.png",
+     "path": "assets/img/Untitled_design__33__6.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38785,7 +38785,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__33__6.png",
+     "path": "assets/img/Untitled_design__33__6.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38821,7 +38821,7 @@ window.CONFIG = {
     "name": "book",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__21__7__1_.png",
+     "path": "assets/img/Untitled_design__21__7__1_.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38840,7 +38840,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__21__7.png",
+     "path": "assets/img/Untitled_design__21__7.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38874,7 +38874,7 @@ window.CONFIG = {
     "name": "ball",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__33__6__1_.png",
+     "path": "assets/img/Untitled_design__33__6__1_.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38893,7 +38893,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__33__6.png",
+     "path": "assets/img/Untitled_design__33__6.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38927,7 +38927,7 @@ window.CONFIG = {
     "name": "Ribbon",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38946,7 +38946,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -38982,7 +38982,7 @@ window.CONFIG = {
     "name": "Bell",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__34__2.png",
+     "path": "assets/img/Untitled_design__34__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39001,7 +39001,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__34__2.png",
+     "path": "assets/img/Untitled_design__34__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39037,7 +39037,7 @@ window.CONFIG = {
     "name": "book",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39056,7 +39056,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39090,7 +39090,7 @@ window.CONFIG = {
     "name": "ball",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__34__3_1.png",
+     "path": "assets/img/Untitled_design__34__3_1.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39109,7 +39109,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__34__2.png",
+     "path": "assets/img/Untitled_design__34__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39143,7 +39143,7 @@ window.CONFIG = {
     "name": "Bell",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__34__2.png",
+     "path": "assets/img/Untitled_design__34__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39162,7 +39162,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__34__2.png",
+     "path": "assets/img/Untitled_design__34__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39198,7 +39198,7 @@ window.CONFIG = {
     "name": "Paper fan",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/paper_fan.png",
+     "path": "assets/img/paper_fan.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39217,7 +39217,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/paper_fan.png",
+     "path": "assets/img/paper_fan.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39253,7 +39253,7 @@ window.CONFIG = {
     "name": "book",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/Untitled_design__34__3_1.png",
+     "path": "assets/img/Untitled_design__34__3_1.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39272,7 +39272,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/Untitled_design__34__2.png",
+     "path": "assets/img/Untitled_design__34__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39306,7 +39306,7 @@ window.CONFIG = {
     "name": "ball",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__4_1.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__4_1.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39325,7 +39325,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/paper_fan.png",
+     "path": "assets/img/paper_fan.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39359,7 +39359,7 @@ window.CONFIG = {
     "name": "Crown",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/crown.png",
+     "path": "assets/img/crown.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39378,7 +39378,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/crown.png",
+     "path": "assets/img/crown.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39414,7 +39414,7 @@ window.CONFIG = {
     "name": "Ribbon",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39433,7 +39433,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39469,7 +39469,7 @@ window.CONFIG = {
     "name": "ball",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__3.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__3.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39488,7 +39488,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__2.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__2.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39522,7 +39522,7 @@ window.CONFIG = {
     "name": "book",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__4-1.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__4-1.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39541,7 +39541,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/crown.png",
+     "path": "assets/img/crown.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39575,7 +39575,7 @@ window.CONFIG = {
     "name": "Flowers",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/flowers.png",
+     "path": "assets/img/flowers.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39594,7 +39594,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/flowers.png",
+     "path": "assets/img/flowers.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39630,7 +39630,7 @@ window.CONFIG = {
     "name": "Vase",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/vase.png",
+     "path": "assets/img/vase.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39649,7 +39649,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/vase.png",
+     "path": "assets/img/vase.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39685,7 +39685,7 @@ window.CONFIG = {
     "name": "ball",
     "weight": 1,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__9.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__9.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39704,7 +39704,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/vase.png",
+     "path": "assets/img/vase.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39738,7 +39738,7 @@ window.CONFIG = {
     "name": "book",
     "weight": 0.5,
     "itemSprite": {
-     "path": "assets/img/The_Royal_Bloom_Fest__26__7.png",
+     "path": "assets/img/The_Royal_Bloom_Fest__26__7.webp",
      "cropRect": {
       "x": 0,
       "y": 0,
@@ -39757,7 +39757,7 @@ window.CONFIG = {
      }
     },
     "droppedSprite": {
-     "path": "assets/img/flowers.png",
+     "path": "assets/img/flowers.webp",
      "cropRect": {
       "x": 0,
       "y": 0,

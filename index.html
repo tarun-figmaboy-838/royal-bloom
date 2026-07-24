@@ -28,12 +28,11 @@
   <!-- ===== end God Mode ===== -->
 
   <script>
-    // hide loader once fonts + first layout are ready
-    (function () {
-      function hide() { var b = document.getElementById('boot'); if (b) { b.classList.add('hide'); setTimeout(function () { b.remove(); }, 500); } }
-      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { setTimeout(hide, 150); }); }
-      else setTimeout(hide, 600);
-    })();
+    // main.js reveals the game once the first screen's art is decoded (window.__rbHideBoot).
+    // This is only a safety fallback in case the scripts fail to load.
+    setTimeout(function () {
+      (window.__rbHideBoot || function () { var b = document.getElementById('boot'); if (b) b.remove(); })();
+    }, 6000);
   </script>
 </body>
 </html>

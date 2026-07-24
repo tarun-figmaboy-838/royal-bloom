@@ -147,6 +147,32 @@
     });
   });
 
+  // ---- loading: reveal the game only once the FIRST screen's art is decoded (no pop-in), then warm
+  // the first level's assets during idle so "Let's Go" is instant. WebP keeps all of this tiny. ----
+  function preloadDecode(hostId) {
+    return Promise.all(collectAssets(hostId).map(function (src) {
+      return new Promise(function (res) {
+        var im = new Image();
+        im.onload = function () { if (im.decode) im.decode().then(res, res); else res(); };
+        im.onerror = res;
+        im.src = src;
+      });
+    }));
+  }
+  var bootHidden = false;
+  function hideBoot() {
+    if (bootHidden) return; bootHidden = true;
+    var b = document.getElementById("boot");
+    if (b) { b.classList.add("hide"); setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 500); }
+  }
+  window.__rbHideBoot = hideBoot;   // let the HTML fallback share the same guard
+  var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+  Promise.all([fontsReady, preloadDecode(introId || "n2_Intro_1")]).then(hideBoot);
+  setTimeout(hideBoot, 5000);       // safety net if an asset stalls
+  var firstLevel = LEVEL_ORDER[0];  // warm the tutorial while the child reads the intro
+  if (window.requestIdleCallback) requestIdleCallback(function () { preloadLevel(firstLevel); }, { timeout: 4000 });
+  else setTimeout(function () { preloadLevel(firstLevel); }, 1200);
+
   // ---- dev diagnostics (never shown in production) ----
   function diagnostics() {
     var activeLevel = LEVEL_ORDER.filter(function (h) { return E.isActive(h); })[0] || (E.isActive("n2_Intro_1") ? "Intro" : null);

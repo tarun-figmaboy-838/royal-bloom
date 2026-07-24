@@ -46,8 +46,15 @@ var Interaction = (function () {
         // item anywhere NEAR a zone drops it into the nearest one. Makes dragging forgiving.
         var radius = (z.spec && z.spec.acceptDistance ? z.spec.acceptDistance : 0) * s;
         var withinRadius = radius > 0 && dist <= radius;
-        // forgiving acceptance: pointer over zone, item centre over zone, modest overlap, or near enough
-        if (!(pointerInside || centerInside || frac >= 0.18 || withinRadius)) continue;
+        // NEAR acceptance (gamified): if the item is released close to a zone — the gap between the
+        // item box and the zone box is within ~0.6x the item's smaller side — drop it into the nearest
+        // one. So letting go near a pan / basket / wagon snaps it in; you don't need an exact overlap.
+        var gapX = Math.max(0, zr.left - itemRect.right, itemRect.left - zr.right);
+        var gapY = Math.max(0, zr.top - itemRect.bottom, itemRect.top - zr.bottom);
+        var edgeGap = Math.hypot(gapX, gapY);
+        var near = edgeGap <= 0.6 * Math.min(itemRect.width, itemRect.height);
+        // forgiving acceptance: pointer over zone, item centre over zone, modest overlap, near enough, or within acceptDistance
+        if (!(pointerInside || centerInside || frac >= 0.12 || withinRadius || near)) continue;
         if (area > bestArea + 1 || (Math.abs(area - bestArea) <= 1 && dist < bestDist)) {
           best = z; bestArea = area; bestDist = dist;
         }

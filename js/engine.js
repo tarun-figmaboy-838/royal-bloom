@@ -15,7 +15,6 @@ var Engine = (function () {
   var DEV = false;            // dev assertions / logging
 
   function setDev(on) { DEV = !!on; }
-  function devWarn(m) { if (DEV) console.warn("[RB] " + m); }
 
   // ---------------------------------------------------------------- easing
   function lerp(a, b, t) { return a + (b - a) * t; }

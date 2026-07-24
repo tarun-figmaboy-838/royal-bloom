@@ -85,6 +85,12 @@ var Controllers = (function () {
       // exact same image — a doubled genie (the blurry "duplicate hands/beam"). Make the root a
       // logical container only: disable its OWN paint but keep every child (support/beam/arms/pans).
       E.setSelfPaint(rootId, false);
+      // The beam ("plate") node ALSO paints a full hands_bg image ON TOP of its arm-tray children
+      // (plate 1 / plate 2) — a SECOND set of hands over the ones already drawn into the genie body:
+      // the "duplicate hand". Level 1 authored this off (plate image enabled:false); every OTHER
+      // level left it on. Disable the beam's OWN paint everywhere (keeping its tray children and its
+      // rotation) so all levels match Level 1 and never show doubled hands.
+      if (beam) E.setSelfPaint(beam, false);
       // Each pan carries TWO identical dish sprites ("Basket" + "Basket ") stacked on top of each
       // other — a duplicate. Keep the first, hide the extras. Safe: the pan still shows one dish,
       // and (unlike plate1/plate2, which are the arms) this removes only redundant art.
@@ -185,13 +191,10 @@ var Controllers = (function () {
     var featherLantern = aud(f.featherLanternAudio), wrongSFX = aud(f.wrongSFX), boxOpenSFX = aud(f.boxOpenSFX), finalAudio = aud(f.finalScreenAudio);
     var INSTR = {}; for (var j = 1; j <= 8; j++) INSTR[j] = str(f["instruction" + j], "");
     var answerMode = num(f.answerMode, 0);
-    // correct/wrong feedback sprites are authored at the SAME box size as the plain item (e.g.
-    // green_bell.png 170x197 == the bell item box), so we swap-in the glow at scale 1.0 — the item
-    // keeps its exact size on tap, only gaining the glow. Tunable via answerFeedbackScale if needed.
-    var feedbackGlowScale = num(f.answerFeedbackScale, 1.0);
     var isFirstLevel = bool(f.isFirstLevel), isLastLevel = bool(f.isLastLevel);
     var moveUpDistance = num(f.moveUpDistance, 500);
-    var arrowPos = { l1: vec(f.arrow1LeftCorrectPos), l2: vec(f.arrow2LeftCorrectPos), r1: vec(f.arrow1RightCorrectPos), r2: vec(f.arrow2RightCorrectPos) };
+    // (former arrow1/2 Left/RightCorrectPos config removed — the hint arrows are now positioned purely
+    //  from each item's actual placed position, never from static coordinates.)
     var part3HintScale = num(f.part3HintScale, 0.7), part3HintOffset = vec(f.part3HintOffset);
     var dragHintDelay = num(f.dragHintDelay, 5), answerHintDelay = num(f.part3AnswerHintDelay, 5);
     var ghostMoveDuration = num(f.ghostMoveDuration, 1.2), ghostDelayPart4 = num(f.ghostDelayPart4, 6);
@@ -296,23 +299,31 @@ var Controllers = (function () {
       A(ID.messageBar, false);
       if (ID.hintHand) { E.kill(ID.hintHand); A(ID.hintHand, false); }
       if (boxOpenSFX) Audio.playSFX(boxOpenSFX);
-      // Tap response on the FRONT box ONLY. NEVER the shared parent container (which also holds the
-      // back box, glow highlight, lid and hidden items — animating it shook the whole scene). A
-      // subtle scale (0.96) so nothing looks like the scene is shaking; killed first so rapid taps
-      // can't stack (and boxOpened already guards a second open).
-      var tapTarget = ID.boxInteractiveVisual || ID.boxImage;
-      if (tapTarget) {
-        var tr = E.get(tapTarget);
-        if (window.__RB && window.__RB.dev) {
-          console.log("[RB] box tap", { clickedNode: ID.boxButton, animatedNode: tapTarget, animatedNodeName: tr && tr.node && tr.node.name, childCount: tr && tr.children ? tr.children.length : 0 });
-          if (tr && tr.children && tr.children.length > 1) console.warn("[RB] box tap target '" + tapTarget + "' has " + tr.children.length + " children — verify it is the front box only, not a container");
-        }
-        E.kill(tapTarget); S.track(tapTarget);
-        // a decaying rotation SHAKE on the front box only (leaf node — cannot affect other layers)
-        var base0 = tr ? (tr.rt.rot || 0) : 0;
-        E.tween({ dur: 0.4, ease: "Linear", tag: tapTarget,
-          fn: function (e) { E.setRotation(tapTarget, base0 + Math.sin(e * Math.PI * 8) * 6 * (1 - e)); },
-          onComplete: function () { E.setRotation(tapTarget, base0); } });
+      // Tap wobble: rock the CLOSED box as a RIGID unit — the front box AND its lid (cap) together —
+      // so the cap shakes WITH the box. Both leaves rotate about ONE shared pivot (the front-box
+      // centre) and are counter-translated each frame; rotating each about its own centre would tear
+      // the lid off the body. We touch ONLY the box + lid leaves, NEVER the shared container (which
+      // also holds the back box, glow highlight and hidden items — animating it shook the whole scene).
+      var bodyId = ID.boxInteractiveVisual || ID.boxImage;
+      var shakeIds = [bodyId, ID.boxTop].filter(function (id) { return id && E.get(id); });
+      if (shakeIds.length) {
+        var pc = E.centerLogical(bodyId);                        // shared pivot = front-box centre
+        var rest = shakeIds.map(function (id) {
+          E.kill(id); S.track(id);                               // killed first so rapid taps can't stack
+          var r = E.get(id), c = E.centerLogical(id);
+          return { id: id, apx: r.rt.ax, apy: r.rt.ay, rot0: r.rt.rot || 0, cx: c.x, cy: c.y };
+        });
+        // 0.3s < the 340ms reveal delay, so the wobble settles before the lid lifts off.
+        E.tween({ dur: 0.3, ease: "Linear", tag: bodyId,
+          fn: function (e) {
+            var deg = Math.sin(e * Math.PI * 8) * 6 * (1 - e), a = deg * Math.PI / 180, cs = Math.cos(a), sn = Math.sin(a);
+            for (var i = 0; i < rest.length; i++) {
+              var n = rest[i], dx = n.cx - pc.x, dy = n.cy - pc.y;
+              var nx = pc.x + dx * cs - dy * sn, ny = pc.y + dx * sn + dy * cs;
+              E.setAnchoredPos(n.id, n.apx + (nx - n.cx), n.apy - (ny - n.cy)); E.setRotation(n.id, n.rot0 + deg);
+            }
+          },
+          onComplete: function () { for (var i = 0; i < rest.length; i++) { var n = rest[i]; E.setAnchoredPos(n.id, n.apx, n.apy); E.setRotation(n.id, n.rot0); } } });
       }
       S.setTimeout(openBoxReveal, 340);
     }
@@ -414,9 +425,26 @@ var Controllers = (function () {
     function placeOnPan(itemId, zone) {
       placed3[itemId] = { side: zone.spec.isLeftBasket ? "left" : "right", zoneId: zone.id };
       I.setLocked(itemId, true); I.setEnabled(itemId, false);
-      E.reparent(itemId, zone.id);
-      E.setAnchoredPos(itemId, 0, 0); E.setScale(itemId, 1); E.setRotation(itemId, 0);
-      E.setAsLastSibling(itemId);   // explicit slot layering: item sits on top of the pan
+      // Nestle the item INTO the pan's dish. The drop zone is a CHILD of the dish, so an item placed
+      // there sits ON TOP of the bowl. Instead parent the item to the PAN as its FIRST child — BEHIND
+      // the dish sprite — and snap it to the zone's spot, so the bowl's front laps over the item's
+      // lower edge and it reads as seated INSIDE the pan. Full size (scale 1) as before; it rides the
+      // pan when the beam tilts because it is now a child of the pan.
+      E.setScale(itemId, 1); E.setRotation(itemId, 0);
+      var zoneRec = E.get(zone.id), dish = zoneRec && zoneRec.parent, pan = dish && dish.parent;
+      if (pan) {
+        var sc = E.centerLogical(zone.id);
+        E.reparent(itemId, pan.id);
+        E.setStageLocalPos(E.get(itemId), sc.x, sc.y);
+        E.setAsFirstSibling(itemId);   // render BEHIND the dish -> tucked inside the bowl
+        // The dish (bowl) now sits IN FRONT of the nestled item. In the answer phase the item is the
+        // tap target ("Tap the heavier item"), so make the dish + its drop-marker children NON-
+        // interactive — taps pass THROUGH the bowl to the item behind it. Drop detection is geometric
+        // (isInteractableInTree ignores pointer-events), so the other pan can still receive its item.
+        (function off(id) { E.setRaycast(id, false); var r = E.get(id); if (r) (r.children || []).forEach(function (c) { off(c.id); }); })(dish.id);
+      } else {
+        E.reparent(itemId, zone.id); E.setAnchoredPos(itemId, 0, 0); E.setAsLastSibling(itemId);
+      }
       repaintItem(itemId, "dropped");
     }
     function repaintItem(itemId, which) {
@@ -507,20 +535,29 @@ var Controllers = (function () {
       var cb = correctIsBook();
       if (cb != null && selectedBook === cb) correctAnswerFlow(selectedBook); else wrongAnswerFlow(selectedBook);
     }
-    // swap the item's sprite to its correct/wrong GLOW version — SAME size (feedbackGlowScale=1.0),
-    // so tapping an answer never changes the item's size, it only lights up the glow.
-    function showGlow(imgId, sprite) {
-      var r = imgId && E.get(imgId); if (!r || !sprite) return;
+    // Tap feedback on the chosen item: a small SOLID glow (tight bright rim, GREEN=correct /
+    // RED=wrong — no pulse, no smoky blur) plus a little "pop" (a quick bounce that settles back to
+    // the SAME resting size, so nothing is permanently resized). The item's sprite is never changed.
+    function showGlow(imgId, correct) {
+      var r = imgId && E.get(imgId); if (!r) return;
+      var c = correct ? "50,200,80" : "230,45,45";   // green (correct) / red (wrong)
+      r.el.style.filter = "drop-shadow(0 0 3px rgba(" + c + ",1)) drop-shadow(0 0 6px rgba(" + c + ",1)) drop-shadow(0 0 10px rgba(" + c + ",0.85))";
       if (r._preGlowScale == null) r._preGlowScale = r.rt.sx;
-      E.repaintSprite(r, sprite, { preserveAspect: true });          // whole glow visible (contain)
-      E.setScale(imgId, (r._preGlowScale || 1) * feedbackGlowScale); // keep item size (×1.0 by default)
+      var base = r._preGlowScale;
+      E.kill(imgId); E.setScale(imgId, base);
+      E.doScale(imgId, base * 1.1, 0.12, "OutQuad", { onComplete: function () { E.doScale(imgId, base, 0.16, "OutBack"); } });
     }
     function clearGlow(imgId) {
       var r = imgId && E.get(imgId); if (!r) return;
+      r.el.style.filter = "";
+      E.kill(imgId);
       if (r._preGlowScale != null) { E.setScale(imgId, r._preGlowScale); r._preGlowScale = null; }
     }
+    // dim the OTHER (non-chosen) item a little while the chosen one glows; restore on retry/next
+    function dimItem(imgId, dim) { var r = imgId && E.get(imgId); if (r) E.setAlpha(imgId, dim ? 0.5 : 1); }
     async function wrongAnswerFlow(selectedBook) {
-      if (selectedBook) showGlow(ID.bookImg, SPR.bookWrong); else showGlow(ID.ballImg, SPR.ballWrong);
+      if (selectedBook) { showGlow(ID.bookImg, false); dimItem(ID.ballImg, true); }
+      else { showGlow(ID.ballImg, false); dimItem(ID.bookImg, true); }
       await typeText(INSTR[6], AUD[6]);
       await S.wait(1);
       A(ID.tryAgain, true); if (ID.tryAgain) reg(E.onClick(ID.tryAgain, guard2("tryagain", onTryAgain), { key: "tryagain" }));
@@ -529,7 +566,8 @@ var Controllers = (function () {
     function guard2(name, fn) { return function () { if (locks[name]) return; locks[name] = true; fn(function () { locks[name] = false; }); }; }
     function onTryAgain(release) {
       A(ID.tryAgain, false);
-      clearGlow(ID.bookImg); clearGlow(ID.ballImg);                   // undo the glow enlarge
+      clearGlow(ID.bookImg); clearGlow(ID.ballImg);                   // remove glow + settle the pop
+      dimItem(ID.bookImg, false); dimItem(ID.ballImg, false);         // restore the dimmed item to full
       repaintItem(ID.book, "dropped"); repaintItem(ID.ball, "dropped");
       locks.ans = false;              // allow a fresh answer
       replayInstruction5(release);
@@ -542,17 +580,31 @@ var Controllers = (function () {
       answerHintTimer = scheduleAnswerHint();
       if (release) release();          // ready for the next Try Again cycle
     }
+    // Show the Heavier(↓)/Lighter(↑) hint arrows over the EXACT arrangement the child built. The only
+    // source of truth for WHERE each arrow goes is the item's real placed position (placed3 + the
+    // item node's live centre) — never names, answerMode, or static coordinates, and never a second
+    // mirrored layout. Weight only decides WHICH item is heavier (the label). Old arrows are cleared
+    // first so only the current arrangement is ever shown. Purely per-item => works on every level.
+    function placeHintArrow(arrowId, itemId) {
+      if (!arrowId || !itemId || !E.get(arrowId) || !E.get(itemId)) return;
+      var ic = E.centerLogical(itemId);                 // the item's ACTUAL placed position
+      var outward = ic.x < 960 ? -1 : 1;                // push the label to the pan's outer side (stage centre = 960)
+      E.setStageLocalPos(E.get(arrowId), ic.x + outward * 245, ic.y - 15);
+      A(arrowId, true); S.track(arrowId); E.setScale(arrowId, 0); E.doScale(arrowId, 1, 0.5, "OutBack");
+    }
+    function showMeasureHint() {
+      [ID.arrow1, ID.arrow2].forEach(function (id) { if (id) { E.kill(id); A(id, false); } });   // clear old hint nodes
+      var heavier = weight(ID.ball) >= weight(ID.book) ? ID.ball : ID.book;   // weight -> label only
+      var lighter = heavier === ID.ball ? ID.book : ID.ball;
+      placeHintArrow(ID.arrow1, heavier);   // arrow1 = Heavier (↓) -> over the heavier item, wherever it sits
+      placeHintArrow(ID.arrow2, lighter);   // arrow2 = Lighter (↑) -> over the lighter item, wherever it sits
+    }
     async function correctAnswerFlow(selectedBook) {
-      if (selectedBook) showGlow(ID.bookImg, SPR.bookCorrect); else showGlow(ID.ballImg, SPR.ballCorrect);
+      if (selectedBook) { showGlow(ID.bookImg, true); dimItem(ID.ballImg, true); }
+      else { showGlow(ID.ballImg, true); dimItem(ID.bookImg, true); }
       await typeText(INSTR[7], AUD[7]);
-      var cb = correctIsBook();
-      var correctOnLeft = cb ? (placed3[ID.book] && placed3[ID.book].side === "left") : (placed3[ID.ball] && placed3[ID.ball].side === "left");
       part3BallLeft = !!(placed3[ID.ball] && placed3[ID.ball].side === "left");
-      if (correctOnLeft) { if (ID.arrow1) E.setAnchoredPos(ID.arrow1, arrowPos.l1.x, arrowPos.l1.y); if (ID.arrow2) E.setAnchoredPos(ID.arrow2, arrowPos.l2.x, arrowPos.l2.y); }
-      else { if (ID.arrow1) E.setAnchoredPos(ID.arrow1, arrowPos.r1.x, arrowPos.r1.y); if (ID.arrow2) E.setAnchoredPos(ID.arrow2, arrowPos.r2.x, arrowPos.r2.y); }
-      A(ID.arrow1, true); A(ID.arrow2, true);
-      if (ID.arrow1) { S.track(ID.arrow1); E.setScale(ID.arrow1, 0); E.doScale(ID.arrow1, 1, 0.5, "OutBack"); }
-      if (ID.arrow2) { S.track(ID.arrow2); E.setScale(ID.arrow2, 0); E.doScale(ID.arrow2, 1, 0.5, "OutBack"); }
+      showMeasureHint();          // Heavier↓ / Lighter↑ arrows over the pans the child actually built
       await S.wait(1);
       A(ID.nextP3, true); showNextButtonHint(ID.nextP3);
     }
@@ -617,16 +669,18 @@ var Controllers = (function () {
         if (part4Correct(itemId, zone)) {
           placed4[itemId] = true;
           I.setLocked(itemId, true); I.setEnabled(itemId, false);
-          // Reparent onto TOP of the basket/wagon container (above the front art, never hidden),
-          // then SIZE the item to fit its authored ghost marker (n187_Ribbon / n182_Bell) and SNAP
-          // to that marker's center. The markers ARE the design's "this goes here" placeholders at
-          // the intended in-container size, so matching them keeps items INSIDE the basket/wagon
-          // instead of overflowing onto the rim (a fixed 0.82 made items ~30% too big -> "outside").
-          var placeLayer = zone.spec.isBasket ? ID.basket : ID.trolley;
+          // Nestle the item INSIDE the basket/wagon: place it in the SAME layer as its ghost marker
+          // (the BACK basket/wagon layer), so the FRONT art draws over its lower edge and it looks
+          // tucked in — not pasted on the front. Size it to the ghost's box and snap to the ghost's
+          // centre (which peeks above the rim), so it lands exactly where the marker shows — visible,
+          // never hidden. It's the last child of the back layer (above the ghost + decorations) but
+          // still behind the front art (a later sibling of the back layer). Then hide the ghost.
           var slot = zone.spec.isBasket ? ID.basketDrop : ID.trolleyDrop;
-          E.reparent(itemId, (placeLayer && E.get(placeLayer)) ? placeLayer : zone.id);
+          var slotRec = slot && E.get(slot);
+          var placeLayer = (slotRec && slotRec.parent) ? slotRec.parent.id : (zone.spec.isBasket ? ID.basket : ID.trolley);
+          E.reparent(itemId, (E.get(placeLayer) ? placeLayer : zone.id));
           E.setRotation(itemId, 0); E.setAsLastSibling(itemId);
-          if (slot && E.get(slot)) {
+          if (slotRec) {
             var sr = E.getRect(slot), ir = E.getRect(itemId);
             var fit = (sr && ir && ir.sdX > 0 && ir.sdY > 0) ? Math.min(sr.sdX / ir.sdX, sr.sdY / ir.sdY) : 0.82;
             E.setScale(itemId, (isFinite(fit) && fit > 0) ? fit : 0.82);   // match the ghost marker's box
@@ -681,7 +735,17 @@ var Controllers = (function () {
     async function showFinalScreen() {
       await S.wait(1);
       if (ID.finalScreen) A(ID.finalScreen, true);
-      if (ID.finalEffect) { A(ID.finalEffect, true); confettiToken = { cancelled: false }; E.confettiBurst(ID.finalEffect, confettiToken); }
+      if (ID.finalEffect) {
+        A(ID.finalEffect, true);
+        confettiToken = { cancelled: false };
+        // Golden stars burst ACROSS the scene (over the path), not from the bottom-left corner where
+        // the effect node is authored. Re-anchor the blast to a few spread points around centre so it
+        // celebrates over the whole final picture. confettiBurst reads the node's position each call.
+        [{ x: 620, y: 470 }, { x: 960, y: 380 }, { x: 1300, y: 470 }].forEach(function (pt) {
+          E.setStageLocalPos(E.get(ID.finalEffect), pt.x, pt.y);
+          E.confettiBurst(ID.finalEffect, confettiToken);
+        });
+      }
       if (finalAudio) Audio.startNarration(finalAudio);
     }
     function startSmartGhostP4() {
@@ -693,9 +757,13 @@ var Controllers = (function () {
     function startGhostP4(itemId) {
       var cmp = compareWeights(weight(itemId), weight(otherP4(itemId)));
       var toBasket = cmp < 0;                       // lighter -> basket
-      var startId = itemId === ID.part4ItemA ? (nid(f.bookStartPointPart4)) : (nid(f.ballStartPointPart4));
+      var isItemA = itemId === ID.part4ItemA;
+      var startId = isItemA ? (nid(f.bookStartPointPart4)) : (nid(f.ballStartPointPart4));
       var endId = toBasket ? ID.basketDrop : ID.trolleyDrop;
-      startGhost(startId || itemId, endId, toBasket, true);
+      // ghost SPRITE must match the item being demoed (A vs B), while the DESTINATION follows weight
+      // (lighter->basket). Previously the sprite was keyed on toBasket, which only lined up while item
+      // A was always the lighter one — item-based keeps the demoed picture correct regardless.
+      startGhost(startId || itemId, endId, isItemA, true);
     }
     function schedulePart4Hint() {
       return S.setTimeout(function () {

@@ -92,9 +92,11 @@ async function runViewport(vp, full) {
     const pans = part3Pans(host); const answerMode = f.answerMode;
 
     ok(await until(() => (elById(boxBtn).listeners.click || []).length > 0, 9000), label + host + ": box interactive");
-    // box tap must animate the FRONT box only — its animated node must be a leaf, never the
-    // shared container (which would shake the back box / glow / lid / hidden items)
-    { const bi = nid(f.boxInteractiveVisual) || nid(f.boxImage); ok(E.get(bi).children.length === 0, label + host + ": box tap target is a leaf (front box only, not the container)"); }
+    // box tap rocks the front box AND its lid together, each a LEAF — never the shared container
+    // (which would shake the back box / glow / hidden items). Both animated nodes must be leaves.
+    { const bi = nid(f.boxInteractiveVisual) || nid(f.boxImage), bt = nid(f.boxTop);
+      ok(E.get(bi).children.length === 0, label + host + ": box tap target is a leaf (front box, not the container)");
+      if (bt) ok(E.get(bt).children.length === 0, label + host + ": box lid is a leaf (shakes rigidly with the box, not the container)"); }
     click(boxBtn);
     ok(await until(() => E.isActive(nextP2), 12000), label + host + ": Part2 Next");
     // Part 2 name scrolls must OPEN (parchment + centered name), not sit closed with rollers only
@@ -104,11 +106,13 @@ async function runViewport(vp, full) {
       const side = k === 0 ? "left" : "right";
       ok(parch && E.isActive(parch), label + host + ": " + side + " scroll parchment open");
       ok(txt && E.isActive(txt) && (E.get(txt)._tmpInner || {}).textContent.trim().length > 0, label + host + ": " + side + " scroll name shown");
-      // the name shown must MATCH this level's item (regression guard: the tutorial used to show
-      // "Lantern"/"Feather" while its items were Bell/Paper fan). lantern<->book, feather<->ball.
-      { const dgl = CFG.draggables[k === 0 ? book : ball]; const want = ((dgl && dgl.itemData && dgl.itemData.name) || "").trim();
-        const got = ((E.get(txt)._tmpInner || {}).textContent || "").trim();
-        ok(want && got === want, label + host + ": " + side + " scroll name matches item (\"" + got + "\" == \"" + want + "\")"); }
+      // the name shown must match the DISPLAYED item — the card IMAGE — not the internal
+      // itemData.name. The tutorial's cards are a Lantern + Feather even though their itemData is
+      // Bell/Paper fan (it was cloned from Level 2 with only sprites+names swapped). Snapshot the
+      // real displayed names so accidental text drift (either direction) is caught.
+      { const EXPECT = { n5_Tutorial: ["Lantern", "Feather"], n105_Level_1: ["Ribbon", "Bell"], n206_Level_2: ["Bell", "Paper fan"], n307_Level_3: ["Crown", "Ribbon"], n410_Level_4: ["Flowers", "Vase"] };
+        const want = (EXPECT[host] || [])[k]; const got = ((E.get(txt)._tmpInner || {}).textContent || "").trim();
+        if (want) ok(got === want, label + host + ": " + side + " scroll name is \"" + want + "\" (got \"" + got + "\")"); }
       ok(txt && E.get(txt).el.style.textAlign === "center", label + host + ": " + side + " scroll name centered");
       ok(root && E.get(root).el.style.backgroundImage === "none", label + host + ": " + side + " closed-scroll sprite hidden (no duplicate)");
     });
@@ -116,7 +120,23 @@ async function runViewport(vp, full) {
     ok(await until(() => E.get(ball)._drag.enabled, 15000), label + host + ": ball enabled");
     // genie scale root must NOT paint its own (duplicate) full genie image — only its children draw
     const scId = f.scaleController && f.scaleController.node;
-    if (scId) ok(E.get(scId).el.style.backgroundImage === "none", label + host + ": scale root self-paint disabled (no doubled genie)");
+    if (scId) {
+      ok(E.get(scId).el.style.backgroundImage === "none", label + host + ": scale root self-paint disabled (no doubled genie)");
+      // and the beam ("plate") must NOT paint hands_bg over its trays — that is the duplicate hand
+      const beam = E.childByName(scId, "plate");
+      if (beam) ok(E.get(beam).el.style.backgroundImage === "none", label + host + ": beam self-paint disabled (no duplicate hands)");
+      // the two Part-3 item cards must be fully ON-SCREEN and not overlapping each other (positions
+      // are author-tunable per level, so we sanity-check placement rather than enforce symmetry)
+      const items = E.childByName(scId, "items");
+      const cardL = items && E.childByName(items, "Item 2"), cardR = items && E.childByName(items, "Item 1");
+      if (cardL && cardR) {
+        const lw = E.worldRectLogical(cardL), rw = E.worldRectLogical(cardR);
+        const onScreen = (w2) => w2 && w2.x >= -5 && w2.y >= -5 && w2.x + w2.w <= 1925 && w2.y + w2.h <= 1085;
+        ok(onScreen(lw) && onScreen(rw), label + host + ": both item cards on-screen");
+        const overlap = lw && rw && lw.x < rw.x + rw.w && rw.x < lw.x + lw.w && lw.y < rw.y + rw.h && rw.y < lw.y + lw.h;
+        ok(!overlap, label + host + ": item cards do not overlap");
+      }
+    }
     // blur mid-drag must fully tear down (spec #6): drag clears and the item stays draggable after
     elById(ball).dispatchEvent(env.makeEvent("pointerdown", { clientX: 400, clientY: 400, pointerId: 7 }));
     env.window.dispatchEvent(env.makeEvent("blur"));
@@ -127,6 +147,10 @@ async function runViewport(vp, full) {
     ok(await until(() => I.isLocked(ball), 4000), label + host + ": ball placed");
     // dropped item must render letterbox-fit (contain) so sprite swaps never stretch/resize it
     ok((E.get(nid(f.ballImage) || ball)._img || {}).preserveAspect === true, label + host + ": dropped item uses contain (no distort)");
+    // placed item must NESTLE behind the pan's dish (the bowl laps over its lower edge = seated inside)
+    { const it = E.get(ball), zr = E.get(pans.right), dish = zr && zr.parent;
+      if (dish && it.parent === dish.parent) { const ii = it.parent.children.indexOf(it), di = it.parent.children.indexOf(dish);
+        ok(ii >= 0 && di >= 0 && ii < di, label + host + ": Part3 item nestled behind the dish (seated in the pan, not on top)"); } }
     // second item cannot occupy the same pan
     ok(await until(() => E.get(book)._drag.enabled, 12000), label + host + ": book enabled");
     if (testWrong) { dragToZone(book, pans.right); ok(!I.isLocked(book), label + host + ": second item rejected from occupied pan"); }
@@ -153,16 +177,24 @@ async function runViewport(vp, full) {
         if (k < 2) click(correctIsBook ? ballAns : bookAns);
       }
     }
+    const selIdx = correctIsBook ? 0 : 1;
+    const selImg = ansImgs[selIdx], otherImg = ansImgs[1 - selIdx];
     click(correctIsBook ? bookAns : ballAns);
-    // spec #14: selecting an answer must NOT change the item's size — no fade, no shrink AND no
-    // enlarge. The glow sprites are authored at the item's own box size, so they swap in at the same
-    // scale (glow appears, size stays put). Assert the scale is unchanged in either direction.
-    ansImgs.forEach((id, i) => {
-      const r = E.get(id);
-      ok(!/opacity\(0?\.\d|grayscale/.test(r.el.style.filter || ""), label + host + ": answer item " + id + " not faded on select");
-      ok(Math.abs(r.rt.sx - ansBefore[i]) < 0.01, label + host + ": answer item " + id + " size unchanged on select (was " + ansBefore[i] + ", now " + r.rt.sx + ")");
-    });
+    // tap feedback: the chosen item gets a SOLID glow (drop-shadow, NOT the old pulse class) and its
+    // sprite is never swapped; the OTHER item dims a little (opacity < 1) but must not glow.
+    ok(/drop-shadow/.test(E.get(selImg).el.style.filter || ""), label + host + ": tapped item shows a solid red/green glow");
+    ok(!E.get(selImg).el.classList.contains("rb-answer-glow"), label + host + ": glow is solid (no pulse animation)");
+    ok(parseFloat(E.get(otherImg).el.style.opacity || "1") < 1, label + host + ": non-tapped item dims a little while the other glows");
+    ok(!/drop-shadow/.test(E.get(otherImg).el.style.filter || ""), label + host + ": non-tapped item does not glow");
     ok(await until(() => E.isActive(nextP3), 12000), label + host + ": correct -> Part3 Next");
+    // the little "pop" must SETTLE back — the tapped item returns to its pre-answer resting size
+    ok(Math.abs(E.get(selImg).rt.sx - ansBefore[selIdx]) < 0.01, label + host + ": tapped-item pop settled back to resting size (" + ansBefore[selIdx] + ")");
+    // the Heavier(down) arrow must sit on the same side as the heavier ITEM's ACTUAL placed position
+    // (derived from the live item, not an assumed side) — the hint follows the child's placement.
+    { const a1 = nid(f.arrow1); if (a1 && E.isActive(a1)) {
+        const heavierItem = weightOf(ball) >= weightOf(book) ? ball : book;
+        const itemLeft = E.centerLogical(heavierItem).x < 960, arrowLeft = E.centerLogical(a1).x < 960;
+        ok(itemLeft === arrowLeft, label + host + ": Heavier arrow on the heavier item's actual side (item " + (itemLeft ? "L" : "R") + ", arrow " + (arrowLeft ? "L" : "R") + ")"); } }
     click(nextP3);
     ok(await until(() => E.get(p4a)._drag.enabled && RB.gmByHost[host].diagnostics().ready4, 22000), label + host + ": Part4 ready");
     // Part 4 drop targets must be invisible hit areas, not pre-placed item sprites (Bug D)
@@ -184,9 +216,15 @@ async function runViewport(vp, full) {
     }
     dragToZone(lighter, basketDrop);
     ok(await until(() => RB.gmByHost[host].diagnostics().placed4 >= 1, 4000), label + host + ": lighter->basket");
-    // placed item must sit ON TOP of the basket container (last sibling), not inside the back layer
-    // where the front basket art would hide it ("item vanished")
-    { const lr = E.get(lighter), bc = E.get(nid(f.basket)); ok(lr.parent === bc && bc.children[bc.children.length - 1] === lr, label + host + ": placed item is on top of basket container (visible, not behind)"); }
+    // placed item must NESTLE inside the basket: parented into the SAME (back) layer as its ghost
+    // marker, last sibling there (above ghost + decorations), while the FRONT basket art is a later
+    // sibling of that layer — so the front rim draws over the item's lower edge (tucked in, not
+    // pasted on the front) yet it stays visible where the ghost peeked above the rim.
+    { const lr = E.get(lighter), slot = E.get(basketDrop);
+      ok(slot && lr.parent === slot.parent, label + host + ": placed item nestled in its ghost marker's (back) layer");
+      const back = lr.parent, grand = back && back.parent, bi = grand ? grand.children.indexOf(back) : -1;
+      ok(bi >= 0 && bi < grand.children.length - 1, label + host + ": front basket art draws over the nestled item (item behind front layer)");
+      ok(back.children[back.children.length - 1] === lr, label + host + ": placed item above ghost/decorations within the back layer"); }
     dragToZone(heavier, trolleyDrop);
     ok(await until(() => RB.gmByHost[host].diagnostics().placed4 >= 2, 4000), label + host + ": heavier->wagon");
     // placed items must be SIZED to their ghost marker's box (so they sit INSIDE the basket/wagon,
