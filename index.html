@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Royal Bloom</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="boot">Loading Royal Bloom…</div>
+  <div id="viewport">
+    <div id="stage" role="application" aria-label="Royal Bloom balance-scale game"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/audio-manager.js"></script>
+  <script src="js/interaction.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- ===== God Mode (dev/design tool) — delete this block to ship the learner build ===== -->
+  <link rel="stylesheet" href="god-mode/god-mode.css" />
+  <script src="god-mode/god-mode-utils.js"></script>
+  <script src="god-mode/god-mode-live-editor.js"></script>
+  <script src="god-mode/god-mode.js"></script>
+  <!-- ===== end God Mode ===== -->
+
+  <script>
+    // hide loader once fonts + first layout are ready
+    (function () {
+      function hide() { var b = document.getElementById('boot'); if (b) { b.classList.add('hide'); setTimeout(function () { b.remove(); }, 500); } }
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { setTimeout(hide, 150); }); }
+      else setTimeout(hide, 600);
+    })();
+  </script>
+</body>
+</html>
