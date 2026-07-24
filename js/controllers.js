@@ -256,6 +256,10 @@ var Controllers = (function () {
       if (S) S.dispose();
       S = LevelSession();
       resetRuntimeState();
+      // Warm each VO clip's metadata up front so typeText always knows the real duration and can spread
+      // the letters across it (text finishes exactly when the voice does). Without this, a cold clip can
+      // miss the 1.5s prepare window and the text falls back to a fixed speed -> out of sync with the VO.
+      Object.keys(AUD).forEach(function (k) { if (AUD[k]) Audio.prepareNarration(AUD[k]); });
       if (scaleCtrl && scaleCtrl.reset) scaleCtrl.reset(true);   // snap scale to balanced (no drift on re-entry)
       // reset this level's draggables to their original slots + sprites (clean re-entry)
       [ID.book, ID.ball, ID.part4ItemA, ID.part4ItemB].forEach(function (did) { if (did) { I.resetToInitial(did); repaintItem(did, "item"); } });

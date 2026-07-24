@@ -29,8 +29,9 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **Cursor — disabled**: non-interactive/greyed elements do **not** show a hand
 - [ ] **No console errors/warnings** at any point
 - [ ] **Genie**: exactly one genie, one set of hands — no doubled/blurry duplicate (all screens)
-- [ ] **Instruction bar**: left-aligned, full opacity, brown, not clipped, updates every phase
+- [ ] **Instruction bar**: left-aligned, full opacity, brown, updates every phase; **text fully shown — no clipped descenders** (the tails of g/y/p/j are not cut off), no clipped ascenders
 - [ ] **Audio**: BGM loops after Let's Go; narration per phase; box/drop SFX; no overlap/stacking
+- [ ] **VO ↔ text sync**: on every instruction, the typing is paced to the voice clip — the text finishes **as the voice finishes** (not way before/after); the correct clip plays for the shown text
 - [ ] No duplicate listeners/timers after repeated play (drag, blur, revisit)
 
 ---

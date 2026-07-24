@@ -250,7 +250,11 @@ var Engine = (function () {
     // display:flex comes from the .tmp class so setActive("") toggling still works
     el.style.justifyContent = TMP_ALIGN_H[h] || "flex-start";
     el.style.textAlign = h === 2 ? "center" : h === 4 ? "right" : "left";
-    el.style.alignItems = tmp.alignV >= 512 ? "flex-end" : (tmp.alignV >= 256 ? "center" : "flex-start");
+    // Vertically CENTER single-line labels regardless of the authored vertical anchor. Bottom-anchoring
+    // (alignV 512) in a box only a little taller than the font pushes the baseline to the floor, so the
+    // font's descenders (g, y, p, j) spill past the bottom and overflow:hidden clips their tails. Centering
+    // keeps the whole glyph — ascenders and descenders — inside the box.
+    el.style.alignItems = "center";
     inner.style.fontFamily = "'GameFont', sans-serif";
     inner.style.fontSize = (tmp.fontSize) + "px";
     inner.style.lineHeight = (1 + (tmp.lineSpacing || 0) / 100);

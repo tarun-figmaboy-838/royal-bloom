@@ -166,6 +166,8 @@ async function runViewport(vp, full) {
     const instrNode = nid(f.instructionText), instrRec = instrNode && E.get(instrNode);
     const instrText = instrRec && instrRec._tmpInner ? instrRec._tmpInner.textContent : "";
     ok(instrText === f.instruction5, label + host + ": instruction advanced to Part3 answer ('" + f.instruction5 + "', got '" + instrText + "')");
+    // text must be vertically CENTERED so descenders (g/y/p/j) aren't clipped by the tight box + overflow:hidden
+    ok(instrRec && instrRec.el.style.alignItems === "center", label + host + ": instruction text vertically centered (descenders not clipped)");
     const bookLighter = weightOf(book) < weightOf(ball);
     const correctIsBook = answerMode === 0 ? bookLighter : !bookLighter;
     // spec #14: selecting an answer must not fade or shrink either item — capture state pre-answer
