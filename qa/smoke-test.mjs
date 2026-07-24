@@ -216,7 +216,10 @@ async function runViewport(vp, full) {
       { const p3 = nid(f.part3Object), p4 = nid(f.part4Object), a1 = nid(f.arrow1);
         ok(E.isActive(p3) && !E.isActive(p4), label + host + ": wrong-drop shows the live weighing (part3 on, part4 off)");
         if (a1 && E.isActive(a1)) { const hv = weightOf(ball) >= weightOf(book) ? ball : book;
-          ok((E.centerLogical(hv).x < 960) === (E.centerLogical(a1).x < 960), label + host + ": wrong-hint Heavier arrow matches the child's placement"); } }
+          ok((E.centerLogical(hv).x < 960) === (E.centerLogical(a1).x < 960), label + host + ": wrong-hint Heavier arrow matches the child's placement"); }
+        // the hint is neutral: BOTH items plain (no leftover answer glow, no dim) so neither is favoured
+        [nid(f.bookImage), nid(f.ballImage)].forEach((im) => { if (!im) return; const el = E.get(im).el;
+          ok(!el.style.filter && String(el.style.opacity || "1") === "1", label + host + ": hint item " + im + " plain (no glow/dim)"); }); }
       await env.advance(3200);                                  // rest of reminder + restore
       ok(E.isActive(nid(f.part4Object)) && !E.isActive(nid(f.part3Object)), label + host + ": Part4 restored after wrong hint");
       ok(RB.gmByHost[host].diagnostics().placed4 === 0, label + host + ": item restored after wrong Part4");

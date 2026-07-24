@@ -435,7 +435,9 @@ var Controllers = (function () {
       if (pan) {
         var sc = E.centerLogical(zone.id);
         E.reparent(itemId, pan.id);
-        E.setStageLocalPos(E.get(itemId), sc.x, sc.y);
+        // seat the item a touch HIGHER than the raw zone centre so its lower art tucks fully inside the
+        // bowl instead of poking under the front rim (the drop spot sits low in the dish).
+        E.setStageLocalPos(E.get(itemId), sc.x, sc.y - 14);
         E.setAsFirstSibling(itemId);   // render BEHIND the dish -> tucked inside the bowl
         // The dish (bowl) now sits IN FRONT of the nestled item. In the answer phase the item is the
         // tap target ("Tap the heavier item"), so make the dish + its drop-marker children NON-
@@ -712,6 +714,9 @@ var Controllers = (function () {
       if (on) {
         A(ID.part4, false); A(ID.messageBar, false);          // hide the sorting scene + its instruction
         A(ID.part3, true);                                     // bring back the live weighing
+        // the hint is a neutral reminder: clear the leftover answer glow + un-dim so BOTH items read
+        // equally (no green glow on one, no faded other) — the arrows alone tell heavier vs lighter.
+        [ID.bookImg, ID.ballImg].forEach(function (id) { clearGlow(id); dimItem(id, false); });
         if (scaleCtrl && scaleCtrl.playState) scaleCtrl.playState(part3TiltState(), true);  // instant tilt = child's placement
         showMeasureHint();                                     // Heavier(↓)/Lighter(↑) over the real items
       } else {
