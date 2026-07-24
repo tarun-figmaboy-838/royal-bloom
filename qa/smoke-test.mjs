@@ -38,7 +38,8 @@ const VIEWPORTS = [
   { name: "1280x720 mouse", width: 1280, height: 720 },
   { name: "1024x768 tablet touch", width: 1024, height: 768, touch: true },
   { name: "iPad 1180x820 touch", width: 1180, height: 820, touch: true },
-  { name: "Android 1280x800 touch", width: 1280, height: 800, touch: true }
+  { name: "Android 1280x800 touch", width: 1280, height: 800, touch: true },
+  { name: "phone 844x390 landscape touch", width: 844, height: 390, touch: true }   // smallest device, widest aspect
 ];
 
 async function runViewport(vp, full) {

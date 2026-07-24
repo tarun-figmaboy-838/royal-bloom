@@ -13,6 +13,14 @@
     <div id="stage" role="application" aria-label="Royal Bloom balance-scale game"></div>
   </div>
 
+  <!-- Landscape game: on a portrait phone/tablet the 16:9 stage would be tiny, so ask for a turn. -->
+  <div id="rotate" aria-hidden="true">
+    <div class="rotate-inner">
+      <div class="rotate-phone">📱</div>
+      <p>Please turn your device sideways<br />to play Royal Bloom</p>
+    </div>
+  </div>
+
   <script src="js/data.js"></script>
   <script src="js/engine.js"></script>
   <script src="js/audio-manager.js"></script>

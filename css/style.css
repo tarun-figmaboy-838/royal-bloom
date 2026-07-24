@@ -21,8 +21,9 @@ html, body {
 #viewport {
   position: fixed; inset: 0;
   width: 100vw; height: 100vh;
+  height: 100dvh;                 /* track mobile browser UI (address bar) collapse */
   overflow: hidden;
-  background: #000;
+  background: #14101f;            /* themed letterbox bars (matches the boot screen) */
   /* respect device safe-area insets (notches) without distorting the 16:9 stage */
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
@@ -76,6 +77,21 @@ html, body {
   transition: opacity .4s ease;
 }
 #boot.hide { opacity: 0; pointer-events: none; }
+
+/* rotate-to-landscape prompt: only on touch devices held in portrait (the game is landscape). */
+#rotate { display: none; }
+@media (orientation: portrait) and (pointer: coarse) {
+  #rotate {
+    display: flex; position: fixed; inset: 0; z-index: 100;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 6vw; background: #14101f; color: #ffd9a0;
+  }
+  #viewport { visibility: hidden; }   /* hide the (tiny) portrait game behind the prompt */
+}
+.rotate-inner { max-width: 80vw; }
+.rotate-phone { font-size: 22vw; line-height: 1; animation: rb-turn 2.2s ease-in-out infinite; }
+.rotate-inner p { margin-top: 5vw; font-size: 5.5vw; line-height: 1.5; letter-spacing: 1px; }
+@keyframes rb-turn { 0%, 35% { transform: rotate(0); } 55%, 100% { transform: rotate(-90deg); } }
 
 /* Part-4 wrong-drop "let's weigh again" hint, presented as a centered gamified CARD (not full-screen).
  * Part 3 is scaled down + framed: rounded corners, a white inner ring, a soft blue halo and a drop
