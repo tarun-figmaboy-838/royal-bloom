@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**909 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1094 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **909 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1094 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -31,6 +31,8 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **Genie**: exactly one genie, one set of hands — no doubled/blurry duplicate (all screens)
 - [ ] **Instruction bar**: left-aligned, full opacity, brown, updates every phase; **text fully shown — no clipped descenders** (the tails of g/y/p/j are not cut off), no clipped ascenders
 - [ ] **Audio**: BGM loops after Let's Go; narration per phase; box/drop SFX; no overlap/stacking
+- [ ] **Audio mix**: the music sits **behind** the voice — every VO line is clearly intelligible on a phone speaker; BGM **ducks** while narration plays and comes back within ~0.5 s (no click, never stuck quiet, correct level after a tab-out)
+- [ ] **No empty containers**: on a **cold cache / hard reload**, every card, scroll, basket and wagon appears **with** its art — never an empty blue box that fills in a beat later (worst case: first visit to each level; re-check on a throttled connection)
 - [ ] **VO ↔ text sync**: on every instruction, the typing is paced to the voice clip — the text finishes **as the voice finishes** (not way before/after); the correct clip plays for the shown text
 - [ ] No duplicate listeners/timers after repeated play (drag, blur, revisit)
 
@@ -43,6 +45,8 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] Phone / tablet **landscape**: full flow is playable at small sizes (down to ~844×390)
 - [ ] Phone / tablet **portrait** (touch): a **"turn your device sideways"** prompt covers the screen; rotating to landscape reveals the game
 - [ ] Mobile: no pinch-zoom, no rubber-band scroll, no text selection; address-bar collapse doesn't clip the stage (uses `dvh`)
+- [ ] **Framing never changes mid-session**: at a fixed window size the visible framing is identical on intro → Part 1 → 2 → 3 → 4 → final (compare screenshots); nothing is cropped at the edges
+- [ ] Framing survives **rotate, address-bar collapse, tab-out → tab-in, and the Part-4 hint card** — no stale/zoomed scale afterwards
 - [ ] Notch / safe-area respected (no art under a notch)
 - [ ] **Reduced motion** (OS setting on): animations calm, confetti hidden, glow does not pulse
 
@@ -66,18 +70,21 @@ Tick every box. Anything unchecked is a blocker.
 
 ### Part 2 — item names
 - [ ] Each name scroll **unrolls like a scroll** — starts as a thin strip and unfurls **wide** (not just a uniform pop), with a slight bounce
+- [ ] **No sparkles on this screen** — the name reveal is calm; stars still burst on box-open, Part-4 drops and the finale
 - [ ] **Each name matches its picture** (e.g. Tutorial: Lantern + Feather; L1: Ribbon + Bell)
 - [ ] Rollers stay attached to the parchment; both scrolls have identical layout; centered name fades in; nothing detached or doubled
 
 ### Part 3 — weigh & answer
 - [ ] Drag each item onto a pan — **drops when released near the pan** (not only on exact overlap)
 - [ ] Placed item **nestles inside the pan** (bowl rim laps over its lower edge); **no part pokes under the pan**
+- [ ] **Every item rests in the bowl — no air gap under it.** Check the **short** items especially (the ribbon), on the **left** pan and the **right** pan, before and after the beam tilts
 - [ ] Scale tilts so the **heavier side goes down** — matching where you placed the items
 - [ ] A **drag-guide hand** demonstrates the drag if the child waits (Part 3)
 - [ ] Instruction "Tap the heavier item" / "Tap the lighter item" matches the level
 - [ ] **You can tap the item on the pan** to answer (not blocked by the dish); item shows the **hand** cursor
 - [ ] **Correct** tap → vivid **green** solid glow + a little **pop** on that item (no pulsing)
 - [ ] **Wrong** tap → vivid **red** solid glow + pop → "Oops! Try again" → retry works
+- [ ] **Try Again appears WITH the "Oops!" line** (pops in within ~0.25 s, not a second later), is immediately tappable, and does not shrink across repeated retries
 - [ ] Choosing one item **fades the other** a little while the chosen one glows; retry restores both
 - [ ] Correct answer → **Heavier↓ / Lighter↑ arrows** appear over the pans, matching placement — verify with the heavy item on the **left** AND on the **right**
 - [ ] Next button shows
@@ -86,6 +93,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] The two item cards are shown; a **drag-guide hand** demonstrates the drag if the child waits (works in Part 4, not only Part 3)
 - [ ] Drag lighter item → basket, heavier item → wagon (**drops when near**); items show the **hand** cursor
 - [ ] Correct drop → item **nestles inside** the basket/wagon (behind the front art), sensible size, never floating on front or vanishing
+- [ ] Correct drop **plays a short sound** as the item lands (basket and wagon); two drops in a row don't stack into noise; the sound doesn't fight the VO
 - [ ] The "ghost" hint item hides once the real item covers it
 - [ ] **Wrong container → gamified HINT CARD:**
   - [ ] A centered **framed card** pops in over a **blurred copy of the scene** (not full-screen, not a flat dim)
@@ -132,6 +140,13 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] Drag-guide hand appears in **both** Part 3 and Part 4 (was hidden in Part 4)
 - [ ] Final stars burst over the scene
 - [ ] Hand cursor on every interactive element; grabbing while dragging; no stuck cursor
+- [ ] BGM is a quiet bed and ducks under narration (it used to play at full volume and drown the voice)
+- [ ] Cards/containers are never revealed before their art is drawn (lazy-painted sprites are warmed first)
+- [ ] Try Again appears with the "Oops!" line, not a second after it
+- [ ] **Short items (ribbon) rest in the pan / basket / wagon** — seating is keyed to the container, not to the item's box height, so no item can float
+- [ ] Stage framing is owned solely by the fit routine and re-asserted on resize / rotate / tab-return
+- [ ] Item-name screen has no sparkle burst; every other burst still fires
+- [ ] Basket + wagon drops play a landing sound
 
 ---
 

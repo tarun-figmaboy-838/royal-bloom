@@ -1,10 +1,17 @@
-/* Royal Bloom — AudioManager. Three channels (BGM / narration / one-shot SFX),
- * gesture unlock, single-narration guarantee, metadata preload for VO/text sync,
- * and safe handling of load/playback failures. No absolute paths ever reach here
- * (data is normalized), but a null/missing clip is tolerated silently.
+/* Royal Bloom — AudioManager. Three channels (BGM / narration / one-shot SFX) at
+ * distinct levels with the music DUCKED under narration, gesture unlock, single-
+ * narration guarantee, metadata preload for VO/text sync, and safe handling of
+ * load/playback failures. No absolute paths ever reach here (data is normalized),
+ * but a null/missing clip is tolerated silently.
  */
 var AudioManager = (function () {
   "use strict";
+
+  // Channel levels. Every element used to play at 1.0, so the looping music sat ON TOP of the
+  // voice and drowned it. The music is a bed: quiet by default, and ducked further while a
+  // narration clip is playing so the child always hears the instruction.
+  var VOL = { bgm: 0.18, bgmDucked: 0.07, narration: 1, sfx: 0.7 };
+  var DUCK_MS = 250;         // ramp length: fast enough to be under the first word, slow enough not to click
 
   var DEV = false;
   var unlocked = false;
@@ -14,7 +21,12 @@ var AudioManager = (function () {
   var narration = null, narrationSrc = null;
   var pendingBgm = null;     // start requested before unlock
   var lastSfx = {};          // src -> timestamp (debounce rapid identical SFX)
+  var lastSfxSrc = null;     // diagnostics: the most recent one-shot played
+  var sfxPlays = 0;          // diagnostics: how many one-shots have actually fired
   var errored = {};          // src -> true (already reported failure)
+  var bgmBase = VOL.bgm;     // current (un-ducked) music level
+  var ducked = false;        // music currently lowered for narration
+  var rampTimer = null;      // in-flight volume ramp (one at a time)
 
   function warn(m) { if (DEV) console.warn("[RB audio] " + m); }
   function ok(src) { return typeof src === "string" && src.length > 0; }
@@ -32,6 +44,35 @@ var AudioManager = (function () {
       cache[src] = a;
     }
     return a;
+  }
+
+  // -------- volume / ducking --------
+  function setVol(a, v) { if (!a) return; try { a.volume = Math.max(0, Math.min(1, v)); } catch (e) {} }
+  function volOf(a) { return a && typeof a.volume === "number" ? a.volume : 1; }
+  function bgmTarget() { return ducked ? Math.min(VOL.bgmDucked, bgmBase) : bgmBase; }
+  // Ramp the music to a level instead of jumping (a hard volume change clicks). One ramp at a
+  // time — a new one cancels the old, so overlapping duck/unduck calls can never fight or leave
+  // the music stuck quiet.
+  function rampBGM(to) {
+    if (rampTimer != null) { clearInterval(rampTimer); rampTimer = null; }
+    if (!bgm) return;
+    var from = volOf(bgm), steps = Math.max(1, Math.round(DUCK_MS / 40)), i = 0;
+    if (Math.abs(to - from) < 0.005) { setVol(bgm, to); return; }
+    rampTimer = setInterval(function () {
+      i++;
+      var t = i / steps;
+      setVol(bgm, from + (to - from) * t);
+      if (i >= steps) { clearInterval(rampTimer); rampTimer = null; setVol(bgm, to); }
+    }, 40);
+  }
+  function duckBGM(on) {
+    if (ducked === !!on) return;
+    ducked = !!on;
+    rampBGM(bgmTarget());
+  }
+  function setBGMVolume(v) {
+    bgmBase = Math.max(0, Math.min(1, typeof v === "number" ? v : VOL.bgm));
+    rampBGM(bgmTarget());
   }
 
   function safePlay(a) {
@@ -80,6 +121,7 @@ var AudioManager = (function () {
     if (bgm && bgmSrc !== src) { try { bgm.pause(); } catch (e) {} }
     bgm = elementFor(src); bgmSrc = src;
     bgm.loop = true;
+    setVol(bgm, bgmTarget());          // music is a quiet bed, ducked further if a VO is already running
     try { bgm.currentTime = bgm.currentTime; } catch (e) {}
     safePlay(bgm);
   }
@@ -91,12 +133,21 @@ var AudioManager = (function () {
     if (muted || !ok(src)) return null;
     narration = elementFor(src); narrationSrc = src;
     narration.loop = false;
+    setVol(narration, VOL.narration);
+    // Un-duck when the clip finishes on its own (stopNarration covers the interrupted case). One
+    // listener per cached element, guarded — elementFor returns the SAME element for a repeated clip.
+    if (!narration._rbEnded) {
+      narration._rbEnded = true;
+      narration.addEventListener("ended", function () { if (!narrationActive()) duckBGM(false); });
+    }
     try { narration.currentTime = 0; } catch (e) {}
     safePlay(narration);
+    duckBGM(true);                     // drop the music under the voice
     return narration;
   }
   function stopNarration() {
     if (narration) { try { narration.pause(); narration.currentTime = 0; } catch (e) {} narration = null; narrationSrc = null; }
+    duckBGM(false);                    // voice gone -> music back to its normal bed level
   }
   function narrationActive() { return !!(narration && !narration.paused); }
 
@@ -106,17 +157,24 @@ var AudioManager = (function () {
     var t = performance.now();
     if (lastSfx[src] && t - lastSfx[src] < 120) return; // debounce rapid identical presses
     lastSfx[src] = t;
+    lastSfxSrc = src; sfxPlays++;
     var base = elementFor(src);
     var inst;
     try { inst = base.cloneNode(); } catch (e) { inst = base; }
     inst.loop = false;
+    setVol(inst, VOL.sfx);             // audible, but never over the voice
     safePlay(inst);
   }
 
   // -------- lifecycle --------
   function stopAll() { stopNarration(); stopBGM(); }
   function setMuted(on) { muted = !!on; if (muted) stopAll(); }
-  function stats() { return { unlocked: unlocked, bgm: bgmSrc, narration: narrationSrc, narrationActive: narrationActive() }; }
+  function stats() {
+    return {
+      unlocked: unlocked, bgm: bgmSrc, narration: narrationSrc, narrationActive: narrationActive(),
+      bgmVolume: bgm ? volOf(bgm) : null, bgmBase: bgmBase, ducked: ducked, lastSFX: lastSfxSrc, sfxPlays: sfxPlays
+    };
+  }
 
   function init(opts) {
     opts = opts || {};
@@ -125,7 +183,7 @@ var AudioManager = (function () {
     // pause everything when the tab is hidden; resume BGM when visible again
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) { stopNarration(); if (bgm) try { bgm.pause(); } catch (e) {} }
-      else if (bgm && bgmSrc && unlocked && !muted) safePlay(bgm);
+      else if (bgm && bgmSrc && unlocked && !muted) { setVol(bgm, bgmTarget()); safePlay(bgm); }   // resume at the right level, never full blast
     });
     window.addEventListener("blur", function () { stopNarration(); });
   }
@@ -133,7 +191,7 @@ var AudioManager = (function () {
   return {
     init: init, unlock: unlock,
     prepareNarration: prepareNarration,
-    playBGM: playBGM, stopBGM: stopBGM,
+    playBGM: playBGM, stopBGM: stopBGM, setBGMVolume: setBGMVolume, duckBGM: duckBGM, levels: function () { return Object.assign({}, VOL); },
     startNarration: startNarration, stopNarration: stopNarration, narrationActive: narrationActive,
     playSFX: playSFX,
     stopAll: stopAll, setMuted: setMuted, stats: stats

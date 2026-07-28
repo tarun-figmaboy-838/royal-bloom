@@ -135,14 +135,28 @@ var Engine = (function () {
       layoutChildren(c);
     }
   }
-  function computeScale() {
-    var vw = window.innerWidth, vh = window.innerHeight;
-    return Math.min(vw / LOGICAL_W, vh / LOGICAL_H);
+  // The box the stage is fitted into. Prefer the VIEWPORT element's rendered size: it is styled
+  // with 100dvh, so it tracks a collapsing mobile address bar, whereas window.innerHeight can lag
+  // and leave the stage scaled for a viewport that no longer exists (framing looks "zoomed"/clipped).
+  // window.* stays the fallback (headless QA, or before #viewport exists).
+  function fitBox() {
+    if (viewport && viewport.getBoundingClientRect) {
+      var b = viewport.getBoundingClientRect();
+      if (b && b.width > 0 && b.height > 0) return { w: b.width, h: b.height };
+    }
+    return { w: window.innerWidth, h: window.innerHeight };
   }
+  function computeScale() {
+    var b = fitBox();
+    return Math.min(b.w / LOGICAL_W, b.h / LOGICAL_H);
+  }
+  // relayout() is the SINGLE writer of the stage transform — nothing else may set it, or the two
+  // owners fight and the framing changes mid-session.
   function relayout() {
+    var box = fitBox();
     scale = computeScale();
-    offX = Math.round((window.innerWidth - LOGICAL_W * scale) / 2);
-    offY = Math.round((window.innerHeight - LOGICAL_H * scale) / 2);
+    offX = Math.round((box.w - LOGICAL_W * scale) / 2);
+    offY = Math.round((box.h - LOGICAL_H * scale) / 2);
     stage.style.width = LOGICAL_W + "px";
     stage.style.height = LOGICAL_H + "px";
     stage.style.transform = "translate(" + offX + "px," + offY + "px) scale(" + scale + ")";
@@ -506,6 +520,62 @@ var Engine = (function () {
     applyRect(rec); layoutChildren(rec);
   }
 
+  // ---------------------------------------------------------------- sprite preload / visible art
+  // Art is painted lazily (see maybePaint): the browser only starts FETCHING a sprite when its node
+  // is activated, so on a first visit a card could appear a beat before the item inside it. Warm the
+  // sprites (and record their natural size, used for seating) BEFORE a reveal so both land together.
+  // Never blocks a reveal for more than PRELOAD_TIMEOUT, and no-ops where there is no real image
+  // loader (the headless QA shim), so it can be awaited unconditionally.
+  var spriteMeta = {};        // src -> { w, h } natural pixel size
+  var spriteWarm = {};        // src -> Promise (one probe per src, ever)
+  var PRELOAD_TIMEOUT = 1500;
+  function warmPath(src) {
+    if (!src) return Promise.resolve();
+    if (spriteWarm[src]) return spriteWarm[src];
+    return (spriteWarm[src] = new Promise(function (res) {
+      var im;
+      try { im = new Image(); } catch (e) { return res(); }
+      if (!("complete" in im)) return res();      // no real image loading here — nothing to wait for
+      var done = false;
+      var finish = function () {
+        if (done) return; done = true;
+        if (im.naturalWidth > 0 && im.naturalHeight > 0) spriteMeta[src] = { w: im.naturalWidth, h: im.naturalHeight };
+        res();
+      };
+      im.onload = function () { if (im.decode) im.decode().then(finish, finish); else finish(); };
+      im.onerror = finish;
+      im.src = src;
+      if (im.complete) finish();                  // already cached
+      setTimeout(finish, PRELOAD_TIMEOUT);        // a stalled asset must never hold up the flow
+    }));
+  }
+  function preloadPaths(paths) { return Promise.all((paths || []).filter(Boolean).map(warmPath)); }
+  function spritePathsIn(id, out) {
+    var r = N[id]; if (!r) return out;
+    if (r._img && r._img.enabled !== false && r._img.sprite && r._img.sprite.path) out.push(r._img.sprite.path);
+    for (var i = 0; i < r.children.length; i++) spritePathsIn(r.children[i].id, out);
+    return out;
+  }
+  function preloadSprites(ids) {
+    var out = [];
+    (ids || []).forEach(function (id) { if (id) spritePathsIn(id, out); });
+    return preloadPaths(out);
+  }
+  // Rectangle of the VISIBLE ART inside an image node, in logical stage coordinates. With
+  // preserveAspect ("contain") a sprite whose aspect differs from its box is letterboxed inside it,
+  // so the DOM box is not where the picture is — seating an item by its box would leave the art
+  // hovering. Falls back to the box when the natural size isn't known yet or the fill is stretched.
+  function artRectLogical(id) {
+    var r = N[id], wr = worldRectLogical(id);
+    if (!r || !wr) return wr;
+    var img = r._img;
+    if (!img || img.preserveAspect !== true || !img.sprite || !img.sprite.path) return wr;
+    var m = spriteMeta[img.sprite.path];
+    if (!m || !(m.w > 0) || !(m.h > 0) || !(wr.w > 0) || !(wr.h > 0)) return wr;
+    var s = Math.min(wr.w / m.w, wr.h / m.h), dw = m.w * s, dh = m.h * s;
+    return { x: wr.x + (wr.w - dw) / 2, y: wr.y + (wr.h - dh) / 2, w: dw, h: dh };
+  }
+
   // ---------------------------------------------------------------- DOTween-style helpers
   function doAnchorPos(id, tx, ty, dur, easeName, opts) {
     opts = opts || {}; var r = N[id]; if (!r) return Promise.resolve();
@@ -622,6 +692,13 @@ var Engine = (function () {
     if (DEV) { try { assertNoDuplicateDomIds(); } catch (e) { console.error(e); throw e; } }
     window.addEventListener("resize", relayout);
     window.addEventListener("orientationchange", relayout);
+    // Re-assert the fit on every signal a mobile browser might give us instead of "resize": an
+    // address bar collapsing, a rotate, a restored tab, a pinch. Without these the stage can keep a
+    // stale scale and the game looks like it changed resolution part-way through.
+    window.addEventListener("pageshow", relayout);
+    document.addEventListener("visibilitychange", function () { if (!document.hidden) relayout(); });
+    try { if (window.visualViewport && window.visualViewport.addEventListener) window.visualViewport.addEventListener("resize", relayout); } catch (e) {}
+    try { if (window.ResizeObserver && viewport) new window.ResizeObserver(function () { relayout(); }).observe(viewport); } catch (e) {}
     rafId = requestAnimationFrame(tick);
     return ROOT;
   }
@@ -638,6 +715,7 @@ var Engine = (function () {
     doAnchorPos: doAnchorPos, doAnchorPosY: doAnchorPosY, doScale: doScale, doFade: doFade, kill: kill,
     doPathScreen: doPathScreen, centerLogical: centerLogical, setStageLocalPos: setStageLocalPos,
     clientToLogical: clientToLogical, worldRectLogical: worldRectLogical, worldCenterLogical: worldCenterLogical, currentScale: currentScale, stageRect: stageRect,
+    preloadSprites: preloadSprites, preloadPaths: preloadPaths, artRectLogical: artRectLogical, spriteSize: function (src) { return spriteMeta[src] || null; },
     tween: tween, tweenP: tweenP, killTweensOf: killTweensOf, onUpdate: onUpdate, activeTweenCount: activeTweenCount,
     setText: setText, repaintSprite: repaintSprite, setSelfPaint: setSelfPaint,
     confettiBurst: confettiBurst, clearConfetti: clearConfetti, confettiCount: confettiCount, popTrigger: popTrigger,

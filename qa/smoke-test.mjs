@@ -83,6 +83,23 @@ async function runViewport(vp, full) {
   click(goBtn); click(goBtn); click(goBtn);
   ok(await until(() => E.isActive("n5_Tutorial"), 6000), label + "Let's Go -> Tutorial (once)");
 
+  // ---- audio mix: music is a quiet bed and DUCKS under narration (it used to play at full 1.0
+  // and drown the voice). Every channel level is asserted, plus the duck/restore cycle. ----
+  {
+    const AM = H.RB.Audio, lv = AM.levels();
+    ok(lv.bgm <= 0.25 && lv.narration >= 0.9 && lv.sfx < lv.narration, label + "channel levels: quiet music, full voice, SFX under voice");
+    ok(lv.bgmDucked < lv.bgm, label + "ducked music level is below the normal music bed");
+    ok(await until(() => AM.stats().narrationActive, 5000), label + "narration playing after Let's Go");
+    await env.advance(400);                                    // let the duck ramp finish
+    const dk = AM.stats();
+    ok(dk.ducked === true && dk.bgmVolume <= lv.bgmDucked + 0.005, label + "BGM ducked under the voice (" + dk.bgmVolume + ")");
+    AM.stopNarration();
+    await env.advance(400);
+    const up = AM.stats();
+    ok(up.ducked === false && Math.abs(up.bgmVolume - lv.bgm) < 0.005, label + "BGM restored to its bed level when the voice stops (" + up.bgmVolume + ")");
+    ok(typeof E.preloadSprites === "function" && typeof E.artRectLogical === "function", label + "sprite warm + visible-art geometry available");
+  }
+
   async function playLevel(host, testWrong) {
     const f = fields(host);
     const boxBtn = nid(f.boxButton), ball = nid(f.ballDraggable), book = nid(f.bookDraggable);
@@ -102,6 +119,17 @@ async function runViewport(vp, full) {
     // tapping the box must NOT dim it (disable input without the grayscale/opacity fade)
     ok(!/opacity|grayscale/.test(E.get(boxBtn).el.style.filter || ""), label + host + ": box stays fully opaque on tap");
     ok(await until(() => E.isActive(nextP2), 12000), label + host + ": Part2 Next");
+    // every revealed card must actually have its item drawn in it — the reveal is gated on the
+    // sprite being warm, so a card can never sit empty waiting for its picture
+    [nid(f.item3), nid(f.item4)].forEach((cardId, k) => {
+      if (!cardId) return;
+      const paths = [];
+      (function walk(id) { const r = E.get(id); if (!r) return; if (r._img && r._img.enabled !== false && r._img.sprite && r._img.sprite.path) paths.push(r._img.sprite.path); r.children.forEach((c) => walk(c.id)); })(cardId);
+      const painted = paths.length === 0 || (function walk2(id) { const r = E.get(id); if (!r) return false; if (r._painted && r._img && r._img.sprite && r._img.sprite.path) return true; return r.children.some((c) => walk2(c.id)); })(cardId);
+      ok(E.isActive(cardId) && painted, label + host + ": Part2 card " + (k + 1) + " is painted when shown (no empty box)");
+    });
+    // the naming screen must be calm: no sparkle burst on the name scrolls (it pulled the eye off the word)
+    ok(E.confettiCount() === 0, label + host + ": no sparkles on the item-name screen (" + E.confettiCount() + ")");
     // Part 2 name scrolls must OPEN (parchment + centered name), not sit closed with rollers only
     [nid(f.lanternTextObject), nid(f.featherTextObject)].forEach((root, k) => {
       const parch = root && E.childByName(root, "image 01");
@@ -161,6 +189,16 @@ async function runViewport(vp, full) {
     if (testWrong) { dragToZone(book, pans.right); ok(!I.isLocked(book), label + host + ": second item rejected from occupied pan"); }
     dragToZone(book, pans.left);
     ok(await until(() => I.isLocked(book), 4000), label + host + ": book placed");
+    // SEATING: both items must rest IN the bowl — their art bottom lands just below the dish's centre
+    // line, whatever the item's box height. (Centring every item on the drop point left short ones,
+    // e.g. the ribbon, hanging in mid-air above the pan while tall ones reached in.)
+    [[ball, pans.right, "right"], [book, pans.left, "left"]].forEach(([it, zoneId, side]) => {
+      const zr = E.get(zoneId), dish = zr && zr.parent;
+      const art = E.artRectLogical((E.get(it) || {})._imgId || it) || E.worldRectLogical(it);
+      if (!dish || !art) return;
+      const dc = E.centerLogical(dish.id), bottom = art.y + art.h;
+      ok(bottom >= dc.y + 8 && bottom <= dc.y + 28, label + host + ": " + side + " item rests in the pan (art bottom " + Math.round(bottom - dc.y) + "px past the dish centre, not floating)");
+    });
     ok(await until(() => (elById(bookAns).listeners.click || []).length > 0, 15000), label + host + ": answers enabled");
     // instruction must advance per phase (regression guard: setText took an id, not a rec, so every update was a silent no-op)
     const instrNode = nid(f.instructionText), instrRec = instrNode && E.get(instrNode);
@@ -177,6 +215,15 @@ async function runViewport(vp, full) {
       // wrong answer -> Try Again x3, then correct; must not duplicate handlers
       click(correctIsBook ? ballAns : bookAns);
       const tryAgain = nid(f.tryAgainButton);
+      // ...and the retry must arrive WITH the "Oops!" line, not a second later (dead air with
+      // nothing to press). Poll finely and measure the gap between the text landing and the button.
+      { let tOops = null, tBtn = null;
+        for (let ms = 0; ms < 4000 && tBtn === null; ms += 25) {
+          if (tOops === null && instrRec && instrRec._tmpInner && instrRec._tmpInner.textContent === f.instruction6) tOops = env.vnow();
+          if (E.isActive(tryAgain)) tBtn = env.vnow();
+          if (tBtn === null) await env.advance(25);
+        }
+        ok(tOops !== null && tBtn !== null && tBtn - tOops <= 500, label + host + ": Try Again appears with the Oops line (+" + (tOops !== null && tBtn !== null ? Math.round(tBtn - tOops) : "?") + "ms)"); }
       for (let k = 0; k < 3; k++) {
         ok(await until(() => E.isActive(tryAgain), 12000), label + host + ": Try Again #" + (k + 1));
         click(tryAgain);
@@ -243,8 +290,11 @@ async function runViewport(vp, full) {
       ok(E.isActive(nid(f.part4Object)) && !E.isActive(nid(f.part3Object)), label + host + ": Part4 restored after wrong hint");
       ok(RB.gmByHost[host].diagnostics().placed4 === 0, label + host + ": item restored after wrong Part4");
     }
+    const sfxBefore = H.RB.Audio.stats().sfxPlays;
     dragToZone(lighter, basketDrop);
     ok(await until(() => RB.gmByHost[host].diagnostics().placed4 >= 1, 4000), label + host + ": lighter->basket");
+    // a correct drop now SOUNDS as well as sparkles
+    ok(H.RB.Audio.stats().sfxPlays > sfxBefore, label + host + ": basket drop plays a sound");
     // placed item must NESTLE inside the basket: parented into the SAME (back) layer as its ghost
     // marker, last sibling there (above ghost + decorations), while the FRONT basket art is a later
     // sibling of that layer — so the front rim draws over the item's lower edge (tucked in, not
@@ -254,8 +304,11 @@ async function runViewport(vp, full) {
       const back = lr.parent, grand = back && back.parent, bi = grand ? grand.children.indexOf(back) : -1;
       ok(bi >= 0 && bi < grand.children.length - 1, label + host + ": front basket art draws over the nestled item (item behind front layer)");
       ok(back.children[back.children.length - 1] === lr, label + host + ": placed item above ghost/decorations within the back layer"); }
+    await env.advance(400);        // a child cannot drop two items in the same instant (identical SFX are debounced 120ms so they can't stack)
+    const sfxBefore2 = H.RB.Audio.stats().sfxPlays;
     dragToZone(heavier, trolleyDrop);
     ok(await until(() => RB.gmByHost[host].diagnostics().placed4 >= 2, 4000), label + host + ": heavier->wagon");
+    ok(H.RB.Audio.stats().sfxPlays > sfxBefore2, label + host + ": wagon drop plays a sound");
     // placed items must be SIZED to their ghost marker's box (so they sit INSIDE the basket/wagon,
     // never overflowing onto the rim). rendered = itemSizeDelta * scale must fit within the marker.
     [[lighter, basketDrop, "basket"], [heavier, trolleyDrop, "wagon"]].forEach(([it, slot, where]) => {
@@ -282,6 +335,26 @@ async function runViewport(vp, full) {
     if (!res.isLast && full) { click(res.nextP4); ok(await until(() => !E.isActive(host), 6000), label + host + ": unmounted after Next"); }
   }
   if (full) ok(E.isActive("n515_Final_screen"), label + "Final screen reached");
+
+  // ---- framing must not drift: after the whole flow the stage still carries EXACTLY the fit its
+  // viewport asks for, and every re-fit signal (resize, orientation, a returning tab) re-asserts it. ----
+  {
+    const now = env.stage.getBoundingClientRect();
+    ok(Math.abs(now.width / 1920 - expectS) < 1e-6, label + "stage fit unchanged after the full flow (no framing drift)");
+    const W2 = 1400, H2 = 700, s2 = Math.min(W2 / 1920, H2 / 1080);
+    env.window.innerWidth = W2; env.window.innerHeight = H2;
+    env.window.dispatchEvent(env.makeEvent("resize"));
+    const rs = env.stage.getBoundingClientRect();
+    ok(Math.abs(rs.width / 1920 - s2) < 1e-6, label + "stage refits on resize");
+    ok(Math.abs(rs.left - (W2 - 1920 * s2) / 2) < 1.5 && Math.abs(rs.top - (H2 - 1080 * s2) / 2) < 1.5, label + "stage stays letterbox-centered after resize");
+    // a viewport change with no resize event (mobile address bar / restored tab) must still re-fit
+    const W3 = 1200, H3 = 900, s3 = Math.min(W3 / 1920, H3 / 1080);
+    env.window.innerWidth = W3; env.window.innerHeight = H3;
+    env.document.dispatchEvent(env.makeEvent("visibilitychange"));
+    ok(Math.abs(env.stage.getBoundingClientRect().width / 1920 - s3) < 1e-6, label + "stage refits when the tab becomes visible again (no stale scale)");
+    env.window.innerWidth = vp.width; env.window.innerHeight = vp.height;
+    env.window.dispatchEvent(env.makeEvent("resize"));
+  }
 
   ok(consoleErrors.length === 0, label + "no console errors (" + consoleErrors.slice(0, 2).join(" / ") + ")");
   return H;

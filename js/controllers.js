@@ -58,6 +58,15 @@ var Controllers = (function () {
   var LEFT_DOWN = { beamRot: 8, beamX: -27, beamY: -8.3, leftX: -385, leftY: -27, rightX: 372, rightY: 65, p1X: -237, p1Y: 41 };
   var RIGHT_DOWN = { beamRot: -8, beamX: -29.49, beamY: -2.48, beamW: 792.335, beamH: 839, leftX: -374, leftY: 65, rightX: 377, rightY: -27, p1X: -240.17, p1Y: 20, p2X: 234, p2Y: 27 };
   var DUR = { balanced: 0.35, leftDown: 0.75, rightDown: 0.6666667 };
+  // How far BELOW a pan dish's centre line an item's visible art bottom is seated. The bowl box is 64
+  // logical px tall (centre ±32) and the item draws BEHIND the dish, so a deeper value simply means
+  // more of the bowl front laps over the item's lower edge — the same lap for every item, tall or
+  // short (see seatArtBottom). Before this, items were centred on the drop point, so the bottom edge
+  // depended on the item's box height: tall items (bell/crown/vase) landed at +17..+28 while the
+  // short ribbon landed at -1..-11 — at or ABOVE the bowl, the float QA reported.
+  // +26 tucks every item a little under the rim (QA note on L2: "make bell little under the pan")
+  // while staying inside the bowl box, so nothing pokes out beneath the pan.
+  var SEAT_DEPTH = 26;
 
   function BalanceScaleAnimator(cfg) {
     var rootId = cfg.rootId || nid(cfg.animator);
@@ -189,6 +198,9 @@ var Controllers = (function () {
     var AUD = {};
     for (var k = 1; k <= 8; k++) AUD[k] = aud(f["instruction" + k + "Audio"]);
     var featherLantern = aud(f.featherLanternAudio), wrongSFX = aud(f.wrongSFX), boxOpenSFX = aud(f.boxOpenSFX), finalAudio = aud(f.finalScreenAudio);
+    // Sound for an item landing in the basket / wagon (Part 4). Data-driven, falling back to the
+    // level's sparkle clip so every level has one without hard-coding a path here.
+    var dropSFX = aud(f.dropSFX) || boxOpenSFX;
     var INSTR = {}; for (var j = 1; j <= 8; j++) INSTR[j] = str(f["instruction" + j], "");
     var answerMode = num(f.answerMode, 0);
     var isFirstLevel = bool(f.isFirstLevel), isLastLevel = bool(f.isLastLevel);
@@ -221,10 +233,48 @@ var Controllers = (function () {
     var disposers = [];           // click-listener disposers for this level
     var locks = {};               // transition locks
     var boxOpened = false;
+    var tryAgainScale = null;     // authored resting scale of the Try Again button (captured once)
 
     function A(id, on) { if (id) E.setActive(id, on); }
     function reg(disposer) { if (disposer) disposers.push(disposer); }
     function weight(id) { var d = E.get(id); return d && d._itemData ? d._itemData.weight : 0; }
+
+    // ---- art warming (never reveal a container before the thing inside it) ----
+    // Level art paints lazily, so activating a card starts the sprite fetch — the card would show
+    // empty for a beat on a first visit. Warm the subtree's sprites first; resolves immediately once
+    // they are cached, and is capped inside the engine so a missing asset cannot stall the flow.
+    function warmArt(ids) { try { return E.preloadSprites(ids); } catch (e) { return Promise.resolve(); } }
+    // every sprite this level's draggables can show (item + dropped), so Part 3 / Part 4 reveals and
+    // the seating maths (which needs each sprite's natural size) are never waiting on a fetch
+    function itemSpritePaths() {
+      var out = [];
+      [ID.book, ID.ball, ID.part4ItemA, ID.part4ItemB].forEach(function (id) {
+        var r = id && E.get(id), d = r && r._itemData; if (!d) return;
+        if (d.itemSprite && d.itemSprite.path) out.push(d.itemSprite.path);
+        if (d.droppedSprite && d.droppedSprite.path) out.push(d.droppedSprite.path);
+      });
+      return out;
+    }
+
+    // ---- seating: rest an item INSIDE a pan / basket / wagon ----
+    // Items differ a lot in box height (e.g. the ribbon's box is 140 tall, the bell's 197), so
+    // centring every item on the same drop point left the SHORT ones hanging in mid-air above the
+    // bowl while tall ones reached in. Seat by the BOTTOM of the visible art instead: every item's
+    // art bottom lands on the same line inside the container, whatever its size or aspect.
+    // Placement is measure-and-correct (nudge in anchored space), so it is exact regardless of
+    // pivots or parent scaling.
+    function seatArtBottom(itemId, targetX, bottomY) {
+      var rec = E.get(itemId); if (!rec) return;
+      var imgId = rec._imgId && E.get(rec._imgId) ? rec._imgId : itemId;
+      for (var pass = 0; pass < 2; pass++) {
+        var art = E.artRectLogical(imgId) || E.worldRectLogical(imgId);
+        if (!art) return;
+        var dx = targetX - (art.x + art.w / 2), dy = bottomY - (art.y + art.h);
+        if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+        var p = E.getAnchoredPos(itemId);
+        E.setAnchoredPos(itemId, p.x + dx, p.y - dy);      // anchored Y is up-positive
+      }
+    }
 
     // -------- typing + narration (begin together, single narration) --------
     function typeText(msg, clip) {
@@ -260,6 +310,11 @@ var Controllers = (function () {
       // the letters across it (text finishes exactly when the voice does). Without this, a cold clip can
       // miss the 1.5s prepare window and the text falls back to a fixed speed -> out of sync with the VO.
       Object.keys(AUD).forEach(function (k) { if (AUD[k]) Audio.prepareNarration(AUD[k]); });
+      // Warm every sprite this level's items can show (item + dropped, Part 3 + Part 4) as soon as the
+      // level mounts. Each reveal awaits its own warm too; doing it here means those awaits are usually
+      // already satisfied, and the natural sizes the seating maths needs are known before the first drop.
+      warmArt([ID.item1, ID.item2, ID.item3, ID.item4]);
+      try { E.preloadPaths(itemSpritePaths()); } catch (e) {}
       if (scaleCtrl && scaleCtrl.reset) scaleCtrl.reset(true);   // snap scale to balanced (no drift on re-entry)
       // reset this level's draggables to their original slots + sprites (clean re-entry)
       [ID.book, ID.ball, ID.part4ItemA, ID.part4ItemB].forEach(function (did) { if (did) { I.resetToInitial(did); repaintItem(did, "item"); } });
@@ -343,11 +398,13 @@ var Controllers = (function () {
       else afterBoxOpen();
     }
     async function afterBoxOpen() {
-      await S.wait(0.5); popItems();
+      await S.wait(0.5); await popItems();
       await S.wait(0.5); popHighlight();
       await S.wait(2); startPart2();
     }
-    function popItems() {
+    async function popItems() {
+      await warmArt([ID.item1, ID.item2]);            // items pop out already drawn, never as empty shapes
+      if (S.cancelled()) return;
       A(ID.item1, true); A(ID.item2, true);
       if (ID.item1) { S.track(ID.item1); E.setAnchoredPos(ID.item1, item1Orig.x, item1Orig.y - 100); E.setScale(ID.item1, 0); E.doAnchorPos(ID.item1, item1Orig.x, item1Orig.y, 0.5, "OutBack"); E.doScale(ID.item1, 1, 0.5, "OutBack"); }
       if (ID.item2) { S.track(ID.item2); E.setAnchoredPos(ID.item2, item2Orig.x, item2Orig.y - 100); E.setScale(ID.item2, 0); E.doAnchorPos(ID.item2, item2Orig.x, item2Orig.y, 0.5, "OutBack"); E.doScale(ID.item2, 1, 0.5, "OutBack"); }
@@ -364,6 +421,9 @@ var Controllers = (function () {
     async function startPart2() {
       A(ID.part1, false); A(ID.part2, true);
       await S.wait(0.1);
+      // the card and the item inside it must appear together — warm the art before revealing either
+      await warmArt([ID.item3, ID.item4, ID.lanternText, ID.featherText]);
+      if (S.cancelled()) return;
       A(ID.item3, true); A(ID.item4, true);
       if (ID.item3) { S.track(ID.item3); E.setScale(ID.item3, 0); E.doScale(ID.item3, 1, 0.5, "OutBack"); }
       if (ID.item4) { S.track(ID.item4); E.setScale(ID.item4, 0); E.doScale(ID.item4, 1, 0.5, "OutBack"); }
@@ -391,7 +451,9 @@ var Controllers = (function () {
       // UNFURL like a real scroll: start as a thin, tall rolled-up strip and unroll WIDE (scaleX grows
       // from a sliver to full while the height barely settles). Scaling the whole root keeps every piece
       // (parchment, both rollers, name) locked together — never detached — and .node scales from its
-      // centre so it opens outward symmetrically. Name pops + sparkles once it's open.
+      // centre so it opens outward symmetrically. The name pops in once it is open — deliberately with
+      // NO sparkle burst: on the naming screen the word is what the child should be reading, and the
+      // stars pulled the eye off it. Bursts stay on the box opening, the Part-4 drops and the finale.
       S.track(rootId);
       E.setScaleXY(rootId, 0.06, 0.9);
       E.tween({ dur: dur, ease: "OutBack", tag: rootId,
@@ -400,14 +462,16 @@ var Controllers = (function () {
           if (S.cancelled()) return;
           E.setScaleXY(rootId, 1, 1);
           if (txt) { A(txt, true); S.track(txt); E.setAlpha(txt, 0); E.setScale(txt, 0.55); E.doScale(txt, 1, 0.35, "OutBack"); E.doFade(txt, 1, 0.3, "OutQuad"); }
-          confettiToken = { cancelled: false }; E.confettiBurst(rootId, confettiToken);   // golden sparkle
         } });
     }
 
     // ---------- PART 3 ----------
-    function startPart3() {
+    function startPart3() { revealPart3(); }
+    async function revealPart3() {
       if (scaleCtrl) scaleCtrl.reset();
       A(ID.nextP2, false); stopNextButtonHint(); Audio.stopNarration();
+      await warmArt([ID.part3]);            // genie, pans and both item cards drawn before they slide in
+      if (S.cancelled()) return;
       A(ID.part3, true);
       if (ID.part3) {
         var p3 = E.getAnchoredPos(ID.part3); S.track(ID.part3);
@@ -441,13 +505,17 @@ var Controllers = (function () {
       // lower edge and it reads as seated INSIDE the pan. Full size (scale 1) as before; it rides the
       // pan when the beam tilts because it is now a child of the pan.
       E.setScale(itemId, 1); E.setRotation(itemId, 0);
+      repaintItem(itemId, "dropped");     // swap to the sprite it will SHOW before measuring it (aspects differ)
       var zoneRec = E.get(zone.id), dish = zoneRec && zoneRec.parent, pan = dish && dish.parent;
       if (pan) {
         var sc = E.centerLogical(zone.id);
         E.reparent(itemId, pan.id);
-        // seat the item a touch HIGHER than the raw zone centre so its lower art tucks fully inside the
-        // bowl instead of poking under the front rim (the drop spot sits low in the dish).
-        E.setStageLocalPos(E.get(itemId), sc.x, sc.y - 14);
+        E.setStageLocalPos(E.get(itemId), sc.x, sc.y);
+        // Rest the item ON the bowl: its visible art bottom sits SEAT_DEPTH below the dish's centre
+        // line, i.e. down inside the bowl, so the dish front laps over the item's lower edge. Keyed
+        // to the dish (not the item's own box height), so short items — the ribbon — can never float.
+        var dc = E.centerLogical(dish.id);
+        seatArtBottom(itemId, dc.x, dc.y + SEAT_DEPTH);
         E.setAsFirstSibling(itemId);   // render BEHIND the dish -> tucked inside the bowl
         // The dish (bowl) now sits IN FRONT of the nestled item. In the answer phase the item is the
         // tap target ("Tap the heavier item"), so make the dish + its drop-marker children NON-
@@ -457,7 +525,6 @@ var Controllers = (function () {
       } else {
         E.reparent(itemId, zone.id); E.setAnchoredPos(itemId, 0, 0); E.setAsLastSibling(itemId);
       }
-      repaintItem(itemId, "dropped");
     }
     function repaintItem(itemId, which) {
       var r = E.get(itemId); if (!r || !r._itemData) return;
@@ -571,13 +638,23 @@ var Controllers = (function () {
       if (selectedBook) { showGlow(ID.bookImg, false); dimItem(ID.ballImg, true); }
       else { showGlow(ID.ballImg, false); dimItem(ID.bookImg, true); }
       await typeText(INSTR[6], AUD[6]);
-      await S.wait(1);
+      // Show the retry the moment the "Oops!" line lands. It used to sit behind a full second of dead
+      // air, leaving the child looking at an error with nothing to press.
+      await S.wait(0.15);
       A(ID.tryAgain, true); if (ID.tryAgain) reg(E.onClick(ID.tryAgain, guard2("tryagain", onTryAgain), { key: "tryagain" }));
+      if (ID.tryAgain) {                                  // pop it in so it reads as "press me"
+        // resting scale is captured ONCE (from the authored value) — reading it back each time would
+        // compound if the child pressed mid-pop, shrinking the button a little on every retry
+        if (tryAgainScale == null) tryAgainScale = E.getScale(ID.tryAgain) || 1;
+        E.kill(ID.tryAgain); S.track(ID.tryAgain);
+        E.setScale(ID.tryAgain, 0); E.doScale(ID.tryAgain, tryAgainScale, 0.3, "OutBack");
+      }
     }
     // guard2: lock resets when the guarded flow explicitly releases it
     function guard2(name, fn) { return function () { if (locks[name]) return; locks[name] = true; fn(function () { locks[name] = false; }); }; }
     function onTryAgain(release) {
       A(ID.tryAgain, false);
+      if (ID.tryAgain) { E.kill(ID.tryAgain); if (tryAgainScale != null) E.setScale(ID.tryAgain, tryAgainScale); }   // settle the pop
       clearGlow(ID.bookImg); clearGlow(ID.ballImg);                   // remove glow + settle the pop
       dimItem(ID.bookImg, false); dimItem(ID.ballImg, false);         // restore the dimmed item to full
       repaintItem(ID.book, "dropped"); repaintItem(ID.ball, "dropped");
@@ -635,6 +712,9 @@ var Controllers = (function () {
         if (marker) E.setSelfPaint(marker, false);
       });
       await S.wait(0.3);
+      // basket, wagon and both sorting cards drawn before any of them is revealed
+      await warmArt([ID.base3, ID.base4, ID.part4ItemA, ID.part4ItemB, ID.basket, ID.trolley]);
+      if (S.cancelled()) return;
       A(ID.base3, true); A(ID.base4, true);
       if (ID.base3) { S.track(ID.base3); E.setScale(ID.base3, 0); E.doScale(ID.base3, 1, 0.5, "OutBack"); }
       if (ID.base4) { S.track(ID.base4); E.setScale(ID.base4, 0); E.doScale(ID.base4, 1, 0.5, "OutBack"); }
@@ -692,16 +772,21 @@ var Controllers = (function () {
           var placeLayer = (slotRec && slotRec.parent) ? slotRec.parent.id : (zone.spec.isBasket ? ID.basket : ID.trolley);
           E.reparent(itemId, (E.get(placeLayer) ? placeLayer : zone.id));
           E.setRotation(itemId, 0); E.setAsLastSibling(itemId);
+          repaintItem(itemId, "dropped");   // swap sprites BEFORE measuring — the dropped art has its own aspect
           if (slotRec) {
             var sr = E.getRect(slot), ir = E.getRect(itemId);
             var fit = (sr && ir && ir.sdX > 0 && ir.sdY > 0) ? Math.min(sr.sdX / ir.sdX, sr.sdY / ir.sdY) : 0.82;
             E.setScale(itemId, (isFinite(fit) && fit > 0) ? fit : 0.82);   // match the ghost marker's box
             var sc = E.centerLogical(slot); E.setStageLocalPos(E.get(itemId), sc.x, sc.y);
+            // then settle it DOWN onto the container: the visible art's bottom lines up with the
+            // marker's bottom, so a short/wide item rests in the basket instead of hovering in it
+            var mr = E.worldRectLogical(slot);
+            if (mr) seatArtBottom(itemId, sc.x, mr.y + mr.h);
             E.setSelfPaint(slot, false);                                    // hide the ghost now the real item covers it
           } else { E.setScale(itemId, 0.82); E.setAnchoredPos(itemId, 0, 0); }
-          repaintItem(itemId, "dropped");
           stopPart4Hint();
           confettiToken = { cancelled: false }; E.confettiBurst(zone.id, confettiToken);   // golden sparkle from inside the container
+          if (dropSFX) Audio.playSFX(dropSFX);                                             // ...and a sound as it lands
           checkPart4Completion();
           if (!allPlaced4()) { part4HintTimer = schedulePart4Hint(); startSmartGhostP4(); }
         } else {
