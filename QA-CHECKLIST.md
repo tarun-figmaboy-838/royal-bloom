@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1171 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1183 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1171 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1183 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -28,6 +28,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **Cursor — dragging**: while dragging, the cursor is the **closed hand (grabbing)** everywhere, and returns to normal on release (no stuck grabbing cursor)
 - [ ] **Cursor — disabled**: non-interactive/greyed elements do **not** show a hand
 - [ ] **No console errors/warnings** at any point
+- [ ] **Smooth everywhere — no stutter**: tapping the box open, the sparkle bursts, dropping into the basket/wagon and the Part-4 finish (both containers burst at once) all run without a visible hitch; check on the slowest target device
 - [ ] **Genie**: exactly one genie, one set of hands — no doubled/blurry duplicate (all screens)
 - [ ] **Instruction bar**: left-aligned, full opacity, brown, updates every phase; **text fully shown — no clipped descenders** (the tails of g/y/p/j are not cut off), no clipped ascenders
 - [ ] **Audio**: BGM loops after Let's Go; narration per phase; box/drop SFX; no overlap/stacking

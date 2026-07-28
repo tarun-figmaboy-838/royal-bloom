@@ -42,7 +42,9 @@ var AudioManager = (function () {
     var a = cache[src];
     if (!a) {
       a = new Audio();
-      a.preload = "metadata";
+      // "auto", not "metadata": the clips are small and every one is warmed after boot, so playback
+      // starts on the first frame instead of buffering — which is what put the voice behind the text.
+      a.preload = "auto";
       a.src = src;
       a.addEventListener("error", function () {
         if (!errored[src]) { errored[src] = true; warn("failed to load " + src); }
@@ -134,9 +136,13 @@ var AudioManager = (function () {
   function stopBGM() { if (bgm) { try { bgm.pause(); bgm.currentTime = 0; } catch (e) {} } }
 
   // -------- narration (only one at a time) --------
-  function startNarration(src) {
+  // onPlaying (optional) fires when the clip is REALLY producing sound, so the caller can start the
+  // typing exactly then and the words track the voice. It is capped: if the browser never reports
+  // playback (or audio is blocked), it fires anyway after PLAY_GATE_MS so the text can never be stuck.
+  var PLAY_GATE_MS = 250;
+  function startNarration(src, onPlaying) {
     stopNarration();
-    if (muted || !ok(src)) return null;
+    if (muted || !ok(src)) { if (onPlaying) onPlaying(); return null; }
     narration = elementFor(src); narrationSrc = src;
     narration.loop = false;
     setVol(narration, VOL.narration);
@@ -147,6 +153,11 @@ var AudioManager = (function () {
       narration.addEventListener("ended", function () { if (!narrationActive()) duckBGM(false); });
     }
     try { narration.currentTime = 0; } catch (e) {}
+    if (onPlaying) {
+      var fired = false, gate = function () { if (fired) return; fired = true; try { onPlaying(); } catch (e) {} };
+      narration.addEventListener("playing", gate, { once: true });
+      setTimeout(gate, PLAY_GATE_MS);
+    }
     safePlay(narration);
     duckBGM(true);                     // drop the music under the voice
     return narration;

@@ -349,6 +349,9 @@ async function runViewport(vp, full) {
     dragToZone(heavier, trolleyDrop);
     ok(await until(() => RB.gmByHost[host].diagnostics().placed4 >= 2, 4000), label + host + ": heavier->wagon");
     ok(H.RB.Audio.stats().sfxPlays > sfxBefore2, label + host + ": wagon drop plays a sound");
+    // Part 4 finishing bursts BOTH containers at once — the worst frame-rate moment in the game. The
+    // particle count must stay capped (it used to be 64 per burst, each with its own rAF + 2 blur passes).
+    ok(E.confettiCount() <= 80, label + host + ": Part-4 finish keeps the sparkle count capped (" + E.confettiCount() + ")");
     // placed items must be SIZED to their ghost marker's box (so they sit INSIDE the basket/wagon,
     // never overflowing onto the rim). rendered = itemSizeDelta * scale must fit within the marker.
     [[lighter, basketDrop, "basket"], [heavier, trolleyDrop, "wagon"]].forEach(([it, slot, where]) => {

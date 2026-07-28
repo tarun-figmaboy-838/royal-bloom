@@ -622,42 +622,65 @@ var Engine = (function () {
   }
 
   // ---------------------------------------------------------------- effects
-  var confettiNodes = [];
+  // Sparkle bursts, rebuilt for frame rate. The old version was the game's worst hitch — it gave every
+  // particle its OWN requestAnimationFrame recursion (128 of them when Part 4 finished and both
+  // containers burst at once) and every particle carried two drop-shadow filters, i.e. two blur passes per
+  // element per frame. That is what made the box open and the Part-4 finish stutter. Now: ONE rAF loop
+  // for all particles, no filters (the warm centre is a baked gradient — see .confetti-p), fewer
+  // particles, and a hard cap so simultaneous bursts can never stack into a frame-rate problem.
+  var confettiNodes = [];          // active particles: { el, cx, cy, vx, vy, rise, spin, base, phase, t0, life, token }
+  var confettiRaf = null;
+  var CONFETTI_MAX = 80;
+  var SPARK_COLORS = ["#FFD84D", "#FFC93C", "#FFE9A0", "#FFB300", "#FFF3C4", "#FFDF70"];
   function confettiBurst(id, token) {
     var r = N[id];
     var rect = (r ? r.el : stage).getBoundingClientRect();
     var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-    var colors = ["#FFD84D", "#FFC93C", "#FFE9A0", "#FFB300", "#FFF3C4", "#FFDF70"];  // golden sparkle palette
-    var count = reducedMotion ? 20 : 64;
-    var life = reducedMotion ? 0.9 : 1.9;
+    var count = reducedMotion ? 12 : 30;
+    var life = reducedMotion ? 0.8 : 1.6;
+    count = Math.min(count, Math.max(0, CONFETTI_MAX - confettiNodes.length));
+    var t0 = performance.now();
     for (var i = 0; i < count; i++) {
-      var p = document.createElement("div"); p.className = "confetti-p";
-      p.style.left = cx + "px"; p.style.top = cy + "px";
-      p.style.background = colors[i % colors.length];
-      document.body.appendChild(p);
-      confettiNodes.push(p);
-      (function (p, i) {
-        // gentle magical sparkle: stars spread softly, drift UP, twinkle (pulse + fade), barely fall
-        var ang = (i / count) * Math.PI * 2 + (i % 3) * 0.5;
-        var spd = 110 + (i % 7) * 38;
-        var vx = Math.cos(ang) * spd, vy = Math.sin(ang) * spd - 120;
-        var rise = 70 + (i % 5) * 22, spin = (i % 2 ? 1 : -1) * (110 + (i % 4) * 55);
-        var base = 0.55 + (i % 5) * 0.16, phase = (i % 6) * 1.05;
-        var t0 = performance.now();
-        (function anim() {
-          if (token && token.cancelled) { removeConfetti(p); return; }
-          var dt = (performance.now() - t0) / 1000;
-          var x = cx + vx * dt, y = cy + vy * dt + 70 * dt * dt - rise * dt;   // float up, feather-light gravity
-          var tw = 0.5 + 0.6 * Math.abs(Math.sin(dt * 7 + phase));             // twinkle (size pulse)
-          p.style.transform = "translate(" + (x - cx) + "px," + (y - cy) + "px) rotate(" + (dt * spin) + "deg) scale(" + (base * tw) + ")";
-          p.style.opacity = Math.max(0, (dt < 0.15 ? dt / 0.15 : 1) * (1 - dt / life));  // fade in, then out
-          if (dt < life && p.isConnected) requestAnimationFrame(anim); else removeConfetti(p);
-        })();
-      })(p, i);
+      var el = document.createElement("div");
+      el.className = "confetti-p";
+      el.style.left = cx + "px"; el.style.top = cy + "px";
+      var col = SPARK_COLORS[i % SPARK_COLORS.length];
+      // glow baked into the fill instead of a filter: paint-only, no per-frame blur pass
+      el.style.background = "radial-gradient(circle at 50% 45%, #fffbe8 0%, #ffe89a 40%, " + col + " 100%)";
+      document.body.appendChild(el);
+      // gentle magical sparkle: stars spread softly, drift UP, twinkle (pulse + fade), barely fall
+      var ang = (i / Math.max(count, 1)) * Math.PI * 2 + (i % 3) * 0.5;
+      var spd = 110 + (i % 7) * 38;
+      confettiNodes.push({
+        el: el, cx: cx, cy: cy,
+        vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd - 120,
+        rise: 70 + (i % 5) * 22, spin: (i % 2 ? 1 : -1) * (110 + (i % 4) * 55),
+        base: 0.55 + (i % 5) * 0.16, phase: (i % 6) * 1.05,
+        t0: t0, life: life, token: token
+      });
     }
+    if (!confettiRaf && confettiNodes.length) confettiRaf = requestAnimationFrame(stepConfetti);
   }
-  function removeConfetti(p) { var i = confettiNodes.indexOf(p); if (i >= 0) confettiNodes.splice(i, 1); if (p && p.parentNode) p.remove(); }
-  function clearConfetti() { for (var i = confettiNodes.length - 1; i >= 0; i--) removeConfetti(confettiNodes[i]); }
+  function dropParticle(i) {
+    var p = confettiNodes[i];
+    confettiNodes.splice(i, 1);
+    if (p && p.el && p.el.parentNode) p.el.remove();
+  }
+  function stepConfetti() {
+    var t = performance.now();
+    for (var i = confettiNodes.length - 1; i >= 0; i--) {
+      var p = confettiNodes[i];
+      if (p.token && p.token.cancelled) { dropParticle(i); continue; }
+      var dt = (t - p.t0) / 1000;
+      if (dt >= p.life || !p.el.isConnected) { dropParticle(i); continue; }
+      var x = p.vx * dt, y = p.vy * dt + 70 * dt * dt - p.rise * dt;      // float up, feather-light gravity
+      var tw = 0.5 + 0.6 * Math.abs(Math.sin(dt * 7 + p.phase));          // twinkle (size pulse)
+      p.el.style.transform = "translate(" + x + "px," + y + "px) rotate(" + (dt * p.spin) + "deg) scale(" + (p.base * tw) + ")";
+      p.el.style.opacity = Math.max(0, (dt < 0.15 ? dt / 0.15 : 1) * (1 - dt / p.life));
+    }
+    confettiRaf = confettiNodes.length ? requestAnimationFrame(stepConfetti) : null;
+  }
+  function clearConfetti() { for (var i = confettiNodes.length - 1; i >= 0; i--) dropParticle(i); }
   function confettiCount() { return confettiNodes.length; }
 
   function popTrigger(id) {

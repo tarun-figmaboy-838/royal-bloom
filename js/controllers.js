@@ -363,7 +363,14 @@ var Controllers = (function () {
         var start = function (letterDelay) {
           if (S.cancelled() || myTok !== typingToken) return resolve();
           announce(msg);
-          if (clip) Audio.startNarration(clip);
+          // Type from the moment the voice is REALLY audible, not from the moment play() was called:
+          // if the clip needed a beat to start, the letters used to run ahead of the words. The gate
+          // inside AudioManager is capped, so a blocked/silent clip can never hold the text back.
+          if (clip) { Audio.startNarration(clip, function () { typeFrom(letterDelay); }); return; }
+          typeFrom(letterDelay);
+        };
+        var typeFrom = function (letterDelay) {
+          if (S.cancelled() || myTok !== typingToken) return resolve();
           if (opts && opts.onStart) { try { opts.onStart(); } catch (e) { console.error(e); } }
           var i = 0;
           (function step() {

@@ -180,6 +180,23 @@
     if (b) { b.classList.add("hide"); setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 500); }
   }
   window.__rbHideBoot = hideBoot;   // let the HTML fallback share the same guard
+  // Sprites that live ONLY in CONFIG, never on a layout node: the open-box art, the correct/wrong
+  // variants, the ghost-demo pictures and the dropped-item art. collectAssets walks nodes, so these 19
+  // were fetched at the instant of the swap — which is why tapping the box hitched as it opened.
+  function allConfigSprites() {
+    var out = [], seen = {};
+    var add = function (p) { if (typeof p === "string" && p && !seen[p]) { seen[p] = 1; out.push(p); } };
+    var walk = function (o, depth) {
+      if (!o || typeof o !== "object" || depth > 5) return;
+      if (o.sprite && typeof o.sprite.path === "string") add(o.sprite.path);
+      if (typeof o.path === "string" && /\.(webp|png|jpe?g)$/i.test(o.path)) add(o.path);
+      Object.keys(o).forEach(function (k) { walk(o[k], depth + 1); });
+    };
+    (CFG.gameManagers || []).forEach(function (g) { walk(g.fields, 0); });
+    Object.keys(CFG.draggables || {}).forEach(function (id) { walk(CFG.draggables[id], 0); });
+    return out;
+  }
+
   // Every audio clip the game will ever play, so no VO/SFX has to be fetched at the moment it is
   // needed (AudioManager caches one element per src and de-dupes, and metadata is what typeText needs
   // to pace the typing to the voice).
@@ -206,7 +223,8 @@
     // one level at a time during idle. Nothing competes with the first paint, and by the time any
     // screen is reached its assets are already decoded — no buffering, no pop-in, no VO delay.
     preloadAllLevels(LEVEL_ORDER);
-    if (window.requestIdleCallback) requestIdleCallback(warmAudio, { timeout: 6000 }); else setTimeout(warmAudio, 2000);
+    var warmRest = function () { try { E.preloadPaths(allConfigSprites()); } catch (e) {} warmAudio(); };
+    if (window.requestIdleCallback) requestIdleCallback(warmRest, { timeout: 6000 }); else setTimeout(warmRest, 2000);
   });
   setTimeout(hideBoot, 5000);       // safety net if an asset stalls
 
