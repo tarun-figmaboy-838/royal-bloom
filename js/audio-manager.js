@@ -13,7 +13,10 @@ var AudioManager = (function () {
   // Narration runs almost continuously in this game, so the ducked level is what the music sits at for
   // most of the session — set it too low (it was 0.07) and the BGM reads as "not playing" on laptop or
   // phone speakers. These levels keep the voice clearly on top while the music stays audible throughout.
-  var VOL = { bgm: 0.35, bgmDucked: 0.16, narration: 1, sfx: 0.8 };
+  // Balanced between the two failure modes QA hit: at 0.18/0.07 the music read as "not playing", and
+  // anything much above this starts competing with the voice. The voice is ~7x the ducked music level,
+  // so narration always wins, while the music stays clearly present between and under lines.
+  var VOL = { bgm: 0.30, bgmDucked: 0.14, narration: 1, sfx: 0.75 };
   var DUCK_MS = 250;         // ramp length: fast enough to be under the first word, slow enough not to click
 
   var DEV = false;

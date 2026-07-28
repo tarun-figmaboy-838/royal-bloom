@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1162 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1171 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1162 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1171 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -31,7 +31,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **Genie**: exactly one genie, one set of hands — no doubled/blurry duplicate (all screens)
 - [ ] **Instruction bar**: left-aligned, full opacity, brown, updates every phase; **text fully shown — no clipped descenders** (the tails of g/y/p/j are not cut off), no clipped ascenders
 - [ ] **Audio**: BGM loops after Let's Go; narration per phase; box/drop SFX; no overlap/stacking
-- [ ] **Audio mix**: the music sits **behind** the voice — every VO line is clearly intelligible on a phone speaker; BGM **ducks** while narration plays and comes back within ~0.5 s (no click, never stuck quiet, correct level after a tab-out)
+- [ ] **Audio mix**: BGM bed 0.30, ducked 0.14 under narration, voice 1.0 — the music sits **behind** the voice — every VO line is clearly intelligible on a phone speaker; BGM **ducks** while narration plays and comes back within ~0.5 s (no click, never stuck quiet, correct level after a tab-out)
 - [ ] **No empty containers**: on a **cold cache / hard reload**, every card, scroll, basket and wagon appears **with** its art — never an empty blue box that fills in a beat later (worst case: first visit to each level; re-check on a throttled connection)
 - [ ] **VO ↔ text sync**: on every instruction, the typing is paced to the voice clip — the text finishes **as the voice finishes** (not way before/after); the correct clip plays for the shown text
 - [ ] No duplicate listeners/timers after repeated play (drag, blur, revisit)
@@ -86,7 +86,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **You can tap the item on the pan** to answer (not blocked by the dish); item shows the **hand** cursor
 - [ ] **Correct** tap → vivid **green** solid glow + a little **pop** on that item (no pulsing)
 - [ ] **Wrong** tap → vivid **red** solid glow + pop → "Oops! Try again" → retry works
-- [ ] **Try Again appears WITH the "Oops!" line** (pops in within ~0.25 s, not a second later), is immediately tappable, and does not shrink across repeated retries
+- [ ] **Try Again appears as the "Oops!" text appears** (~0.15 s after the first letter) — **not** after the voice line has finished; it is immediately tappable and does not shrink across repeated retries
 - [ ] Choosing one item **fades the other** a little while the chosen one glows; retry restores both
 - [ ] Correct answer → **Heavier↓ / Lighter↑ arrows** appear over the pans, matching placement — verify with the heavy item on the **left** AND on the **right**
 - [ ] Next button shows

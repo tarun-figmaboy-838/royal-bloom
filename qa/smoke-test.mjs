@@ -246,15 +246,20 @@ async function runViewport(vp, full) {
       // wrong answer -> Try Again x3, then correct; must not duplicate handlers
       click(correctIsBook ? ballAns : bookAns);
       const tryAgain = nid(f.tryAgainButton);
-      // ...and the retry must arrive WITH the "Oops!" line, not a second later (dead air with
-      // nothing to press). Poll finely and measure the gap between the text landing and the button.
-      { let tOops = null, tBtn = null;
+      // ...and the retry must arrive WITH the "Oops!" text STARTING - not when the typing (and the voice
+      // it is paced to) finishes, which left the child watching an error with nothing to press.
+      { let tStart = null, tBtn = null;
         for (let ms = 0; ms < 4000 && tBtn === null; ms += 25) {
-          if (tOops === null && instrRec && instrRec._tmpInner && instrRec._tmpInner.textContent === f.instruction6) tOops = env.vnow();
+          const txt = (instrRec && instrRec._tmpInner) ? instrRec._tmpInner.textContent : "";
+          if (tStart === null && txt.length > 0 && f.instruction6.startsWith(txt)) tStart = env.vnow();
           if (E.isActive(tryAgain)) tBtn = env.vnow();
           if (tBtn === null) await env.advance(25);
         }
-        ok(tOops !== null && tBtn !== null && tBtn - tOops <= 500, label + host + ": Try Again appears with the Oops line (+" + (tOops !== null && tBtn !== null ? Math.round(tBtn - tOops) : "?") + "ms)"); }
+        const gap = (tStart !== null && tBtn !== null) ? tBtn - tStart : null;
+        ok(gap !== null && gap <= 600, label + host + ": Try Again appears as the Oops line starts (+" + (gap === null ? "?" : Math.round(gap)) + "ms, not after the VO)");
+        // and it must NOT have waited for the whole line to finish typing
+        const typed = (instrRec && instrRec._tmpInner) ? instrRec._tmpInner.textContent : "";
+        ok(typed.length < f.instruction6.length || f.instruction6.length <= 8, label + host + ": Try Again did not wait for the line to finish (" + typed.length + "/" + f.instruction6.length + " chars typed)"); }
       for (let k = 0; k < 3; k++) {
         ok(await until(() => E.isActive(tryAgain), 12000), label + host + ": Try Again #" + (k + 1));
         click(tryAgain);

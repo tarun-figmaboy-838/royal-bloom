@@ -350,7 +350,11 @@ var Controllers = (function () {
     }
 
     // -------- typing + narration (begin together, single narration) --------
-    function typeText(msg, clip) {
+    // opts.onStart fires on the frame the FIRST letter is painted (which is not when typeText is called:
+    // the typing waits for the clip's metadata so it can be paced to the voice). Anything that should
+    // appear "with the text" must hang off this, not off the returned promise — that resolves only when
+    // the whole line, and therefore the voice, has finished.
+    function typeText(msg, clip, opts) {
       return new Promise(function (resolve) {
         if (!ID.instructionText) return resolve();
         var myTok = ++typingToken;
@@ -360,6 +364,7 @@ var Controllers = (function () {
           if (S.cancelled() || myTok !== typingToken) return resolve();
           announce(msg);
           if (clip) Audio.startNarration(clip);
+          if (opts && opts.onStart) { try { opts.onStart(); } catch (e) { console.error(e); } }
           var i = 0;
           (function step() {
             if (S.cancelled() || myTok !== typingToken) return resolve();
@@ -719,18 +724,22 @@ var Controllers = (function () {
     async function wrongAnswerFlow(selectedBook) {
       if (selectedBook) { showGlow(ID.bookImg, false); dimItem(ID.ballImg, true); }
       else { showGlow(ID.ballImg, false); dimItem(ID.bookImg, true); }
-      await typeText(INSTR[6], AUD[6]);
-      // Show the retry the moment the "Oops!" line lands. It used to sit behind a full second of dead
-      // air, leaving the child looking at an error with nothing to press.
-      await S.wait(0.15);
-      A(ID.tryAgain, true); if (ID.tryAgain) reg(E.onClick(ID.tryAgain, guard2("tryagain", onTryAgain), { key: "tryagain" }));
-      if (ID.tryAgain) {                                  // pop it in so it reads as "press me"
+      // The retry appears WITH the "Oops!" text, not when the line (and the voice it is paced to) has
+      // finished — awaiting typeText used to hold it back for the whole clip. onStart fires on the frame
+      // the first letter is painted, so the button lands with the words while the voice is still talking.
+      var retryShown = false;
+      var showRetry = function () {
+        if (retryShown || S.cancelled()) return; retryShown = true;
+        A(ID.tryAgain, true);
+        if (!ID.tryAgain) return;
+        reg(E.onClick(ID.tryAgain, guard2("tryagain", onTryAgain), { key: "tryagain" }));
         // resting scale is captured ONCE (from the authored value) — reading it back each time would
         // compound if the child pressed mid-pop, shrinking the button a little on every retry
         if (tryAgainScale == null) tryAgainScale = E.getScale(ID.tryAgain) || 1;
         E.kill(ID.tryAgain); S.track(ID.tryAgain);
-        E.setScale(ID.tryAgain, 0); E.doScale(ID.tryAgain, tryAgainScale, 0.3, "OutBack");
-      }
+        E.setScale(ID.tryAgain, 0); E.doScale(ID.tryAgain, tryAgainScale, 0.3, "OutBack");   // pop in: "press me"
+      };
+      typeText(INSTR[6], AUD[6], { onStart: function () { S.setTimeout(showRetry, 150); } });
     }
     // guard2: lock resets when the guarded flow explicitly releases it
     function guard2(name, fn) { return function () { if (locks[name]) return; locks[name] = true; fn(function () { locks[name] = false; }); }; }
