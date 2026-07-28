@@ -28,13 +28,18 @@ html, body {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
-/* Fixed logical 1920x1080 stage, scaled uniformly (min ratio) and letterbox-centered by JS. */
+/* Fixed logical 1920x1080 stage, scaled uniformly (min ratio) and letterbox-centered by JS.
+ * NO will-change/backface hack here on purpose. Promoting the stage to a permanently composited layer
+ * makes the browser rasterise the whole 1920x1080 scene ONCE and then GPU-scale that cached texture to
+ * fit the window — so at any non-integer fit (a 1889px-wide window gives 0.98) every sprite and every
+ * glyph is resampled from a stale raster and the screen looks soft. Without it the browser re-rasterises
+ * at the final on-screen scale, which is as sharp as the source art allows. The transform is only
+ * written on resize, so there is nothing here for will-change to optimise anyway. */
 #stage {
   position: absolute;
   top: 0; left: 0;
   width: 1920px; height: 1080px;
   transform-origin: top left;
-  will-change: transform;
 }
 
 .node {
