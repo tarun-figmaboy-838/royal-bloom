@@ -75,7 +75,7 @@ window.LAYOUT = {
    "components": {
     "image": {
      "sprite": {
-      "path": "assets/img/Slide_16_9_-_193.webp",
+      "path": "assets/img/TITLE.webp",
       "cropRect": {
        "x": 0,
        "y": 0,
