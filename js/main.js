@@ -101,8 +101,22 @@
   var preloaded = {};
   function preloadLevel(hostId) {
     if (!hostId || preloaded[hostId]) return; preloaded[hostId] = true;
-    var run = function () { collectAssets(hostId).forEach(function (src) { var im = new Image(); im.src = src; }); };
+    // E.preloadPaths decodes AND records each sprite's natural size (used by the item seating), and it
+    // de-dupes per src, so calling it for every level costs one fetch per distinct asset.
+    var run = function () { try { E.preloadPaths(collectAssets(hostId)); } catch (e) {} };
     if (window.requestIdleCallback) requestIdleCallback(run, { timeout: 3000 }); else setTimeout(run, 500);
+  }
+  // Warm EVERY level's art during idle time after boot, one level at a time so the first screens win the
+  // bandwidth. The child spends ~30s+ per level, so by the time any level is reached its art is decoded
+  // and nothing has to be fetched at reveal time (each reveal still awaits its own warm as a safety net).
+  function preloadAllLevels(order) {
+    var i = 0;
+    (function next() {
+      if (i >= order.length) return;
+      var host = order[i++];
+      var go = function () { preloadLevel(host); next(); };
+      if (window.requestIdleCallback) requestIdleCallback(go, { timeout: 2500 }); else setTimeout(go, 400);
+    })();
   }
 
   function startLevel(hostId) {
@@ -169,9 +183,8 @@
   var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
   Promise.all([fontsReady, preloadDecode(introId || "n2_Intro_1")]).then(hideBoot);
   setTimeout(hideBoot, 5000);       // safety net if an asset stalls
-  var firstLevel = LEVEL_ORDER[0];  // warm the tutorial while the child reads the intro
-  if (window.requestIdleCallback) requestIdleCallback(function () { preloadLevel(firstLevel); }, { timeout: 4000 });
-  else setTimeout(function () { preloadLevel(firstLevel); }, 1200);
+  // warm the tutorial while the child reads the intro, then every remaining level in order
+  Promise.resolve(fontsReady).then(function () { preloadAllLevels(LEVEL_ORDER); });
 
   // ---- dev diagnostics (never shown in production) ----
   function diagnostics() {

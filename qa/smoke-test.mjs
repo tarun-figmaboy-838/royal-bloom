@@ -100,6 +100,21 @@ async function runViewport(vp, full) {
     ok(typeof E.preloadSprites === "function" && typeof E.artRectLogical === "function", label + "sprite warm + visible-art geometry available");
   }
 
+  // Every hand / hint / ghost node ANYWHERE in the tree that is currently visible. Scanned globally,
+  // not per level: the Next-button hint hand is a canvas-root node shared by all five levels, and some
+  // levels author their hint hands active, so a stray hand can come from a level that is off screen.
+  // withGhost=false ignores the ghost demo nodes (a legitimate drag guide) and reports only hint hands.
+  function strayHands(withGhost) {
+    const N = E.nodes(), out = [];
+    for (const id of Object.keys(N)) {
+      const nm = (N[id].node && N[id].node.name) || "";
+      if (!/hand|hint|ghost/i.test(nm)) continue;
+      if (withGhost === false && /ghost/i.test(nm)) continue;
+      if (E.isInteractableInTree(id)) out.push(nm.trim() + "/" + id);
+    }
+    return out;
+  }
+
   async function playLevel(host, testWrong) {
     const f = fields(host);
     const boxBtn = nid(f.boxButton), ball = nid(f.ballDraggable), book = nid(f.bookDraggable);
@@ -130,6 +145,7 @@ async function runViewport(vp, full) {
     });
     // the naming screen must be calm: no sparkle burst on the name scrolls (it pulled the eye off the word)
     ok(E.confettiCount() === 0, label + host + ": no sparkles on the item-name screen (" + E.confettiCount() + ")");
+    { const s = strayHands(); ok(s.length === 0, label + host + ": no stray hand on the item-name screen (" + s.join(", ") + ")"); }
     // Part 2 name scrolls must OPEN (parchment + centered name), not sit closed with rollers only
     [nid(f.lanternTextObject), nid(f.featherTextObject)].forEach((root, k) => {
       const parch = root && E.childByName(root, "image 01");
@@ -149,6 +165,10 @@ async function runViewport(vp, full) {
     });
     click(nextP2);
     ok(await until(() => E.get(ball)._drag.enabled, 15000), label + host + ": ball enabled");
+    // Part 3 has only just appeared: the idle drag hint has NOT been earned yet, so no hint hand may be
+    // on screen. Level 1 authors its two Part-3 hint hands ACTIVE, which showed them from the first
+    // frame of Part 3 (the level start now forces every hint off). Ghost demo excluded — that is legit.
+    { const s = strayHands(false); ok(s.length === 0, label + host + ": no hint hand when Part 3 opens (" + s.join(", ") + ")"); }
     // genie scale root must NOT paint its own (duplicate) full genie image — only its children draw
     const scId = f.scaleController && f.scaleController.node;
     if (scId) {
@@ -197,13 +217,22 @@ async function runViewport(vp, full) {
       const art = E.artRectLogical((E.get(it) || {})._imgId || it) || E.worldRectLogical(it);
       if (!dish || !art) return;
       const dc = E.centerLogical(dish.id), bottom = art.y + art.h;
-      ok(bottom >= dc.y + 8 && bottom <= dc.y + 28, label + host + ": " + side + " item rests in the pan (art bottom " + Math.round(bottom - dc.y) + "px past the dish centre, not floating)");
+      // seated: below the dish centre (never floating) but not swallowed — the lap scales with the
+      // item, so a short item laps less than a tall one and neither extreme is allowed
+      // Seated = the art bottom is below the dish centre (so the bowl laps over it, never a gap) but
+      // shallow enough that no column of the art can fall past the bowl's silhouette and show under the
+      // pan. 11px is the measured ceiling for the widest item; see SEAT_DEPTH in controllers.js.
+      const lap = bottom - dc.y, artH = art.h;
+      ok(lap >= 6 && lap <= 24, label + host + ": " + side + " item rests in the pan (art bottom +" + Math.round(lap) + "px past the dish centre — not floating, not poking out below)");
+      ok(artH > 0 && lap / artH <= 0.2, label + host + ": " + side + " item is not swallowed by the bowl (" + Math.round(100 * lap / artH) + "% hidden)");
     });
     ok(await until(() => (elById(bookAns).listeners.click || []).length > 0, 15000), label + host + ": answers enabled");
     // instruction must advance per phase (regression guard: setText took an id, not a rec, so every update was a silent no-op)
     const instrNode = nid(f.instructionText), instrRec = instrNode && E.get(instrNode);
     const instrText = instrRec && instrRec._tmpInner ? instrRec._tmpInner.textContent : "";
     ok(instrText === f.instruction5, label + host + ": instruction advanced to Part3 answer ('" + f.instruction5 + "', got '" + instrText + "')");
+    // no leftover demo/hint hand while the child is being asked to choose (the idle hint comes later)
+    { const s = strayHands(); ok(s.length === 0, label + host + ": no stray hand at the Part3 answer prompt (" + s.join(", ") + ")"); }
     // text must be vertically CENTERED so descenders (g/y/p/j) aren't clipped by the tight box + overflow:hidden
     ok(instrRec && instrRec.el.style.alignItems === "center", label + host + ": instruction text vertically centered (descenders not clipped)");
     const bookLighter = weightOf(book) < weightOf(ball);

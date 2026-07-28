@@ -58,15 +58,64 @@ var Controllers = (function () {
   var LEFT_DOWN = { beamRot: 8, beamX: -27, beamY: -8.3, leftX: -385, leftY: -27, rightX: 372, rightY: 65, p1X: -237, p1Y: 41 };
   var RIGHT_DOWN = { beamRot: -8, beamX: -29.49, beamY: -2.48, beamW: 792.335, beamH: 839, leftX: -374, leftY: 65, rightX: 377, rightY: -27, p1X: -240.17, p1Y: 20, p2X: 234, p2Y: 27 };
   var DUR = { balanced: 0.35, leftDown: 0.75, rightDown: 0.6666667 };
-  // How far BELOW a pan dish's centre line an item's visible art bottom is seated. The bowl box is 64
-  // logical px tall (centre ±32) and the item draws BEHIND the dish, so a deeper value simply means
-  // more of the bowl front laps over the item's lower edge — the same lap for every item, tall or
-  // short (see seatArtBottom). Before this, items were centred on the drop point, so the bottom edge
-  // depended on the item's box height: tall items (bell/crown/vase) landed at +17..+28 while the
-  // short ribbon landed at -1..-11 — at or ABOVE the bowl, the float QA reported.
-  // +26 tucks every item a little under the rim (QA note on L2: "make bell little under the pan")
-  // while staying inside the bowl box, so nothing pokes out beneath the pan.
-  var SEAT_DEPTH = 26;
+  // How deep an item sits in a pan: its visible art bottom is seated this far BELOW the dish's centre
+  // line (the bowl box is 64 logical px tall, centre ±32, and the item draws BEHIND the dish, so the
+  // depth is exactly how much of the item the bowl front laps over).
+  //
+  // Two failure modes, both seen in QA, bound the value:
+  //  - too shallow: the item's bottom ends up ABOVE the bowl and it floats. Items used to be centred
+  //    on the drop point, so the bottom depended on the item's box height — the tall bell/crown/vase
+  //    (box 197) landed at +17..+28 and read as seated, the short ribbon (box 140) at -1..-11 and
+  //    floated. That is the float QA reported.
+  //  - too deep: a fixed depth swallows a short item. At +26 the bowl hid ~40% of the ribbon and cut
+  //    across its flat base, while hiding only ~13% of the bell.
+  // So the lap scales with the item — SEAT_FRACTION of its visible art height, capped at SEAT_DEPTH.
+  // The ribbon gets ~17px and the bell ~24px: both clearly resting in the bowl, neither swallowed.
+  // (The rim's exact line inside the bowl sprite isn't in the data, so these are tuned to what QA
+  //  sees on screen; they are the only two numbers to touch if the tuck needs adjusting.)
+  // SEAT_DEPTH is measured, not taste: the bowl is deep only in its middle (opaque down to y=63 around
+  // its centre, but only y=31..47 toward its ends), so a WIDE item cannot sit as deep as a narrow one —
+  // its outer columns drop past the bowl's silhouette and show under the pan. Comparing each item's
+  // per-column opaque profile against the bowl's, the deepest lap that keeps EVERY item inside the bowl
+  // (with 4px to spare) is 11px; the tightest item is the Tutorial's bell (120px of art). Going deeper
+  // is what made the ribbon's tail, the Tutorial bell and the paper fan poke out below the rim.
+  var SEAT_DEPTH = 11;
+  // How deep each individual art can tuck, measured the same way: a narrow-based item can sit much
+  // deeper than a wide-based one before its outer columns fall past the bowl. Values are the measured
+  // maximum minus a safety margin. Anything not listed uses SEAT_DEPTH, which is safe for every item.
+  var ART_SEAT = {
+    "assets/img/Untitled_design__34__2.webp": 22,   // bell (Levels 1 + 2): narrow base, clean to 30 — tucks deep
+    "assets/img/Untitled_design__33__6.webp": 14,   // paper fan (Tutorial): clean to 17
+    "assets/img/Untitled_design__21__7.webp": 11,   // bell (Tutorial): WIDE flat base — 11 is its measured max
+    "assets/img/The_Royal_Bloom_Fest__26__2.webp": 11 // ribbon: its tail is the limit (see ART_NUDGE)
+  };
+  function seatDepthFor(imgId) {
+    var r = imgId && Engine.get(imgId);
+    var p = r && r._img && r._img.sprite && r._img.sprite.path;
+    return (p && ART_SEAT[p]) || SEAT_DEPTH;
+  }
+  // Per-SPRITE seating nudge in logical px, applied on top of the geometric seating. The engine knows
+  // a sprite's box and its aspect, but NOT where the opaque pixels sit inside the file — art that is
+  // drawn off-centre in its own image therefore lands off-centre in the pan, however exactly we place
+  // the box. Keyed by sprite path, so one entry fixes every level that uses that art (the ribbon is
+  // shared by Level 1 and Level 3) and Part 3 + Part 4 alike. dx: -left/+right, dy: +deeper.
+  // Measured from the art itself (per-column opaque profile of the sprite vs the pan's bowl sprite):
+  //  - the ribbon's opaque pixels sit 12px RIGHT of its own box centre, so centring the box leaves the
+  //    ribbon off-centre on the pan;
+  //  - its lowest pixels are its TAIL, which spans the whole right half of the frame. The bowl is only
+  //    deep in the middle (opaque to y=63 at x 64..139, but just y=39 by x=172), so a tail sitting at
+  //    the bowl's right end drops below the bowl's silhouette and shows under the pan — 10px of it at
+  //    the previous setting, which is exactly what QA photographed.
+  //  dx -20 both centres the visible ribbon (+12 of it) and slides its tail back over the bowl's deep
+  //  middle (-8). Verified against the silhouettes: no column of the ribbon falls outside the bowl.
+  var ART_NUDGE = {
+    "assets/img/The_Royal_Bloom_Fest__26__2.webp": { dx: -20, dy: 0 }   // ribbon (Level 1 + Level 3)
+  };
+  function artNudge(imgId) {
+    var r = imgId && Engine.get(imgId);
+    var p = r && r._img && r._img.sprite && r._img.sprite.path;
+    return (p && ART_NUDGE[p]) || { dx: 0, dy: 0 };
+  }
 
   function BalanceScaleAnimator(cfg) {
     var rootId = cfg.rootId || nid(cfg.animator);
@@ -236,6 +285,12 @@ var Controllers = (function () {
     var tryAgainScale = null;     // authored resting scale of the Try Again button (captured once)
 
     function A(id, on) { if (id) E.setActive(id, on); }
+    // Force every hint hand / ghost of THIS level off, killing any tween on it. Used at level start
+    // (the layout authors some of them active) and on teardown, so no hand can be left on screen.
+    function hideAllHints() {
+      [ID.hintHand, ID.hint1, ID.hint2, ID.answerHint, ID.nextHint, ID.ghostHand, ID.ghostItem, ID.p4hint1, ID.p4hint2]
+        .forEach(function (id) { if (id) { E.kill(id); E.setActive(id, false); } });
+    }
     function reg(disposer) { if (disposer) disposers.push(disposer); }
     function weight(id) { var d = E.get(id); return d && d._itemData ? d._itemData.weight : 0; }
 
@@ -266,6 +321,8 @@ var Controllers = (function () {
     function seatArtBottom(itemId, targetX, bottomY) {
       var rec = E.get(itemId); if (!rec) return;
       var imgId = rec._imgId && E.get(rec._imgId) ? rec._imgId : itemId;
+      var nudge = artNudge(imgId);          // correction for art that isn't centred in its own file
+      targetX += nudge.dx; bottomY += nudge.dy;
       for (var pass = 0; pass < 2; pass++) {
         var art = E.artRectLogical(imgId) || E.worldRectLogical(imgId);
         if (!art) return;
@@ -320,7 +377,13 @@ var Controllers = (function () {
       [ID.book, ID.ball, ID.part4ItemA, ID.part4ItemB].forEach(function (did) { if (did) { I.resetToInitial(did); repaintItem(did, "item"); } });
       item1Orig = ID.item1 ? E.getAnchoredPos(ID.item1) : { x: 0, y: 0 };
       item2Orig = ID.item2 ? E.getAnchoredPos(ID.item2) : { x: 0, y: 0 };
-      A(ID.item1, false); A(ID.item2, false); A(ID.highlight, false); A(ID.hintHand, false);
+      A(ID.item1, false); A(ID.item2, false); A(ID.highlight, false);
+      // Every hint hand / ghost starts HIDDEN, whatever the layout authored. The Unity export is
+      // inconsistent here — Level 1 authors its two Part-3 hint hands ACTIVE (n157/n163) and Level 3
+      // authors the children of its Part-4 hint hands ACTIVE — so a stray hand would sit on screen
+      // from the moment that part appears instead of only after the child has idled. Hiding them per
+      // level (not per node id) keeps this true for any future level.
+      hideAllHints();
       A(ID.part2, false); A(ID.part3, false); A(ID.part4, false);
       A(ID.item3, false); A(ID.item4, false); A(ID.lanternText, false); A(ID.featherText, false);
       A(ID.nextP2, false); A(ID.nextP3, false); A(ID.tryAgain, false);
@@ -511,11 +574,14 @@ var Controllers = (function () {
         var sc = E.centerLogical(zone.id);
         E.reparent(itemId, pan.id);
         E.setStageLocalPos(E.get(itemId), sc.x, sc.y);
-        // Rest the item ON the bowl: its visible art bottom sits SEAT_DEPTH below the dish's centre
-        // line, i.e. down inside the bowl, so the dish front laps over the item's lower edge. Keyed
-        // to the dish (not the item's own box height), so short items — the ribbon — can never float.
+        // Rest the item ON the bowl: its visible art bottom sits just below the dish's centre line, so
+        // the dish front laps over the item's lower edge. The depth is keyed to the DISH (not the item's
+        // box height, which is what let short items float) and to the ART (each sprite tucks as deep as
+        // its own silhouette allows against the bowl) — see seatDepthFor / ART_SEAT.
         var dc = E.centerLogical(dish.id);
-        seatArtBottom(itemId, dc.x, dc.y + SEAT_DEPTH);
+        var itemRec = E.get(itemId);
+        var seatImg = (itemRec._imgId && E.get(itemRec._imgId)) ? itemRec._imgId : itemId;
+        seatArtBottom(itemId, dc.x, dc.y + seatDepthFor(seatImg));
         E.setAsFirstSibling(itemId);   // render BEHIND the dish -> tucked inside the bowl
         // The dish (bowl) now sits IN FRONT of the nestled item. In the answer phase the item is the
         // tap target ("Tap the heavier item"), so make the dish + its drop-marker children NON-
@@ -967,7 +1033,11 @@ var Controllers = (function () {
     function hideHint(hintId) { if (!hintId) return; E.kill(hintId); A(hintId, false); }
     function showNextButtonHint(btnId) {
       nextHintTimer = S.setTimeout(function () {
-        if (!btnId || !E.isActive(btnId) || !ID.nextHint) return;
+        // isInteractableInTree, NOT isActive: the hint hand (n519_hand) is a CANVAS-ROOT node shared
+        // by every level, so it shows regardless of which level is on screen. isActive only checks the
+        // button itself — a button whose level root was deactivated without disposing the GM (e.g. a
+        // God Mode screen jump) still reads active, and this timer would park a hand over another level.
+        if (!btnId || !E.isInteractableInTree(btnId) || !ID.nextHint) return;
         A(ID.nextHint, true); S.track(ID.nextHint);
         var bc = E.centerLogical(btnId); E.setStageLocalPos(E.get(ID.nextHint), bc.x, bc.y); E.setScale(ID.nextHint, 0.7);
         E.setAlpha(ID.nextHint, 0.5); E.doFade(ID.nextHint, 1, 0.8, "InOutSine", { loops: -1, yoyo: true });
@@ -980,6 +1050,7 @@ var Controllers = (function () {
     self.dispose = function () {
       confettiToken.cancelled = true;
       stopGhost(); stopPart4Hint(); stopAnswerHint(); stopNextButtonHint();
+      hideAllHints();                 // nothing of this level may be left on screen (the Next hint hand is shared)
       Audio.stopNarration();
       DM.clear();
       if (scaleCtrl && scaleCtrl.destroy) scaleCtrl.destroy();

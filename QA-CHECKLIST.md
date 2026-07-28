@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1094 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1154 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1094 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1154 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -78,6 +78,8 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] Drag each item onto a pan — **drops when released near the pan** (not only on exact overlap)
 - [ ] Placed item **nestles inside the pan** (bowl rim laps over its lower edge); **no part pokes under the pan**
 - [ ] **Every item rests in the bowl — no air gap under it.** Check the **short** items especially (the ribbon), on the **left** pan and the **right** pan, before and after the beam tilts
+- [ ] **Nothing pokes out below the pan**: no sliver of the item (the ribbon's tail, the bell's flare) shows under the bowl's rim at either end — the bowl is shallow at its ends, so a wide item cannot sit as deep as a narrow one
+- [ ] **No stray hint hand**: the drag-guide/idle hint hand appears only after the child waits, never from the first frame of a part, and never a hand belonging to another level
 - [ ] Scale tilts so the **heavier side goes down** — matching where you placed the items
 - [ ] A **drag-guide hand** demonstrates the drag if the child waits (Part 3)
 - [ ] Instruction "Tap the heavier item" / "Tap the lighter item" matches the level
