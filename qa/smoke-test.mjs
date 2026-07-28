@@ -287,7 +287,11 @@ async function runViewport(vp, full) {
     { const gh = nid(f.ghostHand);
       if (gh && await until(() => E.isActive(gh), 2500)) {
         const vis = (id) => { let r = E.get(id); while (r) { if ((r.node && r.node.active === false) || (r.el && r.el.style.display === "none")) return false; r = r.parent; } return true; };
-        ok(vis(gh), label + host + ": Part-4 drag-guide hand visible (re-hosted off the hidden Part 3)"); } }
+        ok(vis(gh), label + host + ": Part-4 drag-guide hand visible (re-hosted off the hidden Part 3)");
+        // exactly ONE hand: the animated ghost. The static hand-on-the-card overlay (and its dotted
+        // arrow art) used to show at the same time, so the child saw two hands and an arrow at once.
+        const others = strayHands(false);
+        ok(others.length === 0, label + host + ": only the animated hand demos the drag — no second/sticky hand (" + others.join(", ") + ")"); } }
     // Part 4 drop targets must be invisible hit areas, not pre-placed item sprites (Bug D)
     Object.keys(CFG.baskets).filter((z) => nid(CFG.baskets[z].gameManager) === host && CFG.baskets[z].isPart4).forEach((z) => {
       const marker = nid(CFG.baskets[z].basketImage) || z, mel = E.get(marker).el;

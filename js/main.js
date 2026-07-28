@@ -180,11 +180,35 @@
     if (b) { b.classList.add("hide"); setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 500); }
   }
   window.__rbHideBoot = hideBoot;   // let the HTML fallback share the same guard
+  // Every audio clip the game will ever play, so no VO/SFX has to be fetched at the moment it is
+  // needed (AudioManager caches one element per src and de-dupes, and metadata is what typeText needs
+  // to pace the typing to the voice).
+  function allAudioClips() {
+    var out = [], seen = {};
+    var add = function (s) { if (typeof s === "string" && s && !seen[s]) { seen[s] = 1; out.push(s); } };
+    if (bgmSrc) add(bgmSrc);
+    (CFG.gameManagers || []).forEach(function (g) {
+      Object.keys(g.fields || {}).forEach(function (k) {
+        var f = g.fields[k];
+        if (f && typeof f.audio === "string") add(f.audio);
+      });
+    });
+    return out;
+  }
+  function warmAudio() {
+    allAudioClips().forEach(function (src) { try { Audio.prepareNarration(src); } catch (e) {} });
+  }
+
   var fontsReady = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
-  Promise.all([fontsReady, preloadDecode(introId || "n2_Intro_1")]).then(hideBoot);
+  Promise.all([fontsReady, preloadDecode(introId || "n2_Intro_1")]).then(function () {
+    hideBoot();
+    // Only AFTER the first screen is decoded and shown: warm every level's art and every audio clip,
+    // one level at a time during idle. Nothing competes with the first paint, and by the time any
+    // screen is reached its assets are already decoded — no buffering, no pop-in, no VO delay.
+    preloadAllLevels(LEVEL_ORDER);
+    if (window.requestIdleCallback) requestIdleCallback(warmAudio, { timeout: 6000 }); else setTimeout(warmAudio, 2000);
+  });
   setTimeout(hideBoot, 5000);       // safety net if an asset stalls
-  // warm the tutorial while the child reads the intro, then every remaining level in order
-  Promise.resolve(fontsReady).then(function () { preloadAllLevels(LEVEL_ORDER); });
 
   // ---- dev diagnostics (never shown in production) ----
   function diagnostics() {

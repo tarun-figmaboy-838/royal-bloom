@@ -83,11 +83,18 @@ var Controllers = (function () {
   // How deep each individual art can tuck, measured the same way: a narrow-based item can sit much
   // deeper than a wide-based one before its outer columns fall past the bowl. Values are the measured
   // maximum minus a safety margin. Anything not listed uses SEAT_DEPTH, which is safe for every item.
+  // Every item's own maximum, measured per sprite AFTER its art is centred by ART_NUDGE below (centring
+  // matters: several arts are drawn off-centre in their file, which pushed their edge onto the bowl's
+  // shallow end and forced a shallow seat). Each value is at or under the deepest clean depth found.
   var ART_SEAT = {
-    "assets/img/Untitled_design__34__2.webp": 22,   // bell (Levels 1 + 2): narrow base, clean to 30 — tucks deep
-    "assets/img/Untitled_design__33__6.webp": 14,   // paper fan (Tutorial): clean to 17
-    "assets/img/Untitled_design__21__7.webp": 11,   // bell (Tutorial): WIDE flat base — 11 is its measured max
-    "assets/img/The_Royal_Bloom_Fest__26__2.webp": 11 // ribbon: its tail is the limit (see ART_NUDGE)
+    "assets/img/Untitled_design__34__2.webp": 24,   // bell (Levels 1 + 2) — clean to 34
+    "assets/img/Untitled_design__21__7.webp": 18,   // bell (Tutorial)     — clean to 19
+    "assets/img/paper_fan.webp": 22,                // paper fan (Level 2) — clean to 24
+    "assets/img/vase.webp": 22,                     // vase (Level 4)      — clean to 24
+    "assets/img/Untitled_design__33__6.webp": 16,   // paper fan (Tutorial)— clean to 17
+    "assets/img/crown.webp": 16,                    // crown (Level 3)     — clean to 16
+    "assets/img/flowers.webp": 16,                  // flowers (Level 4)   — clean to 16
+    "assets/img/The_Royal_Bloom_Fest__26__2.webp": 15 // ribbon (L1 + L3)  — clean to 15 (its tail is the limit)
   };
   function seatDepthFor(imgId) {
     var r = imgId && Engine.get(imgId);
@@ -108,8 +115,17 @@ var Controllers = (function () {
   //    the previous setting, which is exactly what QA photographed.
   //  dx -20 both centres the visible ribbon (+12 of it) and slides its tail back over the bowl's deep
   //  middle (-8). Verified against the silhouettes: no column of the ribbon falls outside the bowl.
+  // dx is each art's measured off-centre error inside its own image file (plus, for the ribbon and the
+  // Tutorial bell, a couple of px more to bring a low outer edge over the bowl's deeper middle).
   var ART_NUDGE = {
-    "assets/img/The_Royal_Bloom_Fest__26__2.webp": { dx: -20, dy: 0 }   // ribbon (Level 1 + Level 3)
+    "assets/img/The_Royal_Bloom_Fest__26__2.webp": { dx: -14, dy: 0 },  // ribbon (L1 + L3): art 12px right in file
+    "assets/img/flowers.webp": { dx: -19, dy: 0 },                      // flowers (L4): art 19px right in file
+    "assets/img/paper_fan.webp": { dx: -15, dy: 0 },                    // paper fan (L2): art 15px right in file
+    "assets/img/vase.webp": { dx: -7, dy: 0 },                          // vase (L4)
+    "assets/img/crown.webp": { dx: -3, dy: 0 },                         // crown (L3)
+    "assets/img/Untitled_design__21__7.webp": { dx: -2, dy: 0 },        // bell (Tutorial)
+    "assets/img/Untitled_design__34__2.webp": { dx: 1, dy: 0 },         // bell (L1 + L2)
+    "assets/img/Untitled_design__33__6.webp": { dx: 5, dy: 0 }          // paper fan (Tutorial): art 5px left in file
   };
   function artNudge(imgId) {
     var r = imgId && Engine.get(imgId);
@@ -612,9 +628,9 @@ var Controllers = (function () {
       I.setEnabled(ID.ball, true); I.setEnabled(ID.book, false);
       startGhost(ID.ballStart, ID.rightDrop, false);
       onDragStarted(ID.ball, stopGhost);
-      var rightHint = scheduleHint(ID.hint1, function () { return !!placed3[ID.ball]; });
+      hideHint(ID.hint1);                 // no sticky hand overlay — the animated ghost hand is the only hint
       await S.waitUntil(function () { return !!placed3[ID.ball]; });
-      stopGhost(); updateScaleWeights(); clearHint(rightHint, ID.hint1);
+      stopGhost(); updateScaleWeights(); hideHint(ID.hint1);
       I.setEnabled(ID.ball, false);
       await typeText(INSTR[4], AUD[4]);
       // enable book (item on the left) only
@@ -624,9 +640,9 @@ var Controllers = (function () {
       var targetDrop = isLeftOccupied() ? ID.rightDrop : ID.leftDrop;
       startGhost(ID.bookStart, targetDrop, true);
       onDragStarted(ID.book, stopGhost);
-      var leftHint = scheduleHint(ID.hint2, function () { return !!placed3[ID.book]; });
+      hideHint(ID.hint2);
       await S.waitUntil(function () { return !!placed3[ID.book]; });
-      stopGhost(); updateScaleWeights(); clearHint(leftHint, ID.hint2);
+      stopGhost(); updateScaleWeights(); hideHint(ID.hint2);
       I.setEnabled(ID.book, false);
       await S.wait(1);
       A(ID.item5, false); A(ID.item6, false);
@@ -795,7 +811,7 @@ var Controllers = (function () {
       startBasketFloating();
       await typing; await S.wait(2);
       enablePart4Drag(); isPart4Ready = true;
-      part4HintTimer = schedulePart4Hint();
+      stopPart4Hint();                    // keep the static hand-on-card overlays off (ghost hand is the hint)
     }
     function startBasketFloating() { if (!ID.basket) return; E.kill(ID.basket); S.track(ID.basket); var p = E.getAnchoredPos(ID.basket); E.doAnchorPosY(ID.basket, p.y + 12, 1.2, "InOutSine", { loops: -1, yoyo: true }); }
     function enablePart4Drag() {
@@ -854,7 +870,7 @@ var Controllers = (function () {
           confettiToken = { cancelled: false }; E.confettiBurst(zone.id, confettiToken);   // golden sparkle from inside the container
           if (dropSFX) Audio.playSFX(dropSFX);                                             // ...and a sound as it lands
           checkPart4Completion();
-          if (!allPlaced4()) { part4HintTimer = schedulePart4Hint(); startSmartGhostP4(); }
+          if (!allPlaced4()) startSmartGhostP4();
         } else {
           part4WrongFlow(itemId);
         }
@@ -969,15 +985,8 @@ var Controllers = (function () {
       // A was always the lighter one — item-based keeps the demoed picture correct regardless.
       startGhost(startId || itemId, endId, isItemA, true);
     }
-    function schedulePart4Hint() {
-      return S.setTimeout(function () {
-        part4HintTimer = null;
-        if (allPlaced4()) return;
-        hideHint(ID.p4hint1); hideHint(ID.p4hint2);
-        if (!placed4[ID.part4ItemA]) showFadeHint(ID.p4hint1);
-        else showFadeHint(ID.p4hint2);
-      }, part4HintDelay * 1000);
-    }
+    // Part 4's idle hint is the animated ghost hand (startSmartGhostP4) alone — the static hand-on-the-
+    // card overlay and its dotted arrow are not shown at all, so the child never sees two hands at once.
     function stopPart4Hint() { if (part4HintTimer) { S.clearTimeout(part4HintTimer); part4HintTimer = null; } hideHint(ID.p4hint1); hideHint(ID.p4hint2); }
 
     // ---------- ghost demo ----------
@@ -1027,9 +1036,10 @@ var Controllers = (function () {
     }
 
     // ---------- hints ----------
-    function scheduleHint(hintId, doneFn) { return S.setTimeout(function () { if (!doneFn()) showFadeHint(hintId); }, dragHintDelay * 1000); }
-    function clearHint(timer, hintId) { if (timer) S.clearTimeout(timer); if (hintId) { E.kill(hintId); A(hintId, false); } }
-    function showFadeHint(hintId) { if (!hintId) return; E.kill(hintId); A(hintId, true); S.track(hintId); E.setAlpha(hintId, 0.3); E.doFade(hintId, 1, 0.8, "InOutSine", { loops: -1, yoyo: true }); }
+    // The STATIC hint overlays (a faded hand pinned on the item card, plus the big dotted arrow art
+    // behind it) are gone: they appeared alongside the animated drag-guide hand, so the child saw TWO
+    // hands and a dotted arrow at once. The single animated ghost hand (startGhost) is the only drag
+    // hint now. hideHint stays — the flow uses it to guarantee those nodes are never on screen.
     function hideHint(hintId) { if (!hintId) return; E.kill(hintId); A(hintId, false); }
     function showNextButtonHint(btnId) {
       nextHintTimer = S.setTimeout(function () {
