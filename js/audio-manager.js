@@ -10,7 +10,10 @@ var AudioManager = (function () {
   // Channel levels. Every element used to play at 1.0, so the looping music sat ON TOP of the
   // voice and drowned it. The music is a bed: quiet by default, and ducked further while a
   // narration clip is playing so the child always hears the instruction.
-  var VOL = { bgm: 0.18, bgmDucked: 0.07, narration: 1, sfx: 0.7 };
+  // Narration runs almost continuously in this game, so the ducked level is what the music sits at for
+  // most of the session — set it too low (it was 0.07) and the BGM reads as "not playing" on laptop or
+  // phone speakers. These levels keep the voice clearly on top while the music stays audible throughout.
+  var VOL = { bgm: 0.35, bgmDucked: 0.16, narration: 1, sfx: 0.8 };
   var DUCK_MS = 250;         // ramp length: fast enough to be under the first word, slow enough not to click
 
   var DEV = false;

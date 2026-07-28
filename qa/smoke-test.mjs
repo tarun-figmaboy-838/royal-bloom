@@ -87,8 +87,10 @@ async function runViewport(vp, full) {
   // and drown the voice). Every channel level is asserted, plus the duck/restore cycle. ----
   {
     const AM = H.RB.Audio, lv = AM.levels();
-    ok(lv.bgm <= 0.25 && lv.narration >= 0.9 && lv.sfx < lv.narration, label + "channel levels: quiet music, full voice, SFX under voice");
-    ok(lv.bgmDucked < lv.bgm, label + "ducked music level is below the normal music bed");
+    ok(lv.bgm <= 0.5 && lv.narration >= 0.9 && lv.sfx < lv.narration, label + "channel levels: music under the voice, full voice, SFX under voice");
+    // ducked BELOW the bed but still clearly audible — narration runs nearly all the time, so the ducked
+    // level is what the music sits at for most of the session; too low and it reads as "not playing"
+    ok(lv.bgmDucked < lv.bgm && lv.bgmDucked >= 0.12, label + "ducked music is lower than the bed but still audible (" + lv.bgmDucked + ")");
     ok(await until(() => AM.stats().narrationActive, 5000), label + "narration playing after Let's Go");
     await env.advance(400);                                    // let the duck ramp finish
     const dk = AM.stats();
