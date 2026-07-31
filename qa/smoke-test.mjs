@@ -447,6 +447,57 @@ async function runViewport(vp, full) {
     await runViewport(vp, i === 0);
   }
 
+  // ---- the idle-hint rule, measured at EVERY step of a post-Tutorial level ----
+  // "After the Tutorial, a hand appears only once the child has been idle ~8s." Four separate hint
+  // families implement that (box / Next button / drag ghost / answer hand); this sits still at each
+  // step of Level 1 and times how long a hand actually takes, so no family can drift out of the rule.
+  console.log("-- idle-hint rule: every hand in Level 1");
+  {
+    const IH = boot(VIEWPORTS[0]);
+    const ienv = IH.env, IE = IH.E, ICFG = IH.CFG;
+    const inid = (x) => (x && x.node) ? x.node : null;
+    const iel = (id) => ienv.document.getElementById(id);
+    const iclick = (id) => { const el = iel(id); if (el) el.dispatchEvent(ienv.makeEvent("click")); };
+    const iuntil = async (p, ms, st = 100) => { let t = 0; while (t < ms) { if (p()) return true; await ienv.advance(st); t += st; } return p(); };
+    const izc = (id) => { const r = iel(id).getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
+    const idrag = (i, z) => { const c = izc(z); ienv.dragTo(iel(i), c.x, c.y); };
+    const iw = (id) => { const d = ICFG.draggables[id]; return d && d.itemData ? d.itemData.weight : NaN; };
+    const NODES = IE.nodes();
+    const anyHand = () => Object.keys(NODES).some((id) => /hand|hint|ghost/i.test((NODES[id].node.name || "")) && IE.isInteractableInTree(id) && IE.getAlpha(id) > 0.02);
+    const timeToHand = async (maxS) => { const t0 = ienv.vnow(); const got = await iuntil(anyHand, maxS * 1000, 100); return got ? (ienv.vnow() - t0) / 1000 : null; };
+    const inRule = (s, step) => ok(s !== null && s >= 7.5 && s <= 9.5, "idle rule | Level 1 " + step + " hand waits ~8s (" + (s === null ? "never appeared" : s.toFixed(1) + "s") + ")");
+
+    await ienv.advance(50);
+    ienv.window.dispatchEvent(ienv.makeEvent("pointerdown", { clientX: 5, clientY: 5 }));
+    IE.setActive("n105_Level_1", true);                     // straight into a post-Tutorial level
+    const f = ICFG.gameManagers.find((g) => g.host === "n105_Level_1").fields;
+    const ball = inid(f.ballDraggable), book = inid(f.bookDraggable);
+    const zs = Object.keys(ICFG.baskets).filter((z) => inid(ICFG.baskets[z].gameManager) === "n105_Level_1" && !ICFG.baskets[z].isPart4);
+    const L = zs.find((z) => ICFG.baskets[z].isLeftBasket), R = zs.find((z) => !ICFG.baskets[z].isLeftBasket);
+
+    await iuntil(() => (iel(inid(f.boxButton)).listeners.click || []).length > 0, 12000);
+    ok(!anyHand(), "idle rule | Level 1 box is tappable before any hand appears");
+    inRule(await timeToHand(14), "Part 1 box");
+    iclick(inid(f.boxButton));
+    await iuntil(() => IE.isActive(inid(f.nextButtonPart2)), 15000);
+    inRule(await timeToHand(16), "Part 2 Next");
+    iclick(inid(f.nextButtonPart2));
+    await iuntil(() => IE.get(ball)._drag.enabled, 18000);
+    inRule(await timeToHand(14), "Part 3 drag");
+    idrag(ball, R);
+    await iuntil(() => IE.get(book)._drag.enabled, 15000);
+    idrag(book, L);
+    await iuntil(() => (iel(inid(f.bookAnswerButton)).listeners.click || []).length > 0, 18000);
+    inRule(await timeToHand(14), "Part 3 answer");
+    const bl = iw(book) < iw(ball), ci = f.answerMode === 0 ? bl : !bl;
+    iclick(ci ? inid(f.bookAnswerButton) : inid(f.ballAnswerButton));
+    await iuntil(() => IE.isActive(inid(f.nextButtonPart3)), 15000);
+    iclick(inid(f.nextButtonPart3));
+    const p4a = inid(f.bookDraggablePart4);
+    await iuntil(() => IE.get(p4a)._drag.enabled && IH.RB.gmByHost["n105_Level_1"].diagnostics().ready4, 25000);
+    inRule(await timeToHand(14), "Part 4 drag");
+  }
+
   // ---- lifecycle / leak stability: replay Tutorial 20x on a fresh boot ----
   console.log("-- leak stability: 20x Tutorial replay");
   const H = boot(VIEWPORTS[0]);

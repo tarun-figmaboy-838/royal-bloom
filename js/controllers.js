@@ -1127,8 +1127,10 @@ var Controllers = (function () {
         E.setAlpha(ID.nextHint, 0); E.doFade(ID.nextHint, 1, GHOST_FADE, "OutQuad", { onComplete: function () {
           E.doFade(ID.nextHint, 0.55, 0.8, "InOutSine", { loops: -1, yoyo: true });   // then breathe, gently
         } });
-        // the fourth and last hint family on the same idle rule as the others
-      }, (isFirstLevel ? nextHintDelay : IDLE_HINT_DELAY) * 1000);
+        // the fourth and last hint family on the same idle rule as the others. The Tutorial keeps its
+        // authored delay but capped at IDLE_HINT_DELAY: it was 12s, i.e. the teaching level made the
+        // child wait LONGER for a hand than Level 1 does. No hand anywhere now takes more than 8s.
+      }, (isFirstLevel ? Math.min(nextHintDelay, IDLE_HINT_DELAY) : IDLE_HINT_DELAY) * 1000);
       if (btnId) reg(E.onClick(btnId, stopNextButtonHint, { key: "nexthint" }));
     }
     function stopNextButtonHint() { if (nextHintTimer) { S.clearTimeout(nextHintTimer); nextHintTimer = null; } if (ID.nextHint) { E.kill(ID.nextHint); A(ID.nextHint, false); } }
