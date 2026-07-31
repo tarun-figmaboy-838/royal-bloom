@@ -84,6 +84,7 @@ var Controllers = (function () {
   // level AFTER the Tutorial (the Tutorial teaches, so it demonstrates straight away). Covers the
   // drag-guide hand in Part 3 and Part 4 and the tap hand in the Part-3 answer step.
   var IDLE_HINT_DELAY = 8;
+  var GHOST_FADE = 0.45;   // how long the drag-guide hand takes to fade up (it must never just blink on)
   // An item must be the SAME size wherever it lands. Each level authors its own ghost marker and the
   // item used to be fitted to it, so the identical bell rendered 170x177 in Level 1 but 146x152 in
   // Level 2 (its marker is 146 wide) — the same object visibly shrinking between levels. The FIRST
@@ -1047,7 +1048,10 @@ var Controllers = (function () {
         var sprite = isPart4 ? (isBook ? SPR.bookGhost4 : SPR.ballGhost4) : (isBook ? SPR.bookGhost3 : SPR.ballGhost3);
         if (ID.ghostImg && sprite) E.repaintSprite(E.get(ID.ghostImg), sprite);
         A(ID.ghostHand, true); A(ID.ghostItem, true);
-        E.setAlpha(ID.ghostItem, ghostAlpha);
+        // Start invisible: the hand used to blink in at full opacity, which after the Tutorial (where
+        // it now waits 8s of silence) reads as something appearing out of nowhere. It fades up on the
+        // spot instead — see the fade below, once it has been positioned at the start of the drag.
+        E.setAlpha(ID.ghostHand, 0); E.setAlpha(ID.ghostItem, 0);
         // The ghost is authored inside Part 3, whose subtree is hidden during Part 4 — so the Part-4
         // demo hand would never render. Re-host both on the LEVEL ROOT (visible in every part). Position
         // is set in stage coords below, so the parent doesn't shift placement.
@@ -1060,6 +1064,10 @@ var Controllers = (function () {
         var s = E.centerLogical(startId), e = E.centerLogical(endId);
         var mid = { x: (s.x + e.x) / 2, y: (s.y + e.y) / 2 - 15 };
         E.setStageLocalPos(E.get(ID.ghostHand), s.x, s.y); E.setStageLocalPos(E.get(ID.ghostItem), s.x, s.y);
+        // ease it in where the drag begins, then start the demo — no pop
+        S.track(ID.ghostHand); S.track(ID.ghostItem);
+        E.doFade(ID.ghostHand, 1, GHOST_FADE, "OutQuad");
+        E.doFade(ID.ghostItem, ghostAlpha, GHOST_FADE, "OutQuad");
         loopGhost(s, mid, e, tok);
       }, delay * 1000);
     }

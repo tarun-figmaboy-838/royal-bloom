@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1229 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1241 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1229 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1241 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -83,6 +83,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **No stray hint hand**: the drag-guide/idle hint hand appears only after the child waits, never from the first frame of a part, and never a hand belonging to another level
 - [ ] Scale tilts so the **heavier side goes down** — matching where you placed the items
 - [ ] A **drag-guide hand** demonstrates the drag if the child waits (Part 3) — **exactly one hand**, animated along the drag path; no faded hand pinned on the card, no dotted arrow
+- [ ] **The hand fades in** where the drag starts — it never blinks on at full opacity
 - [ ] **Idle timing**: in the **Tutorial** the hand demonstrates almost straight away; in **Levels 1–4** it stays away until the child has done nothing for **~8 s**, and any drag makes it disappear and restart the wait
 - [ ] Instruction "Tap the heavier item" / "Tap the lighter item" matches the level
 - [ ] **You can tap the item on the pan** to answer (not blocked by the dish); item shows the **hand** cursor

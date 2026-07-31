@@ -298,6 +298,8 @@ async function runViewport(vp, full) {
         const idleWait = (env.vnow() - tReady) / 1000;
         const vis = (id) => { let r = E.get(id); while (r) { if ((r.node && r.node.active === false) || (r.el && r.el.style.display === "none")) return false; r = r.parent; } return true; };
         ok(vis(gh), label + host + ": Part-4 drag-guide hand visible (re-hosted off the hidden Part 3)");
+        // it must FADE up, not blink on at full opacity (polling is 100ms, the fade is 450ms)
+        ok(E.getAlpha(gh) < 0.95, label + host + ": drag hand fades in rather than popping (alpha " + E.getAlpha(gh).toFixed(2) + ")");
         // The Tutorial teaches (demonstrates quickly); after it the child gets 8s of quiet to try for
         // themselves before a hand appears. Poll granularity is 100ms, hence the tolerance.
         if (f.isFirstLevel) ok(idleWait <= 7, label + host + ": Tutorial demonstrates without a long wait (" + idleWait.toFixed(1) + "s)");
