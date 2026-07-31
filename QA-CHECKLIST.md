@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1241 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1245 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1241 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1245 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -64,6 +64,7 @@ Tick every box. Anything unchecked is a blocker.
 
 ### Part 1 — the box
 - [ ] Instruction: "Tap the box."
+- [ ] The box is **tappable as soon as the line lands**, but after the Tutorial its pointing hand only appears once the child has been idle **~8 s** — and it **fades in**
 - [ ] Tap the box → the **front box AND its lid wobble together** as one rigid unit
 - [ ] Box **stays fully opaque** on tap — it does **not** dim / grey out
 - [ ] The wobble does **not** shake the back box, glow, hidden items, or the whole scene; box does not slide

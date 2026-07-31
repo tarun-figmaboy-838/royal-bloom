@@ -305,7 +305,7 @@ var Controllers = (function () {
     var isPart4Ready = false, part3AnswerSelected = false;
     var ghostToken = { alive: false };
     var confettiToken = { cancelled: false };
-    var answerHintTimer = null, part4HintTimer = null, nextHintTimer = null;
+    var answerHintTimer = null, part4HintTimer = null, nextHintTimer = null, boxHintTimer = null;
     var disposers = [];           // click-listener disposers for this level
     var locks = {};               // transition locks
     var boxOpened = false;
@@ -447,12 +447,21 @@ var Controllers = (function () {
     async function part1Flow() {
       await typeText(INSTR[1], AUD[1]);
       await S.wait(1);
-      showHint();
+      // The box becomes tappable as soon as the instruction lands — only the HINT waits. (These two used
+      // to be one step, which is why the box hand still appeared right away after the Tutorial: the 8s
+      // idle rule had only been applied to the drag hand and the answer hand, not to this one.)
+      if (ID.boxButton) reg(E.onClick(ID.boxButton, guard("box", openBox), { key: "gm" }));
+      boxHintTimer = S.setTimeout(showHint, (isFirstLevel ? 0 : IDLE_HINT_DELAY) * 1000);
     }
     function showHint() {
+      boxHintTimer = null;
+      if (boxOpened || !ID.hintHand) return;      // the child got there first — no hand needed
       A(ID.hintHand, true);
-      if (ID.hintHand) { E.setScale(ID.hintHand, 0.7); var p = E.getAnchoredPos(ID.hintHand); S.track(ID.hintHand); E.doAnchorPosY(ID.hintHand, p.y - 15, 0.5, "Linear", { loops: -1, yoyo: true }); }
-      if (ID.boxButton) reg(E.onClick(ID.boxButton, guard("box", openBox), { key: "gm" }));
+      S.track(ID.hintHand);
+      E.setAlpha(ID.hintHand, 0); E.doFade(ID.hintHand, 1, GHOST_FADE, "OutQuad");   // fade up, never blink on
+      E.setScale(ID.hintHand, 0.7);
+      var p = E.getAnchoredPos(ID.hintHand);
+      E.doAnchorPosY(ID.hintHand, p.y - 15, 0.5, "Linear", { loops: -1, yoyo: true });
     }
     function openBox() {
       if (boxOpened) return; boxOpened = true;
@@ -460,6 +469,7 @@ var Controllers = (function () {
       // stay fully opaque as it wobbles + opens.
       if (ID.boxButton) E.setInputEnabled(ID.boxButton, false);
       A(ID.messageBar, false);
+      if (boxHintTimer) { S.clearTimeout(boxHintTimer); boxHintTimer = null; }   // tapped in time: no hand
       if (ID.hintHand) { E.kill(ID.hintHand); A(ID.hintHand, false); }
       if (boxOpenSFX) Audio.playSFX(boxOpenSFX);
       // Tap wobble: rock the CLOSED box as a RIGID unit — the front box AND its lid (cap) together —
@@ -1103,8 +1113,11 @@ var Controllers = (function () {
         if (!btnId || !E.isInteractableInTree(btnId) || !ID.nextHint) return;
         A(ID.nextHint, true); S.track(ID.nextHint);
         var bc = E.centerLogical(btnId); E.setStageLocalPos(E.get(ID.nextHint), bc.x, bc.y); E.setScale(ID.nextHint, 0.7);
-        E.setAlpha(ID.nextHint, 0.5); E.doFade(ID.nextHint, 1, 0.8, "InOutSine", { loops: -1, yoyo: true });
-      }, nextHintDelay * 1000);
+        E.setAlpha(ID.nextHint, 0); E.doFade(ID.nextHint, 1, GHOST_FADE, "OutQuad", { onComplete: function () {
+          E.doFade(ID.nextHint, 0.55, 0.8, "InOutSine", { loops: -1, yoyo: true });   // then breathe, gently
+        } });
+        // the fourth and last hint family on the same idle rule as the others
+      }, (isFirstLevel ? nextHintDelay : IDLE_HINT_DELAY) * 1000);
       if (btnId) reg(E.onClick(btnId, stopNextButtonHint, { key: "nexthint" }));
     }
     function stopNextButtonHint() { if (nextHintTimer) { S.clearTimeout(nextHintTimer); nextHintTimer = null; } if (ID.nextHint) { E.kill(ID.nextHint); A(ID.nextHint, false); } }

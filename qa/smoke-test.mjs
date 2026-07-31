@@ -130,6 +130,10 @@ async function runViewport(vp, full) {
     const pans = part3Pans(host); const answerMode = f.answerMode;
 
     ok(await until(() => (elById(boxBtn).listeners.click || []).length > 0, 9000), label + host + ": box interactive");
+    // Tappable NOW, hint LATER. These used to be one step, so after the Tutorial the box hand appeared
+    // instantly instead of waiting out the idle gap. The Tutorial still points straight away.
+    { const hh = nid(f.hintHand);
+      if (hh && !f.isFirstLevel) ok(!E.isActive(hh), label + host + ": box hand holds back for the idle gap while the box is already tappable"); }
     // box tap rocks the front box AND its lid together, each a LEAF — never the shared container
     // (which would shake the back box / glow / hidden items). Both animated nodes must be leaves.
     { const bi = nid(f.boxInteractiveVisual) || nid(f.boxImage), bt = nid(f.boxTop);
