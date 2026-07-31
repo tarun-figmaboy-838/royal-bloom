@@ -99,6 +99,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] The two item cards are shown; a **drag-guide hand** demonstrates the drag if the child waits (works in Part 4, not only Part 3) — again **exactly one hand**, no sticky hand/arrow overlay, and **~8 s of idle** after the Tutorial
 - [ ] Drag lighter item → basket, heavier item → wagon (**drops when near**); items show the **hand** cursor
 - [ ] Correct drop → item **nestles inside** the basket/wagon (behind the front art), sensible size, never floating on front or vanishing
+- [ ] **L2 wagon**: the dropped bell is the **same size as the bell decoration already in the wagon** (both 146×197)
 - [ ] **Same item = same size in every level**: an item that appears in more than one level (the bell in L1 + L2, the ribbon in L1 + L3) lands at the **identical size** each time — compare the bell in the L1 wagon with the L2 wagon
 - [ ] Correct drop **plays a short sound** as the item lands (basket and wagon); two drops in a row don't stack into noise; the sound doesn't fight the VO
 - [ ] The "ghost" hint item hides once the real item covers it

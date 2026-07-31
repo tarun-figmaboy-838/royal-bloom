@@ -91,6 +91,14 @@ var Controllers = (function () {
   // level to drop a given piece of art records the size it landed at; every later level matches it.
   // Keyed by the dropped SPRITE, so the rule follows the art rather than the level.
   var DROP_SIZE = {};   // dropped-sprite path -> rendered box height in logical px
+  // ...with one exception per container that already displays the same art. Level 2's wagon carries an
+  // authored bell decoration (n281_Bell_1, 146x197) right next to where the child drops the bell, so the
+  // dropped one must match THAT rather than the size Level 1 recorded — otherwise the same wagon shows
+  // two bells at different sizes. Keyed "host|sprite" -> rendered box height; 197 makes the art land at
+  // its native 146x197, pixel-for-pixel identical to the decoration beside it.
+  var DROP_SIZE_FIXED = {
+    "n206_Level_2|assets/img/Untitled_design__34__2.webp": 197
+  };
   // How deep each individual art can tuck, measured the same way: a narrow-based item can sit much
   // deeper than a wide-based one before its outer columns fall past the bowl. Values are the measured
   // maximum minus a safety margin. Anything not listed uses SEAT_DEPTH, which is safe for every item.
@@ -901,7 +909,10 @@ var Controllers = (function () {
             // size between levels just because that level's marker is authored differently (DROP_SIZE).
             var recI = E.get(itemId);
             var dsp = recI._itemData && recI._itemData.droppedSprite && recI._itemData.droppedSprite.path;
-            if (dsp) {
+            var fixedH = dsp ? DROP_SIZE_FIXED[host + "|" + dsp] : null;
+            if (fixedH > 0 && recI.rt.sdY > 0) {
+              E.setScale(itemId, fixedH / recI.rt.sdY);      // match the art already in this container
+            } else if (dsp) {
               var renderedH = recI.rt.sdY * recI.rt.sx;
               if (DROP_SIZE[dsp] == null) { if (renderedH > 0) DROP_SIZE[dsp] = renderedH; }
               else if (renderedH > 0) {
@@ -1182,7 +1193,10 @@ var Controllers = (function () {
   return {
     GameManager: GameManager, BalanceScaleAnimator: BalanceScaleAnimator, ScaleController: BalanceScaleAnimator,
     setupDraggable: setupDraggable, ButtonAnimator: ButtonAnimator,
-    compareWeights: compareWeights
+    compareWeights: compareWeights,
+    // QA reads this so the cross-level size assert knows which (level, art) pairs are deliberate
+    // exceptions — a container that already shows the same art wins over the first-level size.
+    dropSizeFixed: function () { return Object.assign({}, DROP_SIZE_FIXED); }
   };
 })();
 if (typeof module !== "undefined") module.exports = Controllers;

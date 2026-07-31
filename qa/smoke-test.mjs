@@ -384,7 +384,11 @@ async function runViewport(vp, full) {
         const sp = (CFG.draggables[it].itemData.droppedSprite || {}).path;
         if (sp) {
           const size = Math.round(rw) + "x" + Math.round(rh);
-          if (!landedSize.has(sp)) landedSize.set(sp, { size, host });
+          const fixedH = H.C.dropSizeFixed()[host + "|" + sp];
+          if (fixedH > 0) {
+            // deliberate exception: this container already shows the same art, so the drop matches THAT
+            ok(Math.abs(rh - fixedH) <= 1, label + host + ": " + where + " item matches the art already in the container (" + Math.round(rh) + " vs " + fixedH + ")");
+          } else if (!landedSize.has(sp)) landedSize.set(sp, { size, host });
           else {
             const first = landedSize.get(sp);
             ok(first.size === size, label + host + ": " + where + " item is the same size as when it first landed in " + first.host + " (" + size + " vs " + first.size + ")");
