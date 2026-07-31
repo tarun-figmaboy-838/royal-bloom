@@ -290,9 +290,15 @@ async function runViewport(vp, full) {
     // the Part-4 drag-guide hand is authored under Part 3 (hidden here); it must be re-hosted on the
     // level root so it actually shows. When it appears, every ancestor must be visible.
     { const gh = nid(f.ghostHand);
-      if (gh && await until(() => E.isActive(gh), 2500)) {
+      const tReady = env.vnow();
+      if (gh && await until(() => E.isActive(gh), 12000, 100)) {
+        const idleWait = (env.vnow() - tReady) / 1000;
         const vis = (id) => { let r = E.get(id); while (r) { if ((r.node && r.node.active === false) || (r.el && r.el.style.display === "none")) return false; r = r.parent; } return true; };
         ok(vis(gh), label + host + ": Part-4 drag-guide hand visible (re-hosted off the hidden Part 3)");
+        // The Tutorial teaches (demonstrates quickly); after it the child gets 8s of quiet to try for
+        // themselves before a hand appears. Poll granularity is 100ms, hence the tolerance.
+        if (f.isFirstLevel) ok(idleWait <= 7, label + host + ": Tutorial demonstrates without a long wait (" + idleWait.toFixed(1) + "s)");
+        else ok(idleWait >= 7.5 && idleWait <= 9.5, label + host + ": hand waits ~8s of idle before helping (" + idleWait.toFixed(1) + "s)");
         // exactly ONE hand: the animated ghost. The static hand-on-the-card overlay (and its dotted
         // arrow art) used to show at the same time, so the child saw two hands and an arrow at once.
         const others = strayHands(false);
@@ -333,6 +339,8 @@ async function runViewport(vp, full) {
     const sfxBefore = H.RB.Audio.stats().sfxPlays;
     dragToZone(lighter, basketDrop);
     ok(await until(() => RB.gmByHost[host].diagnostics().placed4 >= 1, 4000), label + host + ": lighter->basket");
+    // a single drop is NOT a celebration: no sparkles until the stage is finished (both items sorted)
+    ok(E.confettiCount() === 0, label + host + ": no star burst on an individual drop (" + E.confettiCount() + ")");
     // a correct drop now SOUNDS as well as sparkles
     ok(H.RB.Audio.stats().sfxPlays > sfxBefore, label + host + ": basket drop plays a sound");
     // placed item must NESTLE inside the basket: parented into the SAME (back) layer as its ghost
@@ -352,6 +360,7 @@ async function runViewport(vp, full) {
     // Part 4 finishing bursts BOTH containers at once — the worst frame-rate moment in the game. The
     // particle count must stay capped (it used to be 64 per burst, each with its own rAF + 2 blur passes).
     ok(E.confettiCount() <= 80, label + host + ": Part-4 finish keeps the sparkle count capped (" + E.confettiCount() + ")");
+    ok(E.confettiCount() > 0, label + host + ": stage completion DOES burst the stars (" + E.confettiCount() + ")");
     // placed items must be SIZED to their ghost marker's box (so they sit INSIDE the basket/wagon,
     // never overflowing onto the rim). rendered = itemSizeDelta * scale must fit within the marker.
     [[lighter, basketDrop, "basket"], [heavier, trolleyDrop, "wagon"]].forEach(([it, slot, where]) => {

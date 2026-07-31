@@ -80,6 +80,10 @@ var Controllers = (function () {
   // (with 4px to spare) is 11px; the tightest item is the Tutorial's bell (120px of art). Going deeper
   // is what made the ribbon's tail, the Tutorial bell and the paper fan poke out below the rim.
   var SEAT_DEPTH = 11;
+  // How long a child may sit doing nothing before a hand comes out to show them what to do — for every
+  // level AFTER the Tutorial (the Tutorial teaches, so it demonstrates straight away). Covers the
+  // drag-guide hand in Part 3 and Part 4 and the tap hand in the Part-3 answer step.
+  var IDLE_HINT_DELAY = 8;
   // How deep each individual art can tuck, measured the same way: a narrow-based item can sit much
   // deeper than a wide-based one before its outer columns fall past the bowl. Values are the measured
   // maximum minus a safety margin. Anything not listed uses SEAT_DEPTH, which is safe for every item.
@@ -689,7 +693,8 @@ var Controllers = (function () {
         if (part3AnswerSelected) return;
         var cb = correctIsBook();
         showHintOnButton(cb == null ? ID.bookAns : (cb ? ID.bookAns : ID.ballAns));
-      }, answerHintDelay * 1000);
+        // same idle rule as the drag hand: the Tutorial helps quickly, later levels wait 8s of no input
+      }, (isFirstLevel ? answerHintDelay : IDLE_HINT_DELAY) * 1000);
     }
     function showHintOnButton(btnId) {
       if (!ID.answerHint || !btnId) return;
@@ -883,8 +888,9 @@ var Controllers = (function () {
             E.setSelfPaint(slot, false);                                    // hide the ghost now the real item covers it
           } else { E.setScale(itemId, 0.82); E.setAnchoredPos(itemId, 0, 0); }
           stopPart4Hint();
-          confettiToken = { cancelled: false }; E.confettiBurst(zone.id, confettiToken);   // golden sparkle from inside the container
-          if (dropSFX) Audio.playSFX(dropSFX);                                             // ...and a sound as it lands
+          // No sparkle for an individual drop — the celebration is saved for FINISHING the stage
+          // (checkPart4Completion bursts from both containers). A landing sound still marks each drop.
+          if (dropSFX) Audio.playSFX(dropSFX);
           checkPart4Completion();
           if (!allPlaced4()) startSmartGhostP4();
         } else {
@@ -1010,7 +1016,11 @@ var Controllers = (function () {
     function startGhost(startId, endId, isBook, isPart4) {
       stopGhost();
       if (!ID.ghostHand || !ID.ghostItem || !startId || !endId) return;
-      var delay = isPart4 ? ghostDelayPart4 : (isFirstLevel ? 1 : 12);
+      // The Tutorial is the teaching level: it demonstrates the drag almost immediately (and Part 4 on
+      // its authored delay). After the Tutorial the child is expected to try it themselves, so the hand
+      // only comes out once they have been IDLE for IDLE_HINT_DELAY. Any drag stops it (onDragStarted ->
+      // stopGhost) and the next unfinished step re-arms it, so the wait restarts after each interaction.
+      var delay = isFirstLevel ? (isPart4 ? ghostDelayPart4 : 1) : IDLE_HINT_DELAY;
       ghostToken = { alive: true };
       var tok = ghostToken;
       S.setTimeout(function () {

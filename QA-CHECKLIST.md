@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1183 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1227 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1183 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1227 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -83,6 +83,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] **No stray hint hand**: the drag-guide/idle hint hand appears only after the child waits, never from the first frame of a part, and never a hand belonging to another level
 - [ ] Scale tilts so the **heavier side goes down** — matching where you placed the items
 - [ ] A **drag-guide hand** demonstrates the drag if the child waits (Part 3) — **exactly one hand**, animated along the drag path; no faded hand pinned on the card, no dotted arrow
+- [ ] **Idle timing**: in the **Tutorial** the hand demonstrates almost straight away; in **Levels 1–4** it stays away until the child has done nothing for **~8 s**, and any drag makes it disappear and restart the wait
 - [ ] Instruction "Tap the heavier item" / "Tap the lighter item" matches the level
 - [ ] **You can tap the item on the pan** to answer (not blocked by the dish); item shows the **hand** cursor
 - [ ] **Correct** tap → vivid **green** solid glow + a little **pop** on that item (no pulsing)
@@ -93,7 +94,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] Next button shows
 
 ### Part 4 — sort into basket & wagon
-- [ ] The two item cards are shown; a **drag-guide hand** demonstrates the drag if the child waits (works in Part 4, not only Part 3) — again **exactly one hand**, no sticky hand/arrow overlay
+- [ ] The two item cards are shown; a **drag-guide hand** demonstrates the drag if the child waits (works in Part 4, not only Part 3) — again **exactly one hand**, no sticky hand/arrow overlay, and **~8 s of idle** after the Tutorial
 - [ ] Drag lighter item → basket, heavier item → wagon (**drops when near**); items show the **hand** cursor
 - [ ] Correct drop → item **nestles inside** the basket/wagon (behind the front art), sensible size, never floating on front or vanishing
 - [ ] Correct drop **plays a short sound** as the item lands (basket and wagon); two drops in a row don't stack into noise; the sound doesn't fight the VO
@@ -105,7 +106,8 @@ Tick every box. Anything unchecked is a blocker.
   - [ ] Heavier↓ / Lighter↑ arrows sit on the correct sides (match the child's placement)
   - [ ] Card dismisses cleanly; Part 4 returns exactly as it was; the mis-dropped item is back home
   - [ ] Drop wrong **twice in a row** → card shows correctly both times; a correct drop still works after
-- [ ] Both placed → golden sparkle bursts from the basket & wagon
+- [ ] **No star burst on an individual drop** — a single item landing is marked by its sound only
+- [ ] Both placed (**stage complete**) → golden sparkle bursts from the basket & wagon
 - [ ] Next button advances (or final screen on Level 4)
 
 ### Transitions
