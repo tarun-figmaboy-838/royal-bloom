@@ -117,6 +117,9 @@ async function runViewport(vp, full) {
     return out;
   }
 
+  // sprite path -> the size it landed at in the first level that dropped it (cross-level size rule)
+  const landedSize = new Map();
+
   async function playLevel(host, testWrong) {
     const f = fields(host);
     const boxBtn = nid(f.boxButton), ball = nid(f.ballDraggable), book = nid(f.bookDraggable);
@@ -361,14 +364,26 @@ async function runViewport(vp, full) {
     // particle count must stay capped (it used to be 64 per burst, each with its own rAF + 2 blur passes).
     ok(E.confettiCount() <= 80, label + host + ": Part-4 finish keeps the sparkle count capped (" + E.confettiCount() + ")");
     ok(E.confettiCount() > 0, label + host + ": stage completion DOES burst the stars (" + E.confettiCount() + ")");
-    // placed items must be SIZED to their ghost marker's box (so they sit INSIDE the basket/wagon,
-    // never overflowing onto the rim). rendered = itemSizeDelta * scale must fit within the marker.
+    // Placed items sit INSIDE the basket/wagon, sized from their ghost marker — but an item that has
+    // already landed in an earlier level keeps THAT size (DROP_SIZE), so the same object never changes
+    // size between levels. The marker bound is therefore a sanity limit, not an exact fit.
     [[lighter, basketDrop, "basket"], [heavier, trolleyDrop, "wagon"]].forEach(([it, slot, where]) => {
       const ir = E.getRect(it), sr = slot && E.getRect(slot), r = E.get(it);
       if (ir && sr) {
         const rw = ir.sdX * r.rt.sx, rh = ir.sdY * r.rt.sx;
-        ok(rw <= sr.sdX + 1 && rh <= sr.sdY + 1, label + host + ": " + where + " item fits its marker (" + Math.round(rw) + "x" + Math.round(rh) + " <= " + Math.round(sr.sdX) + "x" + Math.round(sr.sdY) + ")");
+        ok(rw <= sr.sdX * 1.4 + 1 && rh <= sr.sdY * 1.4 + 1, label + host + ": " + where + " item stays within its slot (" + Math.round(rw) + "x" + Math.round(rh) + " vs marker " + Math.round(sr.sdX) + "x" + Math.round(sr.sdY) + ")");
         ok(E.get(slot).el.style.backgroundImage === "none", label + host + ": " + where + " ghost marker hidden after placement");
+        // THE cross-level rule: this art landed at some size in the first level that dropped it; every
+        // later level must reproduce it. (The bell was 170x177 in L1 but 146x152 in L2 before this.)
+        const sp = (CFG.draggables[it].itemData.droppedSprite || {}).path;
+        if (sp) {
+          const size = Math.round(rw) + "x" + Math.round(rh);
+          if (!landedSize.has(sp)) landedSize.set(sp, { size, host });
+          else {
+            const first = landedSize.get(sp);
+            ok(first.size === size, label + host + ": " + where + " item is the same size as when it first landed in " + first.host + " (" + size + " vs " + first.size + ")");
+          }
+        }
       }
     });
     if (f.isLastLevel) ok(await until(() => E.isActive(nid(f.finalScreen)), 8000), label + host + ": final screen");

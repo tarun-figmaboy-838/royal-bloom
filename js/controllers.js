@@ -84,6 +84,12 @@ var Controllers = (function () {
   // level AFTER the Tutorial (the Tutorial teaches, so it demonstrates straight away). Covers the
   // drag-guide hand in Part 3 and Part 4 and the tap hand in the Part-3 answer step.
   var IDLE_HINT_DELAY = 8;
+  // An item must be the SAME size wherever it lands. Each level authors its own ghost marker and the
+  // item used to be fitted to it, so the identical bell rendered 170x177 in Level 1 but 146x152 in
+  // Level 2 (its marker is 146 wide) — the same object visibly shrinking between levels. The FIRST
+  // level to drop a given piece of art records the size it landed at; every later level matches it.
+  // Keyed by the dropped SPRITE, so the rule follows the art rather than the level.
+  var DROP_SIZE = {};   // dropped-sprite path -> rendered box height in logical px
   // How deep each individual art can tuck, measured the same way: a narrow-based item can sit much
   // deeper than a wide-based one before its outer columns fall past the bowl. Values are the measured
   // maximum minus a safety margin. Anything not listed uses SEAT_DEPTH, which is safe for every item.
@@ -879,7 +885,20 @@ var Controllers = (function () {
           if (slotRec) {
             var sr = E.getRect(slot), ir = E.getRect(itemId);
             var fit = (sr && ir && ir.sdX > 0 && ir.sdY > 0) ? Math.min(sr.sdX / ir.sdX, sr.sdY / ir.sdY) : 0.82;
-            E.setScale(itemId, (isFinite(fit) && fit > 0) ? fit : 0.82);   // match the ghost marker's box
+            E.setScale(itemId, (isFinite(fit) && fit > 0) ? fit : 0.82);   // start from the ghost marker's box
+            // ...then make it the size this art was the FIRST time it landed, so an item never changes
+            // size between levels just because that level's marker is authored differently (DROP_SIZE).
+            var recI = E.get(itemId);
+            var dsp = recI._itemData && recI._itemData.droppedSprite && recI._itemData.droppedSprite.path;
+            if (dsp) {
+              var renderedH = recI.rt.sdY * recI.rt.sx;
+              if (DROP_SIZE[dsp] == null) { if (renderedH > 0) DROP_SIZE[dsp] = renderedH; }
+              else if (renderedH > 0) {
+                // clamped: matching the first level must never blow an item far past its slot
+                var k = Math.max(0.6, Math.min(1.4, DROP_SIZE[dsp] / renderedH));
+                E.setScale(itemId, recI.rt.sx * k);
+              }
+            }
             var sc = E.centerLogical(slot); E.setStageLocalPos(E.get(itemId), sc.x, sc.y);
             // then settle it DOWN onto the container: the visible art's bottom lines up with the
             // marker's bottom, so a short/wide item rests in the basket instead of hovering in it

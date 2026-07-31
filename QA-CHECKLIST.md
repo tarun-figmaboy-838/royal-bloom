@@ -10,11 +10,11 @@ Tick every box. Anything unchecked is a blocker.
 | Command | Expected |
 |---|---|
 | `node scripts/check-all.mjs` | `ALL STATIC CHECKS PASSED` |
-| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1227 pass / 0 fail**) |
+| `node qa/smoke-test.mjs` | `SMOKE PASSED` (**1229 pass / 0 fail**) |
 | `node --check js/*.js` | no syntax errors |
 
 - [ ] Static checks pass
-- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1227 / 0**
+- [ ] Smoke (viewport matrix: desktop → laptop → tablet → phone-landscape) passes **1229 / 0**
 - [ ] Open `index.html`, **hard-reload (Ctrl+Shift+R)**, open DevTools console → **no errors, no warnings**
 - [ ] `file://` note: always hard-reload after a code change (browser caches old JS)
 
@@ -97,6 +97,7 @@ Tick every box. Anything unchecked is a blocker.
 - [ ] The two item cards are shown; a **drag-guide hand** demonstrates the drag if the child waits (works in Part 4, not only Part 3) — again **exactly one hand**, no sticky hand/arrow overlay, and **~8 s of idle** after the Tutorial
 - [ ] Drag lighter item → basket, heavier item → wagon (**drops when near**); items show the **hand** cursor
 - [ ] Correct drop → item **nestles inside** the basket/wagon (behind the front art), sensible size, never floating on front or vanishing
+- [ ] **Same item = same size in every level**: an item that appears in more than one level (the bell in L1 + L2, the ribbon in L1 + L3) lands at the **identical size** each time — compare the bell in the L1 wagon with the L2 wagon
 - [ ] Correct drop **plays a short sound** as the item lands (basket and wagon); two drops in a row don't stack into noise; the sound doesn't fight the VO
 - [ ] The "ghost" hint item hides once the real item covers it
 - [ ] **Wrong container → gamified HINT CARD:**
