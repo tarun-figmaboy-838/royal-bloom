@@ -90,6 +90,13 @@ html, body {
 .rb-magic-btn {
   display: flex; align-items: center; justify-content: center;
   border-radius: 999px;
+  /* Contain the label's z-index. .node is position:absolute with NO z-index, so it does not create
+   * a stacking context — which means .rb-magic-label's z-index:1 would escape into the ROOT
+   * context and paint the word "Next" above every z-index:auto element on the stage, including the
+   * hint hand (the hand then looked like it was sliding BEHIND the text). isolate builds a stacking
+   * context here without touching layout, so that z-index only orders the label against the border
+   * light inside this button, and the button as a whole still stacks by DOM order. */
+  isolation: isolate;
   background: linear-gradient(180deg, #ffdd8a 0%, #ffc44d 50%, #f7a81c 100%);
   box-shadow:
     inset 0 3px 0 rgba(255, 255, 255, 0.8),      /* top highlight: catches the light */
