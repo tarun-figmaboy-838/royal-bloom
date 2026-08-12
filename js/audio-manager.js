@@ -266,15 +266,11 @@ var AudioManager = (function () {
       { src: "triangle", f0: 560, f1: 300, a: 0.006, d: 0.30, gain: 0.70 },
       { src: "triangle", f0: 420, f1: 225, a: 0.006, d: 0.32, gain: 0.55, delay: 0.11 }
     ],
-    // (no sound for a correct basket/wagon drop: that moment already has its authored magical
-    //  star-burst chime — boxOpenSFX/dropSFX — and it is deliberately left alone.)
-    // stage cleared: the only three-note phrase, with the sparkle on the top note.
-    complete: [
-      { src: "triangle", f0: 880, a: 0.004, d: 0.16, gain: 0.75 },
-      { src: "triangle", f0: 1175, a: 0.004, d: 0.16, gain: 0.75, delay: 0.13 },
-      { src: "triangle", f0: 1760, a: 0.004, d: 0.40, gain: 0.70, delay: 0.26 },
-      { src: "noise", filter: { type: "bandpass", f0: 4000, f1: 8000, q: 7 }, a: 0.02, d: 0.45, gain: 0.20, delay: 0.26 }
-    ]
+    // TWO moments deliberately have no sound here, because both already carry the authored 2.81s
+    // magical chime and anything added plays on top of it rather than after it:
+    //   - a correct basket/wagon drop (dropSFX fires the chime)
+    //   - clearing the stage, which happens in the SAME FRAME as the final drop
+    // A three-note fanfare used to sit on the second of those and was heard as a doubled sound.
   };
   var lastUI = {};
   // One second of white noise, built once and looped. Generated from a fixed seed rather than

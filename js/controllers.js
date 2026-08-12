@@ -1256,7 +1256,10 @@ var Controllers = (function () {
     function checkPart4Completion() {
       if (allPlaced4()) {
         stopPart4Hint(); A(ID.messageBar, false); A(ID.base3, false); A(ID.base4, false);
-        Audio.playUI("complete");   // the stage is cleared: a three-note fanfare, used nowhere else
+        // NO extra sound here. This runs in the same frame as the final drop, which has just played
+        // the authored magical chime — 2.81s of it — so anything added lands directly on top and you
+        // hear two celebrations at once. The chime IS the stage-clear sound; the stars are its
+        // picture. (A three-note fanfare used to fire here and was exactly that doubled sound.)
         celebratePart4();
         part4CompleteFlow();
       }
