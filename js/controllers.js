@@ -205,6 +205,17 @@ var Controllers = (function () {
     E.tween({
       dur: BUMP_PERIOD, loops: -1, ease: "Linear", tag: id, delay: delay || 0,
       fn: function (e) {
+        // HELD: sit perfectly still at the rest pose. A browser only fires `click` when pointerdown
+        // and pointerup land on the same element — so a button that keeps hopping out from under a
+        // finger that is already down can have its pointerup land outside itself, and the tap then
+        // does nothing at all. Freezing the hop for the duration of a press keeps the hit area put.
+        // (It also looks right: a button being pressed should not be bouncing at the same time.)
+        var rec = E.get(id);
+        if (rec && rec._pressT) {
+          E.setPose(id, { ay: rest.ay });
+          E.setScaleXY(id, rest.sx, rest.sy);
+          return;
+        }
         var k = bumpAt(e);
         E.setPose(id, { ay: rest.ay + BUMP_HOP * k });
         E.setScaleXY(id, rest.sx * (1 + BUMP_SCALE * k), rest.sy * (1 + BUMP_SCALE * k));
