@@ -591,7 +591,11 @@ var Controllers = (function () {
       hideAllHints();
       A(ID.part2, false); A(ID.part3, false); A(ID.part4, false);
       A(ID.item3, false); A(ID.item4, false); A(ID.lanternText, false); A(ID.featherText, false);
-      A(ID.nextP2, false); A(ID.nextP3, false); A(ID.tryAgain, false);
+      // nextP4 belongs in this list too. Without it, a level that is replayed starts with its Part-4
+      // Next button already on screen — it is switched on when the stage is cleared and nothing ever
+      // switched it back off. It matters more now: on Level 4 that button has been re-hosted onto the
+      // level root and restyled as the gold button, so a replay showed it floating over Part 1.
+      A(ID.nextP2, false); A(ID.nextP3, false); A(ID.nextP4, false); A(ID.tryAgain, false);
       A(ID.arrow1, false); A(ID.arrow2, false);
       basketDef = ID.basket ? E.getAnchoredPos(ID.basket) : { x: 0, y: 0 };
       trolleyDef = ID.trolley ? E.getAnchoredPos(ID.trolley) : { x: 0, y: 0 };
@@ -842,9 +846,13 @@ var Controllers = (function () {
       if (ID.part3) {
         var p3 = E.getAnchoredPos(ID.part3); S.track(ID.part3);
         E.setAnchoredPos(ID.part3, p3.x, p3.y - 500); E.setAlpha(ID.part3, 0); E.setScale(ID.part3, 0.95);
-        E.doAnchorPos(ID.part3, p3.x, p3.y, 1, "OutCubic", { delay: 1.1 });
-        E.doFade(ID.part3, 1, 1, "OutQuad", { delay: 1.1 });
-        E.doScale(ID.part3, 1, 1, "OutBack", { delay: 1.1, onComplete: function () { if (!S.cancelled()) part3Flow(); } });
+        // Part 3 used to wait 1.1s of NOTHING before it even began sliding in, then take a further
+        // 1.0s — so tapping Next bought 2.1s of dead screen before a word was spoken, on top of any
+        // art warming. The 1.1s existed to let Part 2 finish leaving; the two now OVERLAP instead,
+        // which is how the transition should have read anyway. 2.1s -> 1.05s.
+        E.doAnchorPos(ID.part3, p3.x, p3.y, 0.7, "OutCubic", { delay: 0.35 });
+        E.doFade(ID.part3, 1, 0.7, "OutQuad", { delay: 0.35 });
+        E.doScale(ID.part3, 1, 0.7, "OutBack", { delay: 0.35, onComplete: function () { if (!S.cancelled()) part3Flow(); } });
       } else part3Flow();
       if (ID.part2) { var p2 = E.getAnchoredPos(ID.part2); S.track(ID.part2); E.doAnchorPos(ID.part2, p2.x, p2.y - 350, 1, "InOutSine"); E.doFade(ID.part2, 0, 1, "OutQuad", { onComplete: function () { A(ID.part2, false); } }); }
     }
@@ -1090,7 +1098,9 @@ var Controllers = (function () {
 
     // ---------- PART 4 ----------
     function startPart4() { A(ID.nextP3, false); stopNextButtonHint(); DM.clear(); startPart4Delay(); }
-    async function startPart4Delay() { await S.wait(1); if (scaleCtrl) scaleCtrl.reset(); part4Flow(); }
+    // Was a flat 1s of nothing between tapping Next and Part 4 starting to appear. Same complaint as
+    // the Part-3 transition: the child has pressed a button and the screen does not answer.
+    async function startPart4Delay() { await S.wait(0.35); if (scaleCtrl) scaleCtrl.reset(); part4Flow(); }
     async function part4Flow() {
       A(ID.part3, false); A(ID.part4, true);
       // Part 4 drop targets are item-named nodes (e.g. "Lantern", "Feather") whose sprite would

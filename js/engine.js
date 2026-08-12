@@ -730,7 +730,10 @@ var Engine = (function () {
       onComplete: opts.onComplete
     });
   }
-  function kill(id) { killTweensOf(id); killTweensOf(id + "#fade"); killTweensOf(id + "#path"); killTweensOf(id + "#tilt"); }
+  // "#press" belongs here: without it, killing a node mid-press left the press tween running, and it
+  // would finish by writing _pressT back — so a button torn down while held could be left visibly
+  // pushed in and shaded on the next screen.
+  function kill(id) { killTweensOf(id); killTweensOf(id + "#fade"); killTweensOf(id + "#path"); killTweensOf(id + "#tilt"); killTweensOf(id + "#press"); }
 
   // world-space path (ghost hand) — 3-point arc in logical stage coordinates
   function doPathScreen(id, pts, dur, easeName, loops, yoyo) {
