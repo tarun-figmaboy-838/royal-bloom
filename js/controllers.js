@@ -469,6 +469,7 @@ var Controllers = (function () {
     var confettiToken = { cancelled: false };
     var answerHintTimer = null, part4HintTimer = null, nextHintTimer = null, boxHintTimer = null;
     var nextHintBtn = null;       // the Next button currently bumping (so it can be settled again)
+    var boxTargets = [];          // every node that opens the box (body + lid), so all can be closed off
     var disposers = [];           // click-listener disposers for this level
     var locks = {};               // transition locks
     var boxOpened = false;
@@ -620,10 +621,22 @@ var Controllers = (function () {
       // The box becomes tappable as soon as the instruction lands — only the HINT waits. (These two used
       // to be one step, which is why the box hand still appeared right away after the Tutorial: the 8s
       // idle rule had only been applied to the drag hand and the answer hand, not to this one.)
+      // The box on screen is TWO nodes: the front/body (boxButton) and the LID (boxTop), and the lid
+      // paints over the box's whole upper half. Only the body ever carried the handler — and the lid
+      // has a Button component, so it SWALLOWS the pointer without doing anything and the tap does
+      // not fall through to the body behind it. The top half of the box was therefore completely
+      // dead: children had to find the lower half to get in. Every piece of the box now opens it.
+      // `guard` shares one lock across all of them, so the extra targets cannot open it twice.
+      //
       // press: "legacy" — the box is authored artwork, not a UI button, and it already has its own
       // tap animation (the rigid box+lid wobble in openBox). It also must not dim on tap (QA §4/§7),
       // so it keeps exactly the original brief shade and none of the game-button drop-and-squash.
-      if (ID.boxButton) reg(E.onClick(ID.boxButton, guard("box", openBox), { key: "gm", press: "legacy" }));
+      boxTargets = [ID.boxButton, ID.boxTop, ID.boxInteractiveVisual].filter(function (id, i, arr) {
+        return id && E.get(id) && arr.indexOf(id) === i;
+      });
+      boxTargets.forEach(function (id) {
+        reg(E.onClick(id, guard("box", openBox), { key: "gm", press: "legacy" }));
+      });
       boxHintTimer = S.setTimeout(showHint, (isFirstLevel ? 0 : IDLE_HINT_DELAY) * 1000);
     }
     function showHint() {
@@ -639,8 +652,9 @@ var Controllers = (function () {
     function openBox() {
       if (boxOpened) return; boxOpened = true;
       // disable further taps WITHOUT the grayscale/opacity dim (setInteractable fades it) — the box must
-      // stay fully opaque as it wobbles + opens.
-      if (ID.boxButton) E.setInputEnabled(ID.boxButton, false);
+      // stay fully opaque as it wobbles + opens. Every piece that could open it is closed off, not
+      // just the body, or the lid stays live while the box is already opening.
+      boxTargets.forEach(function (id) { E.setInputEnabled(id, false); });
       A(ID.messageBar, false);
       if (boxHintTimer) { S.clearTimeout(boxHintTimer); boxHintTimer = null; }   // tapped in time: no hand
       if (ID.hintHand) { E.kill(ID.hintHand); A(ID.hintHand, false); }
